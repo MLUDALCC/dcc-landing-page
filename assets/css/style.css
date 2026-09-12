@@ -237,6 +237,14 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   height: 1.16rem;
   width: auto;
   max-width: 100%;
+  /* object-fit:contain matters here: at narrow widths the header row doesn't
+     have room for the logo's full natural width at this height, so max-width
+     clamps the box narrower than the image's own ratio wants. Without
+     object-fit the browser's default (fill) stretches the artwork to match
+     that narrower box, visibly squashing it horizontally. contain keeps the
+     artwork's own proportions and simply doesn't fill the box's full height
+     in that edge case, instead of distorting it. */
+  object-fit: contain;
 }
 /* Footer logo: fills the footer-brand column up to a sensible cap;
    height is always derived from width, so it can never be distorted
@@ -736,3 +744,5 @@ body.modal-open { overflow: hidden; }
 .prose h3 { margin-top: 1.75rem; margin-bottom: .75rem; }
 .prose p.body-text { max-width: 68ch; }
 .prose p.body-text + p.body-text { margin-top: 1rem; }
+.prose hr.rule { margin-top: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 0; }
+.prose hr.rule + h2 { margin-top: 1.25rem; }
