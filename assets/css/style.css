@@ -606,6 +606,38 @@ body.nav-open { overflow: hidden; }
 .cta-band p { color: rgba(255,255,255,.82); margin-top: 1rem; max-width: 56ch; margin-inline: auto; }
 .cta-band .btn-row { display: flex; justify-content: center; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap; }
 
+/* ---- Subscribe / newsletter -------------------------------------------------*/
+.subscribe-band { text-align: center; }
+.subscribe-band p.body-text { max-width: 52ch; margin-inline: auto; margin-top: 1rem; }
+.subscribe-form { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+.subscribe-form input[type="email"] {
+  flex: 1 1 240px; max-width: 360px; padding: .85rem 1.1rem;
+  border: 1px solid var(--line-100); border-radius: 4px;
+  font-family: var(--font-sans); font-size: .95rem; color: var(--ink-900); background: var(--white);
+}
+.subscribe-form input[type="email"]::placeholder { color: var(--stone-ink); }
+.subscribe-form input[type="email"]:focus { outline: 2px solid var(--graphite-600); outline-offset: 2px; }
+.subscribe-form .btn { flex: 0 0 auto; }
+.subscribe-form__placeholder-note { margin-top: 1rem; font-size: .85rem; color: var(--stone-ink); }
+
+.footer-subscribe { display: flex; gap: .5rem; margin-top: 1.3rem; max-width: 320px; }
+.footer-subscribe input[type="email"] {
+  flex: 1 1 auto; min-width: 0; padding: .65rem .85rem;
+  border: 1px solid rgba(255,255,255,.25); border-radius: 4px;
+  background: rgba(255,255,255,.06); color: var(--white);
+  font-family: var(--font-sans); font-size: .88rem;
+}
+.footer-subscribe input[type="email"]::placeholder { color: rgba(255,255,255,.5); }
+.footer-subscribe input[type="email"]:focus { outline: 2px solid var(--white); outline-offset: 1px; background: rgba(255,255,255,.1); }
+.footer-subscribe button {
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--white);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.footer-subscribe button:hover { background: var(--white); color: var(--graphite-900); border-color: var(--white); }
+.footer-brand .subscribe-form__placeholder-note { margin-top: .6rem; font-size: .8rem; color: rgba(255,255,255,.55); max-width: 40ch; }
+
 /* ---- Footer ----------------------------------------------------------------*/
 .site-footer { background: var(--graphite-900); color: rgba(255,255,255,.85); padding-top: clamp(3.5rem, 7vw, 5rem); }
 .footer-grid {

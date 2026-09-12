@@ -283,6 +283,25 @@
   var yearEl = document.getElementById("footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---- Subscribe forms (placeholder pending email-service integration) ---
+     These forms aren't wired to a real list yet -- once the chorus has a
+     Constant Contact (or similar) account set up, swap the form's action/
+     method and fields for that service's real embed and this handler goes
+     away. Until then, submitting just swaps in a short note instead of
+     posting to nowhere. */
+  document.querySelectorAll("[data-subscribe-placeholder]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.dataset.noted) return;
+      form.dataset.noted = "true";
+      var note = document.createElement("p");
+      note.className = "subscribe-form__placeholder-note";
+      note.textContent = "Thanks! Sign-ups open soon.";
+      form.insertAdjacentElement("afterend", note);
+      form.hidden = true;
+    });
+  });
+
   /* ---- Safari resize-layout workaround ------------------------------------
      Safari has a known bug where certain CSS Grid layouts (like the card
      grid) can end up miscomputing their track sizes after the browser
