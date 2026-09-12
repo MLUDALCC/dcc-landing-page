@@ -697,10 +697,11 @@ body.nav-open { overflow: hidden; }
    an actual letter this way. The photo stays a compact, secondary byline
    element rather than the large framed feature photo used for scenic
    imagery elsewhere on the page. */
-.welcome-message { text-align: left; max-width: 65ch; margin-inline: auto; }
+.section-head.welcome-head { max-width: 38rem; margin-inline: auto; margin-bottom: 1.2rem; }
+.welcome-message { text-align: left; max-width: 38rem; margin-inline: auto; }
 .welcome-byline {
-  display: flex; align-items: center; justify-content: flex-start; gap: 1.15rem;
-  max-width: 65ch; margin-inline: auto;
+  display: flex; align-items: center; justify-content: flex-end; gap: 1.15rem;
+  max-width: 38rem; margin-inline: auto;
   margin-top: clamp(2rem, 4vw, 2.75rem);
 }
 .welcome-byline__photo {
