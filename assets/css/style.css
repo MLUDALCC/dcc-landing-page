@@ -607,7 +607,7 @@ body.nav-open { overflow: hidden; }
 .cta-band .btn-row { display: flex; justify-content: center; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap; }
 
 /* ---- Subscribe / newsletter -------------------------------------------------*/
-.subscribe-band { text-align: center; }
+.subscribe-band { text-align: center; background: var(--stone-100); }
 .subscribe-band p.body-text { max-width: 52ch; margin-inline: auto; margin-top: 1rem; }
 .subscribe-form { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
 .subscribe-form input[type="email"] {
