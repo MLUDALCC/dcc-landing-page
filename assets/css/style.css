@@ -506,11 +506,21 @@ body.nav-open { overflow: hidden; }
 .contact-details { grid-template-columns: 1fr; }
 .contact-details.has-image { grid-template-columns: auto 1fr; align-items: center; gap: 1.2rem 1.5rem; }
 .contact-details__facts { display: grid; gap: 1.2rem; border-left: 2px solid var(--stone-500); padding-left: 1.5rem; }
-.contact-details__image img { display: block; height: 100%; width: auto; max-width: 100%; border-radius: 4px; }
+.contact-details__image img { display: block; border-radius: 4px; }
+/* Specificity note: these use the .contact-details__image ancestor + child
+   class (two classes) rather than relying on the rule above, so the
+   show/hide toggle below reliably wins over ".contact-details__image img"
+   (one class + one type) regardless of source order. */
+.contact-details__image .contact-details__image--tall { height: 100%; width: auto; max-width: 100%; }
+.contact-details__image .contact-details__image--wide { display: none; }
 @media (max-width: 640px) {
   .contact-details.has-image { grid-template-columns: 1fr; }
   .contact-details__image { margin-bottom: .75rem; height: auto !important; }
-  .contact-details__image img { height: auto; width: 150px; }
+  /* Below this width the layout stacks to one column, so the tall lockup
+     (sized for sitting beside the contact facts) gives way to a wider,
+     shorter logo that reads better stacked above them. */
+  .contact-details__image .contact-details__image--tall { display: none; }
+  .contact-details__image .contact-details__image--wide { display: block; width: 100%; height: auto; }
   .contact-details__facts { border-left: none; padding-left: 0; }
 }
 .program-facts dt { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin: 0; }
