@@ -85,14 +85,17 @@
   }
 
   /* ---- Hero: guarantee the box is always tall enough for its own copy ----
-     The CSS sizes .hero from aspect-ratio (plus a min-height floor) so the
-     video/poster fill it nicely, but at some in-between viewport widths the
-     eyebrow + title + paragraph + buttons need more room than that formula
-     gives, and .hero's overflow:hidden then clips the button row. A single
-     CSS min-height can't reliably predict every width/font/line-wrap
+     Below 900px the CSS gives .hero a fixed clamp() height; at 900px+ it
+     switches to an aspect-ratio box with a min-height floor. Either way,
+     at some viewport widths the eyebrow + title + paragraph + buttons need
+     more room than that CSS formula assumed, and .hero's overflow:hidden
+     then clips the button row (seen on some narrow/portrait phones with
+     the longer intro paragraph, not just in the desktop mid-range). A
+     single CSS min-height can't reliably predict every width/font/line-wrap
      combination, so instead we measure the real rendered bottom edge of the
      button row and raise .hero's min-height only when the copy actually
-     needs more space than the aspect ratio currently provides. */
+     needs more space than the CSS currently provides — this only ever
+     grows the box, never shrinks it below what the CSS already set. */
   (function () {
     var hero = document.querySelector(".hero");
     var content = hero && hero.querySelector(".hero__content");
@@ -100,10 +103,6 @@
     if (!hero || !content || !actions) return;
 
     function sync() {
-      if (window.innerWidth < 900) {
-        hero.style.minHeight = "";
-        return;
-      }
       var heroTop = hero.getBoundingClientRect().top;
       var actionsBottom = actions.getBoundingClientRect().bottom;
       var needed = Math.ceil(actionsBottom - heroTop) + 96; // breathing room below the buttons, clear of the scroll cue
