@@ -597,12 +597,12 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 980px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 .footer-brand .wordmark { color: var(--white); }
-.footer-brand p { margin-top: 1.2rem; color: rgba(255,255,255,.65); font-size: .92rem; max-width: 32ch; }
+.footer-brand p { margin-top: 1.2rem; color: rgba(255,255,255,.65); font-size: .92rem; max-width: 40ch; }
 .footer-col h4 {
   font-family: var(--font-sans); font-size: .78rem; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; color: var(--stone-100); margin-bottom: 1.1rem;
 }
-.footer-col li { margin-bottom: .65rem; }
+.footer-col li { margin-bottom: .45rem; }
 .footer-col a { font-size: .92rem; color: rgba(255,255,255,.78); }
 .footer-col a:hover { color: var(--white); }
 .footer-social { display: flex; gap: .9rem; margin-top: 1.3rem; }
