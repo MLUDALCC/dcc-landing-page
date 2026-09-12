@@ -727,3 +727,12 @@ body.modal-open { overflow: hidden; }
 .text-center { text-align: center; }
 .mt-lg { margin-top: clamp(2rem, 4vw, 3rem); }
 .mt-sm { margin-top: 1.2rem; }
+
+/* ---- Long-form legal/policy prose (Privacy Policy, Terms of Use, etc.) ----
+   These pages are plain stacked h2/h3/p rather than the feature/section-head
+   components the rest of the site uses, so they get their own vertical
+   rhythm here instead of relying on those components' spacing rules. */
+.prose h2 { margin-top: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+.prose h3 { margin-top: 1.75rem; margin-bottom: .75rem; }
+.prose p.body-text { max-width: 68ch; }
+.prose p.body-text + p.body-text { margin-top: 1rem; }
