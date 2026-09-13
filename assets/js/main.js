@@ -287,7 +287,16 @@
      Manual control (native drag/swipe via CSS scroll-snap, plus arrow and dot
      buttons) with a gentle auto-advance that pauses the instant someone
      hovers, touches, or focuses the carousel, and is skipped entirely for
-     anyone who has reduced motion turned on. */
+     anyone who has reduced motion turned on.
+
+     Infinite-loop illusion: a clone of the first slide is appended after the
+     last, and a clone of the last slide is prepended before the first. The
+     visible motion always continues in the same direction (e.g. scrolling
+     right past the last real quote glides onto its clone of the first quote)
+     -- then, once that clone is fully in view and looks identical to the
+     real slide, we silently snap the scroll position over to the real one
+     with no animation and no visible seam. Dots and the "quote N of 4"
+     bookkeeping always track the real slide, never the clones. */
   document.querySelectorAll(".quote-carousel").forEach(function (carousel) {
     var track = carousel.querySelector(".quote-carousel__track");
     var slides = track ? Array.prototype.slice.call(track.children) : [];
@@ -297,15 +306,30 @@
     if (!track || slides.length < 2) return;
 
     var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var realCount = slides.length;
+
+    // Clone the first/last real slides so the track reads:
+    // [clone of last] [real 0] [real 1] ... [real N-1] [clone of first]
+    var firstClone = slides[0].cloneNode(true);
+    var lastClone = slides[slides.length - 1].cloneNode(true);
+    firstClone.setAttribute("aria-hidden", "true");
+    lastClone.setAttribute("aria-hidden", "true");
+    track.insertBefore(lastClone, slides[0]);
+    track.appendChild(firstClone);
+    var domSlides = Array.prototype.slice.call(track.children);
+
+    // DOM index of a real slide is always its real index + 1 (offset by the
+    // prepended clone).
+    var currentDom = 1;
     var current = 0;
 
     var dots = slides.map(function (_, i) {
       var dot = document.createElement("button");
       dot.type = "button";
       dot.className = "quote-carousel__dot";
-      dot.setAttribute("aria-label", "Show quote " + (i + 1) + " of " + slides.length);
+      dot.setAttribute("aria-label", "Show quote " + (i + 1) + " of " + realCount);
       dot.addEventListener("click", function () {
-        goTo(i);
+        goToReal(i);
         restartAutoplay();
       });
       dotsWrap.appendChild(dot);
@@ -326,16 +350,23 @@
     function easeInOutCubic(t) {
       return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
-    function animateScrollTo(el, target) {
+    function animateScrollTo(el, target, onComplete) {
       var startX = el.scrollLeft;
       var change = target - startX;
-      if (!change) return;
       // CSS scroll-snap fights a manually-driven scroll -- Chromium defers
       // applying in-between positions until the snap "settles," which turns
       // an eased animation into a stuck-then-jump. Suspend snapping only for
-      // the duration of this animation, then hand it back for native
-      // drag/swipe.
+      // the duration of this animation (and the silent clone->real reset
+      // that may follow it), then hand it back for native drag/swipe.
       el.style.scrollSnapType = "none";
+      function finish() {
+        if (onComplete) onComplete();
+        el.style.scrollSnapType = "";
+      }
+      if (!change) {
+        finish();
+        return;
+      }
       var startTime = null;
       function step(timestamp) {
         if (startTime === null) startTime = timestamp;
@@ -344,47 +375,96 @@
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          el.style.scrollSnapType = "";
+          finish();
         }
       }
       requestAnimationFrame(step);
     }
 
-    function goTo(i) {
-      var idx = (i + slides.length) % slides.length;
-      var target = slides[idx].offsetLeft;
-      if (prefersReducedMotion) {
-        track.scrollLeft = target;
-      } else {
-        animateScrollTo(track, target);
+    // If a DOM index has landed on one of the two clones, silently (no
+    // animation) snap over to the real slide it's a stand-in for, and return
+    // the corrected DOM index. Otherwise, return it unchanged.
+    function normalizeDom(domIndex) {
+      if (domIndex === 0) {
+        track.scrollLeft = domSlides[realCount].offsetLeft;
+        return realCount;
       }
+      if (domIndex === realCount + 1) {
+        track.scrollLeft = domSlides[1].offsetLeft;
+        return 1;
+      }
+      return domIndex;
     }
 
+    function step(delta) {
+      var nextDom = currentDom + delta;
+      var target = domSlides[nextDom].offsetLeft;
+      if (prefersReducedMotion) {
+        track.scrollLeft = target;
+        currentDom = normalizeDom(nextDom);
+        current = currentDom - 1;
+        setActive(current);
+        return;
+      }
+      animateScrollTo(track, target, function () {
+        currentDom = normalizeDom(nextDom);
+        current = currentDom - 1;
+        setActive(current);
+      });
+    }
+
+    function goToReal(i) {
+      var targetDom = i + 1;
+      var target = domSlides[targetDom].offsetLeft;
+      if (prefersReducedMotion) {
+        track.scrollLeft = target;
+        currentDom = targetDom;
+        setActive(i);
+        return;
+      }
+      animateScrollTo(track, target, function () {
+        currentDom = targetDom;
+        setActive(i);
+      });
+    }
+
+    // Start on the real first slide (DOM index 1, past the prepended clone).
+    // Suspend scroll-snap for this direct assignment too -- same Chromium
+    // quirk as animateScrollTo: mandatory snap can leave a bare scrollLeft
+    // assignment only partially applied.
+    track.style.scrollSnapType = "none";
+    track.scrollLeft = domSlides[1].offsetLeft;
+    track.style.scrollSnapType = "";
+
     prevBtn.addEventListener("click", function () {
-      goTo(current - 1);
+      step(-1);
       restartAutoplay();
     });
     nextBtn.addEventListener("click", function () {
-      goTo(current + 1);
+      step(1);
       restartAutoplay();
     });
 
-    // Keep the dots in sync when someone drags/swipes the track directly.
+    // Keep the dots in sync when someone drags/swipes the track directly,
+    // including snapping silently back to the real slide if a fast swipe
+    // lands on one of the clones.
     var syncTimer = null;
     track.addEventListener("scroll", function () {
       clearTimeout(syncTimer);
       syncTimer = setTimeout(function () {
         var trackLeft = track.getBoundingClientRect().left;
-        var closest = 0;
+        var closestDom = 0;
         var closestDist = Infinity;
-        slides.forEach(function (slide, i) {
+        domSlides.forEach(function (slide, i) {
           var dist = Math.abs(slide.getBoundingClientRect().left - trackLeft);
           if (dist < closestDist) {
             closestDist = dist;
-            closest = i;
+            closestDom = i;
           }
         });
-        setActive(closest);
+        currentDom = normalizeDom(closestDom);
+        current = currentDom - 1;
+        setActive(current);
       }, 100);
     });
 
@@ -393,7 +473,7 @@
       if (prefersReducedMotion) return;
       stopAutoplay();
       autoplayTimer = setInterval(function () {
-        goTo(current + 1);
+        step(1);
       }, 7000);
     }
     function stopAutoplay() {
