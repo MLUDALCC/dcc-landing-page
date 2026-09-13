@@ -283,6 +283,136 @@
   var yearEl = document.getElementById("footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---- Chorister quote carousel --------------------------------------------
+     Manual control (native drag/swipe via CSS scroll-snap, plus arrow and dot
+     buttons) with a gentle auto-advance that pauses the instant someone
+     hovers, touches, or focuses the carousel, and is skipped entirely for
+     anyone who has reduced motion turned on. */
+  document.querySelectorAll(".quote-carousel").forEach(function (carousel) {
+    var track = carousel.querySelector(".quote-carousel__track");
+    var slides = track ? Array.prototype.slice.call(track.children) : [];
+    var dotsWrap = carousel.querySelector(".quote-carousel__dots");
+    var prevBtn = carousel.querySelector(".quote-carousel__arrow--prev");
+    var nextBtn = carousel.querySelector(".quote-carousel__arrow--next");
+    if (!track || slides.length < 2) return;
+
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var current = 0;
+
+    var dots = slides.map(function (_, i) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "quote-carousel__dot";
+      dot.setAttribute("aria-label", "Show quote " + (i + 1) + " of " + slides.length);
+      dot.addEventListener("click", function () {
+        goTo(i);
+        restartAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    function setActive(i) {
+      current = i;
+      dots.forEach(function (d, di) {
+        d.classList.toggle("is-active", di === i);
+      });
+    }
+
+    // A custom-animated scroll rather than the browser's built-in "smooth"
+    // behavior, whose speed isn't adjustable -- this lets the slide-over feel
+    // deliberately slow and unhurried instead of a quick, fixed-speed jump.
+    var SLIDE_DURATION = 1400; // ms
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    function animateScrollTo(el, target) {
+      var startX = el.scrollLeft;
+      var change = target - startX;
+      if (!change) return;
+      // CSS scroll-snap fights a manually-driven scroll -- Chromium defers
+      // applying in-between positions until the snap "settles," which turns
+      // an eased animation into a stuck-then-jump. Suspend snapping only for
+      // the duration of this animation, then hand it back for native
+      // drag/swipe.
+      el.style.scrollSnapType = "none";
+      var startTime = null;
+      function step(timestamp) {
+        if (startTime === null) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / SLIDE_DURATION, 1);
+        el.scrollLeft = startX + change * easeInOutCubic(progress);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.style.scrollSnapType = "";
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function goTo(i) {
+      var idx = (i + slides.length) % slides.length;
+      var target = slides[idx].offsetLeft;
+      if (prefersReducedMotion) {
+        track.scrollLeft = target;
+      } else {
+        animateScrollTo(track, target);
+      }
+    }
+
+    prevBtn.addEventListener("click", function () {
+      goTo(current - 1);
+      restartAutoplay();
+    });
+    nextBtn.addEventListener("click", function () {
+      goTo(current + 1);
+      restartAutoplay();
+    });
+
+    // Keep the dots in sync when someone drags/swipes the track directly.
+    var syncTimer = null;
+    track.addEventListener("scroll", function () {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(function () {
+        var trackLeft = track.getBoundingClientRect().left;
+        var closest = 0;
+        var closestDist = Infinity;
+        slides.forEach(function (slide, i) {
+          var dist = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = i;
+          }
+        });
+        setActive(closest);
+      }, 100);
+    });
+
+    var autoplayTimer = null;
+    function startAutoplay() {
+      if (prefersReducedMotion) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(function () {
+        goTo(current + 1);
+      }, 7000);
+    }
+    function stopAutoplay() {
+      clearInterval(autoplayTimer);
+    }
+    function restartAutoplay() {
+      startAutoplay();
+    }
+
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+    carousel.addEventListener("touchstart", stopAutoplay, { passive: true });
+    carousel.addEventListener("focusin", stopAutoplay);
+    carousel.addEventListener("focusout", startAutoplay);
+
+    setActive(0);
+    startAutoplay();
+  });
+
   /* ---- Subscribe forms (placeholder pending email-service integration) ---
      These forms aren't wired to a real list yet -- once the chorus has a
      Constant Contact (or similar) account set up, swap the form's action/

@@ -722,6 +722,35 @@ body.nav-open { overflow: hidden; }
 .pull-quote p { font-family: var(--font-serif); font-size: clamp(1.25rem, 2vw, 1.6rem); color: var(--graphite-900); line-height: 1.5; }
 .pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: .85rem; color: var(--ink-400); letter-spacing: .04em; }
 
+/* ---- Quote carousel (chorister quotes) --------------------------------------
+   One quote visible at a time via CSS scroll-snap -- draggable/swipeable
+   natively on any device -- plus arrow/dot controls and a JS-driven
+   auto-advance (main.js) that pauses on hover/touch/focus and is skipped
+   entirely under prefers-reduced-motion. */
+.quote-carousel { margin-block: clamp(2.5rem, 5vw, 3.5rem); }
+.quote-carousel__track {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.quote-carousel__track::-webkit-scrollbar { display: none; }
+.pull-quote.quote-carousel__slide { flex: 0 0 100%; width: 100%; scroll-snap-align: start; margin-block: 0; }
+.quote-carousel__controls {
+  display: flex; align-items: center; justify-content: center; gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+.quote-carousel__arrow {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-100);
+  display: inline-flex; align-items: center; justify-content: center; color: var(--graphite-800);
+  flex: none; transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.quote-carousel__arrow:hover { background: var(--graphite-800); color: var(--white); border-color: var(--graphite-800); }
+.quote-carousel__dots { display: flex; align-items: center; gap: .55rem; }
+.quote-carousel__dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--line-100); padding: 0; border: none;
+  transition: background .2s var(--ease), transform .2s var(--ease);
+}
+.quote-carousel__dot.is-active { background: var(--stone-500); transform: scale(1.35); }
+
 /* ---- Timeline ---------------------------------------------------------------*/
 .timeline { position: relative; padding-left: clamp(1.5rem, 4vw, 3rem); }
 .timeline::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: var(--line-100); }
