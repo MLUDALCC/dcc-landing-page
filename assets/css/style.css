@@ -48,7 +48,19 @@
 
 /* ---- Reset --------------------------------------------------------------*/
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Disable Mobile Safari's automatic text-size boosting. Without this,
+     iOS inflates paragraph/body text based on how wide its container is
+     relative to the viewport -- most noticeable rotating a phone to
+     landscape (a much wider viewport than the page was designed around)
+     and on any block that spans more width than its neighbors (like the
+     full-width Mailing Address row in the resources box). Pinning this to
+     100% makes text render at exactly the size the CSS specifies, in
+     every orientation and column width, instead of Safari's guess. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
@@ -297,16 +309,20 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .main-nav__item.is-open .chev { transform: rotate(180deg); }
 
 .main-nav__panel {
+  /* Shrinks to fit each menu's own longest item (capped at 260px, which is
+     roughly what "Our Connection to the DSO" needs) instead of forcing
+     every dropdown to the same fixed minimum -- so a short menu like
+     "Give" doesn't end up as a mostly-empty box. */
   position: absolute; top: 100%; left: 50%; transform: translate(-50%, 6px);
-  min-width: 260px; background: var(--white); border: 1px solid var(--line-100);
+  width: max-content; max-width: 260px; background: var(--white); border: 1px solid var(--line-100);
   box-shadow: 0 18px 40px -12px rgba(58,62,66,.18);
-  padding: .85rem;
+  padding: .6rem;
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity .2s var(--ease), transform .2s var(--ease);
 }
 .main-nav__item.is-open .main-nav__panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); }
 .main-nav__panel a {
-  display: block; padding: .6rem .75rem; font-size: .88rem; color: var(--ink-900); border-radius: 2px;
+  display: block; padding: .55rem .65rem; font-size: .88rem; color: var(--ink-900); border-radius: 2px; white-space: nowrap;
 }
 .main-nav__panel a:hover { background: var(--cream-050); color: var(--graphite-800); }
 
