@@ -873,9 +873,21 @@ body.modal-open { overflow: hidden; }
    These pages are plain stacked h2/h3/p rather than the feature/section-head
    components the rest of the site uses, so they get their own vertical
    rhythm here instead of relying on those components' spacing rules. */
-.prose h2 { margin-top: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; }
-.prose h3 { margin-top: 1.75rem; margin-bottom: .75rem; }
+/* Legal-page (Privacy Policy, Terms of Use) section headings are quieter
+   and smaller than the site's usual h2 -- those pages are reference
+   material to be scanned section by section, not marketing copy, so the
+   heading shouldn't compete with a page's actual headline treatment.
+   Scoped to .prose only, so every other page's h2 is untouched. */
+.prose h2 { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: .75rem; font-size: clamp(1.3rem, 2vw, 1.6rem); }
+/* Sub-headers within a section (e.g. "Information You Provide" under
+   "Information We Collect") switch to sans-serif at a smaller size, so
+   they read as clearly subordinate to the serif section heading above
+   them rather than a second, near-identical heading. */
+.prose h3 {
+  margin-top: 1.75rem; margin-bottom: .75rem;
+  font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--ink-900);
+}
 .prose p.body-text { max-width: 68ch; }
 .prose p.body-text + p.body-text { margin-top: 1rem; }
-.prose hr.rule { margin-top: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 0; }
+.prose hr.rule { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: 0; }
 .prose hr.rule + h2 { margin-top: 1.25rem; }
