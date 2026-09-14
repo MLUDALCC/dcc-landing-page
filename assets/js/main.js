@@ -535,6 +535,154 @@
       reflowTargets.forEach(forceReflow);
     }, 200);
   }
+
+  /* ---- Give Online (Stripe) donate form ------------------------------------
+     Custom "pre-checkout" front door only -- this never touches card data.
+     On submit it posts the chosen amount/options to our own Azure Function
+     (/api/create-checkout-session), which creates a Stripe Checkout Session
+     server-side and hands back that session's URL; we then redirect the
+     browser there for Stripe to handle everything about actually collecting
+     and processing the card. The "Give another way" link in the form's note
+     is a plain, always-visible fallback straight to a Stripe Payment Link,
+     independent of this form or its JS, in case this component or the
+     Function behind it is ever unavailable. */
+  var DONATE_FEE_PERCENT = 0.03; // keep in sync with api/create-checkout-session/index.js
+  var DONATE_FEE_FIXED = 0.30;
+
+  function syncAncestorAccordion(el) {
+    var item = el.closest(".accordion__item");
+    if (!item || !item.classList.contains("is-open")) return;
+    var panel = item.querySelector(".accordion__panel");
+    if (panel) panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+
+  document.querySelectorAll(".donate-form").forEach(function (form) {
+    var amountButtons = form.querySelectorAll(".donate-amount");
+    var customWrap = form.querySelector(".donate-custom-amount");
+    var customInput = form.querySelector(".donate-custom-input");
+    var coverFeeCheckbox = form.querySelector(".donate-cover-fee");
+    var feeEstimateEl = form.querySelector(".donate-fee-estimate");
+    var anonymousCheckbox = form.querySelector(".donate-anonymous");
+    var tributeInput = form.querySelector(".donate-tribute-input");
+    var errorEl = form.querySelector(".donate-form__error");
+    var submitBtn = form.querySelector(".donate-submit");
+    var selectedAmount = null; // a number, or "custom"
+
+    function getBaseAmount() {
+      if (selectedAmount === "custom") {
+        var v = customInput ? parseFloat(customInput.value) : NaN;
+        return isFinite(v) && v > 0 ? v : null;
+      }
+      return selectedAmount;
+    }
+
+    function updateFeeEstimate() {
+      if (!feeEstimateEl) return;
+      var base = getBaseAmount();
+      if (base == null) {
+        feeEstimateEl.textContent = "the processing fee";
+        return;
+      }
+      var total = (base + DONATE_FEE_FIXED) / (1 - DONATE_FEE_PERCENT);
+      feeEstimateEl.textContent = "$" + (total - base).toFixed(2);
+    }
+
+    function showError(msg) {
+      if (!errorEl) return;
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+      syncAncestorAccordion(errorEl);
+    }
+    function hideError() {
+      if (!errorEl) return;
+      errorEl.hidden = true;
+      errorEl.textContent = "";
+      syncAncestorAccordion(errorEl);
+    }
+
+    amountButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        amountButtons.forEach(function (b) {
+          b.classList.remove("is-selected");
+          b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("is-selected");
+        btn.setAttribute("aria-pressed", "true");
+        var val = btn.getAttribute("data-amount");
+        if (val === "custom") {
+          selectedAmount = "custom";
+          if (customWrap) {
+            customWrap.hidden = false;
+            syncAncestorAccordion(customWrap);
+          }
+          if (customInput) customInput.focus();
+        } else {
+          selectedAmount = parseFloat(val);
+          if (customWrap) {
+            customWrap.hidden = true;
+            syncAncestorAccordion(customWrap);
+          }
+        }
+        hideError();
+        updateFeeEstimate();
+      });
+    });
+
+    if (customInput) {
+      customInput.addEventListener("input", function () {
+        selectedAmount = "custom";
+        updateFeeEstimate();
+      });
+    }
+
+    if (coverFeeCheckbox) coverFeeCheckbox.addEventListener("change", updateFeeEstimate);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      hideError();
+
+      var base = getBaseAmount();
+      if (base == null || base < 5) {
+        showError("Please choose or enter an amount of at least $5.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add("is-loading");
+
+      fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: base,
+          tribute: tributeInput ? tributeInput.value : "",
+          anonymous: !!(anonymousCheckbox && anonymousCheckbox.checked),
+          coverFee: !!(coverFeeCheckbox && coverFeeCheckbox.checked)
+        })
+      })
+        .then(function (res) {
+          return res
+            .json()
+            .catch(function () { return {}; })
+            .then(function (data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data || !result.data.url) {
+            showError((result.data && result.data.error) || "Something went wrong starting checkout. Please try again, or use \u201cGive another way\u201d below.");
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("is-loading");
+            return;
+          }
+          window.location.href = result.data.url;
+        })
+        .catch(function () {
+          showError("We couldn\u2019t reach the giving system. Please check your connection and try again, or use \u201cGive another way\u201d below.");
+          submitBtn.disabled = false;
+          submitBtn.classList.remove("is-loading");
+        });
+    });
+  });
+
   if (reflowTargets.length) {
     window.addEventListener("resize", scheduleReflowFix);
   }
