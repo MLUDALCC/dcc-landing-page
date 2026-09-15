@@ -851,6 +851,30 @@ body.modal-open { overflow: hidden; }
   .bio-modal__dialog { max-height: 100vh; height: 100%; border-radius: 0; padding: 2.25rem 1.5rem; }
 }
 
+/* ---- Give Online modal ---------------------------------------------------------
+   Same accessible pattern as the leadership bio modal above (focus trap,
+   Escape/backdrop-click closes, focus returns on close -- see the shared
+   controller in assets/js/main.js), reused on the Give page and the Ways
+   to Give page so the donation form opens as an overlay instead of sitting
+   inline. Its visual "card" is .donate-box itself (already styled as a
+   bordered box elsewhere on the site) rather than a second nested box. */
+.donate-modal { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 2rem 1.25rem; }
+.donate-modal.is-open { display: flex; }
+.donate-modal__backdrop { position: absolute; inset: 0; background: rgba(12, 33, 54, .55); }
+.donate-modal__dialog { position: relative; z-index: 1; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
+.donate-modal .donate-box { position: relative; margin-inline: 0; border-radius: 14px; box-shadow: 0 24px 64px rgba(9, 34, 61, .28); }
+.donate-modal__close {
+  position: absolute; top: 1.1rem; right: 1.1rem; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; background: var(--graphite-100);
+  color: var(--graphite-800); font-size: 1.4rem; line-height: 1; z-index: 2;
+}
+.donate-modal__close:hover { background: var(--stone-100); }
+@media (max-width: 600px) {
+  .donate-modal { padding: 0; }
+  .donate-modal__dialog { max-height: 100vh; height: 100%; max-width: none; }
+  .donate-modal .donate-box { border-radius: 0; min-height: 100%; }
+}
+
 /* ---- FAQ / accordion ----------------------------------------------------------*/
 .accordion__item { border-bottom: 1px solid var(--line-100); }
 .accordion__trigger {

@@ -536,6 +536,77 @@
     }, 200);
   }
 
+  /* ---- Give Online modal ---------------------------------------------------
+     Opens the donation form in an overlay instead of it sitting inline on
+     the page -- same accessible pattern as the leadership bio modal above
+     (focus trap, Escape closes, backdrop click closes, focus returns to
+     whatever button opened it). A page opts in by including one
+     .donate-modal near the end of <body> and giving any button/link that
+     should open it the class "js-open-give-modal": today that's the
+     "Give Now" button on the Give page, and the "Give Online (Credit
+     Card)" row on the Ways to Give page. Does nothing on pages with
+     neither. */
+  (function () {
+    var modal = document.querySelector(".donate-modal");
+    if (!modal) return;
+    var backdrop = modal.querySelector(".donate-modal__backdrop");
+    var closeBtn = modal.querySelector(".donate-modal__close");
+    var lastTrigger = null;
+
+    function openModal(trigger) {
+      lastTrigger = trigger || null;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeBtn.focus();
+      document.addEventListener("keydown", onKeydown);
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      document.removeEventListener("keydown", onKeydown);
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    function getFocusable() {
+      return Array.prototype.slice
+        .call(modal.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])'))
+        .filter(function (el) { return el.offsetParent !== null && !el.disabled; });
+    }
+
+    function onKeydown(e) {
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (e.key === "Tab") {
+        var focusable = getFocusable();
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    document.querySelectorAll(".js-open-give-modal").forEach(function (trigger) {
+      trigger.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+  })();
+
   /* ---- Give Online (Stripe) donate form ------------------------------------
      Embeds Stripe's own "Payment Element" directly in this form so donors
      never leave the page -- there is no redirect to a Stripe-hosted

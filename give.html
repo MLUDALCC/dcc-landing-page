@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <script src="https://js.stripe.com/v3/"></script>
-<link rel="stylesheet" href="assets/css/style.css?v=63">
+<link rel="stylesheet" href="assets/css/style.css?v=64">
 </head>
 <body>
 
@@ -138,76 +138,9 @@
       <span class="eyebrow">Support the DCC</span>
       <h1>An Investment in Young Musicians</h1>
       <p class="lede">Supporting the DCC is a unique opportunity to invest in the musical and personal development of young singers, while advancing the cultural life of our community.</p>
-      <a href="#give-online" class="btn btn--accent mt-sm">Give Now
+      <button type="button" class="btn btn--accent mt-sm js-open-give-modal">Give Now
         <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============================= GIVE ONLINE (STRIPE) =============================
-       Custom pre-checkout front door -- Stripe's own hosted Checkout page
-       (created via the /api/create-checkout-session Azure Function) handles
-       all actual card collection and processing; this form and its JS never
-       see or store card details. If the Function is ever unavailable, the
-       "Give another way" link below always works as a plain fallback,
-       completely independent of this form or its JavaScript. -->
-  <section class="section" id="give-online">
-    <div class="container container--narrow">
-      <div class="section-head section-head--center" data-reveal>
-        <span class="eyebrow eyebrow--center">Give Online</span>
-        <h2>Make a secure gift right now</h2>
-        <p class="body-text mt-lg">Choose an amount below and give securely, right here on this page.</p>
-      </div>
-
-      <div class="donate-box" data-reveal>
-        <form class="donate-form" novalidate>
-          <div class="donate-amounts" role="group" aria-label="Choose a donation amount">
-            <button type="button" class="donate-amount" data-amount="25">$25</button>
-            <button type="button" class="donate-amount" data-amount="50">$50</button>
-            <button type="button" class="donate-amount" data-amount="150">$150</button>
-            <button type="button" class="donate-amount" data-amount="500">$500</button>
-            <button type="button" class="donate-amount" data-amount="1000">$1,000</button>
-            <button type="button" class="donate-amount donate-amount--custom" data-amount="custom">Other</button>
-          </div>
-
-          <div class="donate-custom-amount" hidden>
-            <label for="give-online-custom-amount">Enter an amount</label>
-            <div class="donate-custom-input-wrap">
-              <span aria-hidden="true">$</span>
-              <input type="number" id="give-online-custom-amount" class="donate-custom-input" name="customAmount" min="5" step="1" inputmode="decimal" placeholder="0">
-            </div>
-          </div>
-
-          <div class="donate-field">
-            <label for="give-online-tribute">In honor or memory of someone? (optional)</label>
-            <input type="text" id="give-online-tribute" class="donate-tribute-input" name="tribute" maxlength="200" placeholder="Name">
-          </div>
-
-          <label class="donate-checkbox">
-            <input type="checkbox" class="donate-cover-fee" name="coverFee">
-            <span>Add <span class="donate-fee-estimate">the processing fee</span> so 100% of my gift goes to the DCC</span>
-          </label>
-
-          <label class="donate-checkbox">
-            <input type="checkbox" class="donate-anonymous" name="anonymous">
-            <span>Keep my name out of public donor recognition (event programs, annual report, etc.). The DCC will still have your name and contact information privately, for your tax receipt and our internal records.</span>
-          </label>
-
-          <div class="donate-payment-field">
-            <p class="donate-payment-placeholder">Choose an amount above to continue.</p>
-            <div class="donate-payment-element" hidden></div>
-          </div>
-
-          <div class="donate-form__error" role="alert" hidden></div>
-
-          <button type="submit" class="btn btn--accent donate-submit">
-            <span class="donate-submit__label">Give Now</span>
-          </button>
-
-          <!-- STRIPE: replace the href below with your real Payment Link (e.g. https://buy.stripe.com/xxxxxxxx) once it's created. -->
-          <p class="donate-form__note">Your payment is processed securely by Stripe &mdash; cards, Apple Pay, and Google Pay are all supported. Prefer a simpler form? <a href="https://donate.stripe.com/7sY00j6fY9q8dXF4Sn97G00" target="_blank" rel="noopener">Give another way</a>.</p>
-        </form>
-      </div>
+      </button>
     </div>
   </section>
 
@@ -297,6 +230,79 @@
 
 </main>
 
+<!-- ============================= GIVE ONLINE MODAL (STRIPE) =============================
+     Opened by any "Give Now" button (class js-open-give-modal; see the
+     shared modal controller in assets/js/main.js) instead of the form
+     sitting inline on the page -- keeps "Hear the DCC" and "Why I Give"
+     above the fold instead of underneath the donation form. Stripe's own
+     hosted Checkout page is not used here; the embedded Payment Element
+     mounts directly inside .donate-payment-element below via our own two
+     Azure Functions (create/update-payment-intent). If those are ever
+     unavailable, the "Give another way" link in the form's note is a
+     plain, always-visible fallback straight to a Stripe Payment Link,
+     independent of all of this. -->
+<div class="donate-modal" aria-hidden="true">
+  <div class="donate-modal__backdrop"></div>
+  <div class="donate-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
+    <div class="donate-box">
+      <button class="donate-modal__close" type="button" aria-label="Close">&times;</button>
+      <div class="section-head section-head--center">
+        <span class="eyebrow eyebrow--center">Give Online</span>
+        <h2 id="donate-modal-title">Make a secure gift right now</h2>
+        <p class="body-text mt-lg">Choose an amount below and give securely, right here on this page.</p>
+      </div>
+
+      <form class="donate-form" novalidate>
+        <div class="donate-amounts" role="group" aria-label="Choose a donation amount">
+          <button type="button" class="donate-amount" data-amount="25">$25</button>
+          <button type="button" class="donate-amount" data-amount="50">$50</button>
+          <button type="button" class="donate-amount" data-amount="150">$150</button>
+          <button type="button" class="donate-amount" data-amount="500">$500</button>
+          <button type="button" class="donate-amount" data-amount="1000">$1,000</button>
+          <button type="button" class="donate-amount donate-amount--custom" data-amount="custom">Other</button>
+        </div>
+
+        <div class="donate-custom-amount" hidden>
+          <label for="give-online-custom-amount">Enter an amount</label>
+          <div class="donate-custom-input-wrap">
+            <span aria-hidden="true">$</span>
+            <input type="number" id="give-online-custom-amount" class="donate-custom-input" name="customAmount" min="5" step="1" inputmode="decimal" placeholder="0">
+          </div>
+        </div>
+
+        <div class="donate-field">
+          <label for="give-online-tribute">In honor or memory of someone? (optional)</label>
+          <input type="text" id="give-online-tribute" class="donate-tribute-input" name="tribute" maxlength="200" placeholder="Name">
+        </div>
+
+        <label class="donate-checkbox">
+          <input type="checkbox" class="donate-cover-fee" name="coverFee">
+          <span>Add <span class="donate-fee-estimate">the processing fee</span> so 100% of my gift goes to the DCC</span>
+        </label>
+
+        <label class="donate-checkbox">
+          <input type="checkbox" class="donate-anonymous" name="anonymous">
+          <span>Keep my name out of public donor recognition (event programs, annual report, etc.). The DCC will still have your name and contact information privately, for your tax receipt and our internal records.</span>
+        </label>
+
+        <div class="donate-payment-field">
+          <p class="donate-payment-placeholder">Choose an amount above to continue.</p>
+          <div class="donate-payment-element" hidden></div>
+        </div>
+
+        <div class="donate-form__error" role="alert" hidden></div>
+
+        <button type="submit" class="btn btn--accent donate-submit">
+          <span class="donate-submit__label">Give Now</span>
+        </button>
+
+        <!-- STRIPE: replace the href below with your real Payment Link (e.g. https://buy.stripe.com/xxxxxxxx) once it's created. -->
+        <p class="donate-form__note">Your payment is processed securely by Stripe &mdash; cards, Apple Pay, and Google Pay are all supported. Prefer a simpler form? <a href="https://donate.stripe.com/7sY00j6fY9q8dXF4Sn97G00" target="_blank" rel="noopener">Give another way</a>.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- ============================= FOOTER ============================= -->
 <footer class="site-footer">
   <div class="container">
@@ -362,6 +368,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=13"></script>
+<script src="assets/js/main.js?v=14"></script>
 </body>
 </html>
