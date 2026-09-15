@@ -537,23 +537,63 @@
   }
 
   /* ---- Give Online (Stripe) donate form ------------------------------------
-     Custom "pre-checkout" front door only -- this never touches card data.
-     On submit it posts the chosen amount/options to our own Azure Function
-     (/api/create-checkout-session), which creates a Stripe Checkout Session
-     server-side and hands back that session's URL; we then redirect the
-     browser there for Stripe to handle everything about actually collecting
-     and processing the card. The "Give another way" link in the form's note
-     is a plain, always-visible fallback straight to a Stripe Payment Link,
-     independent of this form or its JS, in case this component or the
-     Function behind it is ever unavailable. */
-  var DONATE_FEE_PERCENT = 0.03; // keep in sync with api/create-checkout-session/index.js
+     Embeds Stripe's own "Payment Element" directly in this form so donors
+     never leave the page -- there is no redirect to a Stripe-hosted
+     checkout page. The element itself (card fields, and Apple Pay / Google
+     Pay buttons where available and enabled in the Stripe Dashboard) is
+     still rendered and entirely controlled by Stripe's own script, so this
+     code never sees or touches card details; it only ever talks to our own
+     two small Azure Functions to create/update a PaymentIntent (amount +
+     metadata) and then asks Stripe.js to confirm it in place. The "Give
+     another way" link in the form's note is a plain, always-visible
+     fallback straight to a Stripe Payment Link, independent of all of
+     this, in case Stripe.js itself fails to load or something else here
+     breaks. */
+  var DONATE_FEE_PERCENT = 0.03; // keep in sync with api/create-payment-intent + api/update-payment-intent
   var DONATE_FEE_FIXED = 0.30;
+
+  // Safe to publish -- a Stripe *publishable* key (unlike the secret key)
+  // is meant to live in public client-side code. Replace with your real
+  // key from the Stripe Dashboard (Developers > API keys).
+  var STRIPE_PUBLISHABLE_KEY = "pk_live_51UFcpBHMuZLqWRTPQpqPHmzrcgrDvu6otleQkXa1tIW9c1aW3a1k4XlYH5XgKAsFKGVoRMFpNTStYRYQlqfp1jms00Wt0W1haG";
+
+  // Themes the embedded Payment Element to roughly match the site's own
+  // design tokens. This can't reach the exact CSS custom properties above
+  // (Stripe renders these fields in its own isolated frames for security),
+  // so the hex/font values are repeated here by hand -- if the palette in
+  // :root ever changes, update this to match.
+  var STRIPE_APPEARANCE = {
+    theme: "stripe",
+    variables: {
+      colorPrimary: "#0B2A4A",
+      colorBackground: "#ffffff",
+      colorText: "#0c2136",
+      colorDanger: "#8a2f2f",
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      borderRadius: "4px",
+      spacingUnit: "4px"
+    }
+  };
 
   function syncAncestorAccordion(el) {
     var item = el.closest(".accordion__item");
     if (!item || !item.classList.contains("is-open")) return;
     var panel = item.querySelector(".accordion__panel");
     if (panel) panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+
+  // One Stripe.js client for the whole page (mounting multiple Payment
+  // Elements from it, one per .donate-form, is fine). If Stripe.js failed
+  // to load -- blocked network, an ad/tracker blocker, offline testing --
+  // stripeClient stays null and every form below falls back to a plainly
+  // labeled degraded state rather than a silently broken one.
+  var stripeClient = null;
+  if (window.Stripe) {
+    try {
+      stripeClient = window.Stripe(STRIPE_PUBLISHABLE_KEY);
+    } catch (e) {
+      stripeClient = null;
+    }
   }
 
   document.querySelectorAll(".donate-form").forEach(function (form) {
@@ -566,6 +606,8 @@
     var tributeInput = form.querySelector(".donate-tribute-input");
     var errorEl = form.querySelector(".donate-form__error");
     var submitBtn = form.querySelector(".donate-submit");
+    var paymentContainer = form.querySelector(".donate-payment-element");
+    var placeholderEl = form.querySelector(".donate-payment-placeholder");
     var selectedAmount = null; // a number, or "custom"
 
     function getBaseAmount() {
@@ -600,6 +642,12 @@
       syncAncestorAccordion(errorEl);
     }
 
+    // Amount selection and the fee estimate stay useful even if Stripe.js
+    // never loads, so these are wired up unconditionally; scheduleSync is
+    // only ever assigned below (to a real function) when Stripe.js loaded,
+    // and left null otherwise -- callers always check before using it.
+    var scheduleSync = null;
+
     amountButtons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         amountButtons.forEach(function (b) {
@@ -625,6 +673,7 @@
         }
         hideError();
         updateFeeEstimate();
+        if (scheduleSync) scheduleSync();
       });
     });
 
@@ -632,10 +681,153 @@
       customInput.addEventListener("input", function () {
         selectedAmount = "custom";
         updateFeeEstimate();
+        if (scheduleSync) scheduleSync();
       });
     }
 
-    if (coverFeeCheckbox) coverFeeCheckbox.addEventListener("change", updateFeeEstimate);
+    if (coverFeeCheckbox) {
+      coverFeeCheckbox.addEventListener("change", function () {
+        updateFeeEstimate();
+        if (scheduleSync) scheduleSync();
+      });
+    }
+
+    if (submitBtn) submitBtn.disabled = true; // re-enabled once the Payment Element is ready, or never if Stripe.js is unavailable
+
+    if (!stripeClient) {
+      if (placeholderEl) {
+        placeholderEl.textContent = "Online payment isn’t available right now — please use “Give another way” below.";
+      }
+      return; // leave amount selection / fee estimate above working; skip everything Stripe-specific for this form
+    }
+
+    var elements = null;
+    var paymentIntentId = null;
+    var syncTimer = null;
+    var syncInFlight = null;
+    var creatingIntent = false;
+    var lastSyncedCents = null;
+
+    function getFinalAmountCents() {
+      var base = getBaseAmount();
+      if (base == null) return null;
+      var cents = Math.round(base * 100);
+      if (coverFeeCheckbox && coverFeeCheckbox.checked) {
+        cents = Math.round((cents + DONATE_FEE_FIXED * 100) / (1 - DONATE_FEE_PERCENT));
+      }
+      return cents;
+    }
+
+    function currentPayload() {
+      return {
+        amount: getBaseAmount(),
+        tribute: tributeInput ? tributeInput.value : "",
+        anonymous: !!(anonymousCheckbox && anonymousCheckbox.checked),
+        coverFee: !!(coverFeeCheckbox && coverFeeCheckbox.checked)
+      };
+    }
+
+    function mountPaymentElement(clientSecret) {
+      elements = stripeClient.elements({ clientSecret: clientSecret, appearance: STRIPE_APPEARANCE });
+      var paymentElement = elements.create("payment");
+      paymentElement.mount(paymentContainer);
+      paymentElement.on("ready", function () {
+        if (placeholderEl) placeholderEl.hidden = true;
+        paymentContainer.hidden = false;
+        if (submitBtn) submitBtn.disabled = false;
+        syncAncestorAccordion(paymentContainer);
+      });
+      paymentElement.on("change", function () {
+        syncAncestorAccordion(paymentContainer);
+      });
+    }
+
+    function runSync() {
+      var cents = getFinalAmountCents();
+      if (cents == null || cents < 500) return Promise.resolve(); // not enough info yet
+      if (cents === lastSyncedCents && paymentIntentId) return Promise.resolve(); // nothing changed since the last sync
+
+      var payload = currentPayload();
+
+      if (!paymentIntentId) {
+        if (creatingIntent) return syncInFlight || Promise.resolve();
+        creatingIntent = true;
+        syncInFlight = fetch("/api/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
+          })
+          .then(function (result) {
+            creatingIntent = false;
+            if (!result.ok || !result.data || !result.data.clientSecret) {
+              showError((result.data && result.data.error) || "Something went wrong setting up the payment. Please try again, or use “Give another way” below.");
+              return;
+            }
+            paymentIntentId = result.data.paymentIntentId;
+            lastSyncedCents = cents;
+            mountPaymentElement(result.data.clientSecret);
+            // The donor may have changed the amount again while this request
+            // was in flight -- catch up with one more sync if so.
+            if (getFinalAmountCents() !== lastSyncedCents) scheduleSync();
+          })
+          .catch(function () {
+            creatingIntent = false;
+            showError("We couldn’t reach the giving system. Please check your connection and try again, or use “Give another way” below.");
+          });
+        return syncInFlight;
+      }
+
+      syncInFlight = fetch("/api/update-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentIntentId: paymentIntentId,
+          amount: payload.amount,
+          tribute: payload.tribute,
+          anonymous: payload.anonymous,
+          coverFee: payload.coverFee
+        })
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data) {
+            showError((result.data && result.data.error) || "Something went wrong updating the payment. Please try again, or use “Give another way” below.");
+            return;
+          }
+          lastSyncedCents = cents;
+          if (elements) elements.update({ amount: cents });
+          if (getFinalAmountCents() !== lastSyncedCents) scheduleSync();
+        })
+        .catch(function () {
+          showError("We couldn’t reach the giving system. Please check your connection and try again, or use “Give another way” below.");
+        });
+      return syncInFlight;
+    }
+
+    scheduleSync = function () {
+      hideError();
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(runSync, 600);
+    };
+
+    function flushSync() {
+      clearTimeout(syncTimer);
+      return runSync();
+    }
+
+    if (tributeInput) tributeInput.addEventListener("input", scheduleSync);
+    if (anonymousCheckbox) anonymousCheckbox.addEventListener("change", scheduleSync);
+
+    function resetSubmitButton() {
+      if (!submitBtn) return;
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("is-loading");
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -647,39 +839,47 @@
         return;
       }
 
-      submitBtn.disabled = true;
-      submitBtn.classList.add("is-loading");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add("is-loading");
+      }
 
-      fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: base,
-          tribute: tributeInput ? tributeInput.value : "",
-          anonymous: !!(anonymousCheckbox && anonymousCheckbox.checked),
-          coverFee: !!(coverFeeCheckbox && coverFeeCheckbox.checked)
-        })
-      })
-        .then(function (res) {
-          return res
-            .json()
-            .catch(function () { return {}; })
-            .then(function (data) { return { ok: res.ok, data: data }; });
-        })
-        .then(function (result) {
-          if (!result.ok || !result.data || !result.data.url) {
-            showError((result.data && result.data.error) || "Something went wrong starting checkout. Please try again, or use \u201cGive another way\u201d below.");
-            submitBtn.disabled = false;
-            submitBtn.classList.remove("is-loading");
+      flushSync().then(function () {
+        if (!elements || !paymentIntentId) {
+          showError("Please choose an amount to continue.");
+          resetSubmitButton();
+          return;
+        }
+
+        elements.submit().then(function (submitResult) {
+          if (submitResult && submitResult.error) {
+            showError(submitResult.error.message || "Please check the payment details above and try again.");
+            resetSubmitButton();
             return;
           }
-          window.location.href = result.data.url;
-        })
-        .catch(function () {
-          showError("We couldn\u2019t reach the giving system. Please check your connection and try again, or use \u201cGive another way\u201d below.");
-          submitBtn.disabled = false;
-          submitBtn.classList.remove("is-loading");
+
+          var returnUrl = window.location.origin + "/thank-you.html";
+
+          stripeClient
+            .confirmPayment({
+              elements: elements,
+              confirmParams: { return_url: returnUrl },
+              redirect: "if_required"
+            })
+            .then(function (result) {
+              if (result.error) {
+                showError(result.error.message || "Something went wrong processing your payment. Please try again, or use “Give another way” below.");
+                resetSubmitButton();
+                return;
+              }
+              window.location.href = returnUrl;
+            })
+            .catch(function () {
+              showError("Something went wrong processing your payment. Please try again, or use “Give another way” below.");
+              resetSubmitButton();
+            });
         });
+      });
     });
   });
 

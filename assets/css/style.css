@@ -969,3 +969,16 @@ body.modal-open { overflow: hidden; }
 .donate-form__note { font-size: .82rem; color: var(--stone-ink); text-align: center; margin: 0; }
 .donate-form__note a { text-decoration: underline; text-underline-offset: 2px; }
 .donate-form__note a:hover { color: var(--graphite-800); }
+
+/* ---- Give Online: embedded Stripe Payment Element -----------------------
+   Stripe's own "Payment Element" mounts inside .donate-payment-element
+   (card fields, plus Apple Pay / Google Pay buttons where available) --
+   its internal appearance is themed to match the site via the
+   `appearance` object passed in main.js, not by CSS reaching into it.
+   .donate-payment-placeholder is the plain-text stand-in shown before an
+   amount has been chosen (or if Stripe.js itself failed to load). */
+.donate-payment-field { display: flex; flex-direction: column; gap: .4rem; }
+.donate-payment-placeholder {
+  margin: 0; padding: .9rem 1rem; border: 1px dashed var(--line-100); border-radius: 4px;
+  font-size: .88rem; color: var(--stone-ink); text-align: center;
+}

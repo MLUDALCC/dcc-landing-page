@@ -1,10 +1,12 @@
-// Creates a Stripe Checkout Session for a donation started from the
-// custom "Give Online" form on the DCC website (give.html and
-// ways-to-give.html). The form only ever sends this endpoint a dollar
-// amount, an optional tribute name, and two yes/no flags -- Stripe's own
-// Checkout page (which this redirects to) handles every part of actually
-// collecting and processing the card. This function never sees, stores,
-// or handles card details itself.
+// Creates a Stripe PaymentIntent for a donation started from the custom
+// "Give Online" form on the DCC website (give.html and ways-to-give.html).
+// Unlike the older Checkout Session approach, this keeps the donor on the
+// DCC's own page the whole time: the front end mounts Stripe's "Payment
+// Element" directly in our form (styled to match the site) and confirms
+// the payment in place, including Apple Pay / Google Pay when available.
+// This function only ever creates the PaymentIntent -- it never sees or
+// handles card details itself; that stays entirely inside Stripe's own
+// embedded fields and Stripe.js.
 //
 // Requires an app setting named STRIPE_SECRET_KEY in the Static Web App's
 // configuration (Azure Portal > your Static Web App > Configuration).
@@ -15,7 +17,8 @@
 // card type and by whatever rate Stripe has you on (nonprofit accounts
 // sometimes get a discounted rate) -- double-check your own Stripe
 // dashboard's current rate and adjust FEE_PERCENT/FEE_FIXED_CENTS below
-// if it differs, so the "cover the fee" amount stays accurate.
+// (kept in sync with update-payment-intent/index.js) if it differs, so
+// the "cover the fee" amount stays accurate.
 
 const Stripe = require("stripe");
 
@@ -79,41 +82,22 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // Prefer the browser's own Origin header for the redirect URLs (so this
-  // works correctly on whatever domain it's actually deployed to) and
-  // fall back to an optional SITE_URL app setting. If neither is present,
-  // fail loudly rather than guessing a domain and silently sending donors
-  // to the wrong place after paying.
-  const origin = req.headers.origin || process.env.SITE_URL;
-  if (!origin) {
-    context.log.error("No Origin header and no SITE_URL app setting configured.");
-    context.res.status = 500;
-    context.res.body = { error: "Something went wrong starting checkout. Please try again or contact us." };
-    return;
-  }
-
   try {
     const stripe = Stripe(stripeSecretKey);
 
-    const productName = "Donation to the Dallas Children's Chorus";
-    const productDescription = tribute ? `In honor/memory of: ${tribute}` : undefined;
+    const description = tribute
+      ? `Donation to the Dallas Children's Chorus -- in honor/memory of: ${tribute}`
+      : "Donation to the Dallas Children's Chorus";
 
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: productName,
-              description: productDescription,
-            },
-            unit_amount: amountCents,
-          },
-          quantity: 1,
-        },
-      ],
+    const intent = await stripe.paymentIntents.create({
+      amount: amountCents,
+      currency: "usd",
+      // Lets Stripe automatically offer whichever payment methods are both
+      // enabled in the Dashboard and supported for this amount/currency/
+      // browser -- cards plus Apple Pay / Google Pay wherever available --
+      // without us having to list them out here.
+      automatic_payment_methods: { enabled: true },
+      description: description,
       // Not sent to the donor or shown on Stripe's page -- this is just
       // for your own Stripe Dashboard records, so staff processing gifts
       // can see the tribute name and whether the donor asked to stay
@@ -124,15 +108,13 @@ module.exports = async function (context, req) {
         fee_covered: coverFee ? "yes" : "no",
         intended_amount_cents: String(Math.round(amountDollars * 100)),
       },
-      success_url: `${origin}/thank-you.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/give.html`,
     });
 
     context.res.status = 200;
-    context.res.body = { url: session.url };
+    context.res.body = { clientSecret: intent.client_secret, paymentIntentId: intent.id };
   } catch (err) {
-    context.log.error("Error creating Stripe Checkout Session:", err);
+    context.log.error("Error creating Stripe PaymentIntent:", err);
     context.res.status = 500;
-    context.res.body = { error: "Something went wrong starting checkout. Please try again, or use “Give another way” to give directly through Stripe." };
+    context.res.body = { error: "Something went wrong setting up the payment. Please try again, or use “Give another way” to give directly through Stripe." };
   }
 };
