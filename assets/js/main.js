@@ -549,8 +549,8 @@
      fallback straight to a Stripe Payment Link, independent of all of
      this, in case Stripe.js itself fails to load or something else here
      breaks. */
-  var DONATE_FEE_PERCENT = 0.03; // keep in sync with api/create-payment-intent + api/update-payment-intent
-  var DONATE_FEE_FIXED = 0.30;
+  var DONATE_FEE_PERCENT = 0.035; // Amex's rate (no fixed fee) -- the safe upper bound across realistic gift amounts; keep in sync with api/create-payment-intent + api/update-payment-intent
+  var DONATE_FEE_FIXED = 0; // Amex has no per-transaction fixed fee; Visa/Mastercard's $0.30 fixed fee only matters below ~$22, under nearly every real gift amount here
 
   // Safe to publish -- a Stripe *publishable* key (unlike the secret key)
   // is meant to live in public client-side code. Replace with your real
