@@ -620,8 +620,8 @@
      fallback straight to a Stripe Payment Link, independent of all of
      this, in case Stripe.js itself fails to load or something else here
      breaks. */
-  var DONATE_FEE_PERCENT = 0.035; // Amex's rate (no fixed fee) -- the safe upper bound across realistic gift amounts; keep in sync with api/create-payment-intent + api/update-payment-intent
-  var DONATE_FEE_FIXED = 0; // Amex has no per-transaction fixed fee; Visa/Mastercard's $0.30 fixed fee only matters below ~$22, under nearly every real gift amount here
+  var DONATE_FEE_PERCENT = 0.022; // DCC's Stripe nonprofit rate for Visa/Mastercard -- covers the large majority of donors; Amex costs more (3.5%) and is deliberately undercollected by this estimate, a gap the DCC absorbs. Keep in sync with api/create-payment-intent + api/update-payment-intent
+  var DONATE_FEE_FIXED = 0.3; // Visa/Mastercard's $0.30 fixed per-transaction fee, in dollars (this constant is dollars, not cents -- see its cents-context uses below)
 
   // Safe to publish -- a Stripe *publishable* key (unlike the secret key)
   // is meant to live in public client-side code. Replace with your real

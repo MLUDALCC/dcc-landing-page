@@ -13,8 +13,8 @@ const Stripe = require("stripe");
 
 const MIN_AMOUNT_CENTS = 500;
 const MAX_AMOUNT_CENTS = 2500000;
-const FEE_PERCENT = 0.035; // Amex's rate (no fixed fee) -- keep in sync with create-payment-intent/index.js
-const FEE_FIXED_CENTS = 0; // Amex has no fixed per-transaction fee
+const FEE_PERCENT = 0.022; // DCC's Stripe nonprofit rate for Visa/Mastercard -- keep in sync with create-payment-intent/index.js (see the NOTE there on why Amex is deliberately undercollected)
+const FEE_FIXED_CENTS = 30; // Visa/Mastercard's $0.30 fixed per-transaction fee
 
 function computeFeeCoveredTotalCents(baseCents) {
   return Math.round((baseCents + FEE_FIXED_CENTS) / (1 - FEE_PERCENT));

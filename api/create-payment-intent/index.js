@@ -13,24 +13,25 @@
 // Never commit a real Stripe secret key into this repo.
 //
 // NOTE ON THE FEE-COVER MATH: the exact processing fee depends on which
-// card network the donor ends up using (e.g. Visa/Mastercard vs. Amex),
-// but that isn't known until the donor enters their card inside Stripe's
-// own secure fields -- by then, this PaymentIntent's amount is already
-// set. So there's no way to compute an exact per-card-network fee ahead
-// of time; instead FEE_PERCENT/FEE_FIXED_CENTS below use Amex's rate
-// (currently 3.5%, no fixed fee), the highest-cost case across nearly
-// every real gift amount on this site, so the "cover the fee" checkbox
-// slightly overcollects on cheaper card types rather than ever falling
-// short. Double-check your own Stripe dashboard's current rates and
-// update these (kept in sync with update-payment-intent/index.js) if
-// they change.
+// card network the donor ends up using, but that isn't known until the
+// donor enters their card inside Stripe's own secure fields -- by then,
+// this PaymentIntent's amount is already set. So there's no way to
+// compute an exact per-card-network fee ahead of time. FEE_PERCENT/
+// FEE_FIXED_CENTS below use the DCC's Stripe nonprofit rate for
+// Visa/Mastercard (2.2% + $0.30), since that covers the large majority
+// of donors; Amex costs more (3.5%, no stated fixed fee), so the "cover
+// the fee" checkbox slightly undercollects on Amex gifts and the DCC
+// absorbs that small gap -- a deliberate tradeoff so most donors see an
+// accurate, not-inflated fee estimate. Double-check your own Stripe
+// dashboard's current rates and update these (kept in sync with
+// update-payment-intent/index.js) if they change.
 
 const Stripe = require("stripe");
 
 const MIN_AMOUNT_CENTS = 500; // $5 minimum -- keeps test/junk submissions out and matches the UI's stated minimum
 const MAX_AMOUNT_CENTS = 2500000; // $25,000 sanity ceiling -- guards against a typo becoming a runaway charge attempt; larger gifts should go through Ways to Give's other methods
-const FEE_PERCENT = 0.035; // Amex's rate (no fixed fee) -- see NOTE above
-const FEE_FIXED_CENTS = 0; // Amex has no fixed per-transaction fee
+const FEE_PERCENT = 0.022; // DCC's Stripe nonprofit rate for Visa/Mastercard -- see NOTE above
+const FEE_FIXED_CENTS = 30; // Visa/Mastercard's $0.30 fixed per-transaction fee
 
 function computeFeeCoveredTotalCents(baseCents) {
   // Solve for a total T such that, after Stripe deducts its cut from T,
