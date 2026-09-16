@@ -693,7 +693,7 @@
       if (!feeEstimateEl) return;
       var base = getBaseAmount();
       if (base == null) {
-        feeEstimateEl.textContent = "the processing fee";
+        feeEstimateEl.textContent = "an estimated amount";
         return;
       }
       var total = (base + DONATE_FEE_FIXED) / (1 - DONATE_FEE_PERCENT);
