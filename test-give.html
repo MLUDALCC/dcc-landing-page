@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Backend Test — $25 Gift</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 480px; margin: 80px auto; padding: 0 20px; color: #222; }
+  button { font-size: 18px; padding: 14px 28px; background: #1a5fb4; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  button:disabled { opacity: 0.6; cursor: default; }
+  #result { margin-top: 24px; padding: 16px; border-radius: 6px; white-space: pre-wrap; font-family: monospace; font-size: 13px; display: none; }
+  #result.success { background: #e6f4ea; border: 1px solid #34a853; display: block; }
+  #result.error { background: #fce8e6; border: 1px solid #d93025; display: block; }
+</style>
+</head>
+<body>
+  <h1>Backend Test Page</h1>
+  <p>This is a temporary, unlinked test page — not part of the live site. It calls the existing <code>/api/create-payment-intent</code> function with a hardcoded $25 amount and shows the raw result below. Safe to delete once the Azure investigation concludes.</p>
+
+  <button id="giveBtn">$25 — Give Now</button>
+
+  <div id="result"></div>
+
+  <script>
+    const btn = document.getElementById('giveBtn');
+    const resultEl = document.getElementById('result');
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      btn.textContent = 'Testing...';
+      resultEl.className = '';
+      resultEl.style.display = 'none';
+
+      const startedAt = new Date().toISOString();
+      try {
+        const res = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: 25 })
+        });
+
+        const rawText = await res.text();
+        let bodyDisplay = rawText;
+        try { bodyDisplay = JSON.stringify(JSON.parse(rawText), null, 2); } catch (e) { /* leave as raw text */ }
+
+        resultEl.className = res.ok ? 'success' : 'error';
+        resultEl.textContent =
+          `Time: ${startedAt}\n` +
+          `HTTP status: ${res.status} ${res.statusText}\n` +
+          `Content-Length header: ${res.headers.get('content-length')}\n\n` +
+          `Body:\n${bodyDisplay || '(empty)'}`;
+        resultEl.style.display = 'block';
+      } catch (err) {
+        resultEl.className = 'error';
+        resultEl.textContent = `Time: ${startedAt}\nRequest failed entirely (network/CORS error): ${err.message}`;
+        resultEl.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '$25 — Give Now';
+      }
+    });
+  </script>
+</body>
+</html>
