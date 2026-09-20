@@ -871,7 +871,14 @@
             return;
           }
           lastSyncedCents = cents;
-          if (elements) elements.update({ amount: cents });
+          // NOTE: we don't call elements.update({ amount }) here. That option
+          // is only valid for a Payment Element created without an intent
+          // (Stripe's "deferred" mode); this form initializes Elements with a
+          // clientSecret instead, and calling elements.update({ amount }) in
+          // that mode throws a Stripe.js integration error -- which the
+          // .catch() below was silently mislabeling as a network failure. The
+          // PaymentIntent's amount is already updated server-side by the
+          // successful fetch above, so there's nothing left to sync here.
           if (getFinalAmountCents() !== lastSyncedCents) scheduleSync();
         })
         .catch(function () {
