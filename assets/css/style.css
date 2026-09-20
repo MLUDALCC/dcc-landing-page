@@ -966,12 +966,18 @@ body.modal-open { overflow: hidden; }
 
 .donate-field { display: flex; flex-direction: column; gap: .4rem; }
 .donate-field label { font-size: .82rem; font-weight: 600; color: var(--ink-900); }
-.donate-field input[type="text"] {
+.donate-field input[type="text"],
+.donate-field input[type="email"],
+.donate-field input[type="password"] {
   padding: .7rem .9rem; border: 1px solid var(--line-100); border-radius: 4px;
   font-family: var(--font-sans); font-size: .95rem; color: var(--ink-900); background: var(--white);
 }
-.donate-field input[type="text"]:focus { outline: 2px solid var(--graphite-600); outline-offset: 1px; }
-.donate-field input[type="text"]::placeholder { color: var(--stone-ink); }
+.donate-field input[type="text"]:focus,
+.donate-field input[type="email"]:focus,
+.donate-field input[type="password"]:focus { outline: 2px solid var(--graphite-600); outline-offset: 1px; }
+.donate-field input[type="text"]::placeholder,
+.donate-field input[type="email"]::placeholder,
+.donate-field input[type="password"]::placeholder { color: var(--stone-ink); }
 
 .donate-checkbox {
   display: flex; align-items: flex-start; gap: .7rem; cursor: pointer;
