@@ -1,0 +1,12 @@
+{
+  "name": "dcc-website-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Azure Functions backend for the DCC website -- currently just the Stripe Checkout Session creator behind the custom Give Online form.",
+  "engines": {
+    "node": "18"
+  },
+  "dependencies": {
+    "stripe": "^22.0.0"
+  }
+}

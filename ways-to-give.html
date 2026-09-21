@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js-reveal');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ways to Give | Dallas Children&rsquo;s Chorus</title>
+<meta name="description" content="Explore the different ways to support the Dallas Children&rsquo;s Chorus, including online gifts, wire transfers, donor advised funds, IRA distributions, checks, and stock.">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<script src="https://js.stripe.com/v3/"></script>
+<link rel="stylesheet" href="assets/css/style.css?v=64">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================= HEADER ============================= -->
+<header class="site-header site-header--solid">
+  <div class="container">
+    <a href="index.html" class="wordmark">
+      <span class="wordmark__name wordmark__name--swap">
+        <img class="wordmark__logo wordmark__logo--color" src="assets/img/dcc-wordmark-color.png" alt="Dallas Children&rsquo;s Chorus">
+        <img class="wordmark__logo wordmark__logo--white" src="assets/img/dcc-wordmark-white.png" alt="" aria-hidden="true">
+      </span>
+      <span class="wordmark__tag">Official Children&rsquo;s Chorus of the Dallas Symphony Orchestra</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li class="main-nav__item">
+          <a class="main-nav__link" href="about-who-we-are.html" aria-expanded="false">About
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="about-who-we-are.html">Who We Are</a>
+            <a href="leadership.html">Leadership</a>
+            <a href="board-of-trustees.html">Board of Trustees</a>
+            <a href="our-connection-to-the-dso.html">DSO Connection</a>
+            <a href="faq.html">FAQ</a>
+          </div>
+        </li>
+
+        <li class="main-nav__item">
+          <a class="main-nav__link" href="#" aria-expanded="false">Sing With Us
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="programs.html">Programs</a>
+            <a href="auditions.html">Auditions</a>
+            <a href="family-portal.html">Current Families</a>
+          </div>
+        </li>
+
+        <li class="main-nav__item"><a class="main-nav__link" href="performances.html">Performances</a></li>
+
+        <li class="main-nav__item main-nav__item--current">
+          <a class="main-nav__link" href="give.html" aria-expanded="false">Give
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="give.html">Give</a>
+            <a href="ways-to-give.html">Ways to Give</a>
+          </div>
+        </li>
+
+        <li class="main-nav__item"><a class="main-nav__link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="auditions.html" class="btn btn--outline">Auditions</a>
+      <a href="give.html" class="btn btn--accent">Give</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================= MOBILE NAV ============================= -->
+<div class="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav__head">
+    <button class="mobile-nav__close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M20 4L4 20" stroke="#24272B" stroke-width="1.6"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav__body">
+    <ul>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>About</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="about-who-we-are.html">Who We Are</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="board-of-trustees.html">Board of Trustees</a>
+          <a href="our-connection-to-the-dso.html">DSO Connection</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </li>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>Sing With Us</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="programs.html">Programs</a>
+          <a href="auditions.html">Auditions</a>
+          <a href="family-portal.html">Current Families</a>
+        </div>
+      </li>
+      <li><a class="mobile-nav__top" href="performances.html"><span>Performances</span></a></li>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>Give</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="give.html">Give</a>
+          <a href="ways-to-give.html">Ways to Give</a>
+        </div>
+      </li>
+      <li><a class="mobile-nav__top" href="contact.html"><span>Contact</span></a></li>
+    </ul>
+    <div class="mobile-nav__actions">
+      <a href="auditions.html" class="btn btn--outline">Auditions</a>
+      <a href="give.html" class="btn btn--accent">Give</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============================= PAGE HERO ============================= -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="give.html">Give</a> / <span>Ways to Give</span></div>
+      <span class="eyebrow">Support the DCC</span>
+      <h1>Ways to Give</h1>
+      <p class="lede">There are several ways to make a gift to the DCC &mdash; choose whichever method works best for you and your financial goals.</p>
+    </div>
+  </section>
+
+  <!-- ============================= GIVING OPTIONS (ACCORDION) ============================= -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Giving Options</span>
+        <h2>Explore your options below</h2>
+      </div>
+
+      <div class="accordion" data-reveal>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">Give Online (Credit Card)
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">
+            <p>Give quickly and securely by credit or debit card &mdash; click below to open our secure giving form.</p>
+            <button type="button" class="btn btn--accent mt-sm js-open-give-modal">Give Now
+              <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+          </div></div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">Give by Wire Transfer
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">To make a gift by wire transfer, please contact us at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a> and our team will provide the necessary account and routing details.</div></div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">Give by Donor Advised Fund
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">We welcome gifts recommended through your donor advised fund. Please direct your DAF sponsor to Dallas Childrens Chorus Inc (EIN 41-5362609).<br><br>Checks should be mailed to:<br><br>Dallas Children&rsquo;s Chorus<br>11700 Preston Rd, Ste 660&ndash;644<br>Dallas, TX 75230</div></div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">IRA Qualified Charitable Distribution
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">If you are 70&frac12; or older, you may be able to make a tax-free gift directly from your IRA. Please direct your IRA custodian (e.g., Fidelity, Merrill Lynch, Schwab, Vanguard, etc.) to send the distribution via check in the amount you desire (up to the allowable limit) payable to Dallas Children&rsquo;s Chorus, Inc.<br><br>Checks should be mailed to:<br><br>Dallas Children&rsquo;s Chorus<br>11700 Preston Rd, Ste 660&ndash;644<br>Dallas, TX 75230<br><br>We recommend consulting your tax advisor to confirm your eligibility and the tax benefits of a qualified charitable distribution.</div></div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">Give by Check
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">To give via check, please ensure that all checks are made payable to Dallas Children&rsquo;s Chorus, Inc. List the intended purpose in the memo section or accompanying correspondence. Checks should be mailed to:<br><br>Dallas Children&rsquo;s Chorus<br>11700 Preston Rd, Ste 660&ndash;644<br>Dallas, TX 75230</div></div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">Give by Stock
+            <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <div class="accordion__panel"><div class="accordion__panel-inner">Gifts of appreciated securities or stock held by your bank or brokerage firm, or by you, offer tax advantages for donors and are easy to make. Your brokerage firm may transfer gifts of stock directly into the DCC&rsquo;s brokerage account. To make a gift of appreciated securities, please contact us first at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a> &mdash; our team will provide the brokerage details needed to complete the transfer.</div></div>
+        </div>
+      </div>
+
+      <div class="section-head mt-lg" data-reveal>
+        <span class="eyebrow">Helpful Resources &amp; Contacts</span>
+        <p class="body-text mt-lg">The Dallas Children&rsquo;s Chorus is a 501(c)(3) tax-exempt organization (EIN 41-5362609), and your donation is tax-deductible to the extent allowed by law. Please retain your email donation receipt as your official record.</p>
+      </div>
+      <dl class="program-facts" data-reveal>
+        <div>
+          <dt>DCC Tax ID (EIN)</dt>
+          <dd>41-5362609</dd>
+        </div>
+        <div>
+          <dt>Legal Name</dt>
+          <dd>Dallas Childrens Chorus Inc</dd>
+        </div>
+        <div>
+          <dt>Email</dt>
+          <dd><a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a></dd>
+        </div>
+        <div class="program-facts__full">
+          <dt>Mailing Address</dt>
+          <dd>11700 Preston Rd, Ste 660&ndash;644<br>Dallas, TX 75230</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================= CTA BAND ============================= -->
+  <section class="cta-band">
+    <div class="container container--narrow" data-reveal>
+      <span class="eyebrow eyebrow--center">Questions?</span>
+      <h2>We&rsquo;re happy to help.</h2>
+      <p>Reach out to our team for help choosing the right way to give.</p>
+      <div class="btn-row">
+        <a href="contact.html" class="btn btn--accent">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================= GIVE ONLINE MODAL (STRIPE) =============================
+     Opened by the "Give Online (Credit Card)" row above (class
+     js-open-give-modal; see the shared modal controller in
+     assets/js/main.js) instead of expanding inline like the other
+     accordion rows -- keeps the rest of the giving methods from being
+     pushed far down the page. Stripe's own hosted Checkout page is not
+     used here; the embedded Payment Element mounts directly inside
+     .donate-payment-element below via our own two Azure Functions
+     (create/update-payment-intent). If those are ever unavailable, the
+     "Give another way" link in the form's note is a plain, always-visible
+     fallback straight to a Stripe Payment Link, independent of all of
+     this. -->
+<div class="donate-modal" aria-hidden="true">
+  <div class="donate-modal__backdrop"></div>
+  <div class="donate-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
+    <div class="donate-box">
+      <button class="donate-modal__close" type="button" aria-label="Close">&times;</button>
+      <div class="section-head section-head--center">
+        <span class="eyebrow eyebrow--center">Give Online</span>
+        <h2 id="donate-modal-title">Support the DCC</h2>
+        <p class="body-text mt-lg">Choose an amount below and give securely.</p>
+      </div>
+
+      <form class="donate-form" novalidate>
+        <div class="donate-amounts" role="group" aria-label="Choose a donation amount">
+          <button type="button" class="donate-amount" data-amount="25">$25</button>
+          <button type="button" class="donate-amount" data-amount="50">$50</button>
+          <button type="button" class="donate-amount" data-amount="150">$150</button>
+          <button type="button" class="donate-amount" data-amount="500">$500</button>
+          <button type="button" class="donate-amount" data-amount="1000">$1,000</button>
+          <button type="button" class="donate-amount donate-amount--custom" data-amount="custom">Other</button>
+        </div>
+
+        <div class="donate-custom-amount" hidden>
+          <label for="ways-give-custom-amount">Enter an amount</label>
+          <div class="donate-custom-input-wrap">
+            <span aria-hidden="true">$</span>
+            <input type="number" id="ways-give-custom-amount" class="donate-custom-input" name="customAmount" min="5" step="1" inputmode="decimal" placeholder="0">
+          </div>
+        </div>
+
+        <div class="donate-field">
+          <label for="ways-give-tribute">In honor or memory of someone? (optional)</label>
+          <input type="text" id="ways-give-tribute" class="donate-tribute-input" name="tribute" maxlength="200" placeholder="Name">
+        </div>
+
+        <label class="donate-checkbox">
+          <input type="checkbox" class="donate-cover-fee" name="coverFee">
+          <span>Add <span class="donate-fee-estimate">an estimated amount</span> to help cover card processing fees, so 100% of my gift goes to the DCC</span>
+        </label>
+
+        <label class="donate-checkbox">
+          <input type="checkbox" class="donate-anonymous" name="anonymous">
+          <span>Keep my name out of public donor recognition (event programs, annual report, etc.). The DCC will still have your name and contact information privately, for your tax receipt and our internal records.</span>
+        </label>
+
+        <div class="donate-payment-field">
+          <p class="donate-payment-placeholder">Choose an amount above to continue.</p>
+          <div class="donate-payment-element" hidden></div>
+        </div>
+
+        <div class="donate-form__error" role="alert" hidden></div>
+
+        <button type="submit" class="btn btn--accent donate-submit">
+          <span class="donate-submit__label">Give Now</span>
+        </button>
+
+        <!-- STRIPE: replace the href below with your real Payment Link (e.g. https://buy.stripe.com/xxxxxxxx) once it's created. -->
+        <p class="donate-form__note">Your payment is processed securely by Stripe &mdash; cards, Apple Pay, and Google Pay are all supported. Prefer a simpler form? <a href="https://donate.stripe.com/7sY00j6fY9q8dXF4Sn97G00" target="_blank" rel="noopener">Give another way</a>.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="wordmark">
+          <span class="wordmark__name"><img class="wordmark__logo" src="assets/img/dcc-wordmark-white.png" alt="Dallas Children&rsquo;s Chorus"></span>
+        </a>
+        <p>Official Children&rsquo;s Chorus of the Dallas Symphony Orchestra, cultivating young voices across the Dallas-Fort Worth Metroplex and North Texas.</p>
+        <form class="footer-subscribe" action="#" method="post" data-subscribe-placeholder>
+          <label class="visually-hidden" for="footer-subscribe-email">Email address</label>
+          <input type="email" id="footer-subscribe-email" name="email" placeholder="Email address" required>
+          <button type="submit" aria-label="Subscribe to updates">
+            <svg width="16" height="16" viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+        </form>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v7h4v-7h3l1-4h-4v-2c0-.6.4-1 1-1z" stroke="currentColor" stroke-width="1.3"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about-who-we-are.html">Who We Are</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sing With Us</h4>
+        <ul>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="auditions.html">Auditions</a></li>
+          <li><a href="family-portal.html">Current Families</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Performances</h4>
+        <ul>
+          <li><a href="performances.html">Performances</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="give.html">Give</a></li>
+          <li><a href="ways-to-give.html">Ways to Give</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="footer-year">2026</span> Dallas Children&rsquo;s Chorus. All rights reserved.</span>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms-of-use.html">Terms of Use</a></li>
+        <li><a href="#">Directions</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=14"></script>
+</body>
+</html>
