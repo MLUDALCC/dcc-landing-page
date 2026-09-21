@@ -929,7 +929,7 @@ body.modal-open { overflow: hidden; }
   max-width: 560px; margin-inline: auto;
   padding: clamp(1.75rem, 4vw, 2.75rem);
 }
-.donate-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.donate-form, .family-login-form { display: flex; flex-direction: column; gap: 1.5rem; }
 
 .donate-amounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
 .donate-amount {
