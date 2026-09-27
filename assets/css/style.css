@@ -353,7 +353,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 
 .secondary-links { display: flex; align-items: center; gap: 1rem; }
 .secondary-links a {
-  font-size: .64rem; font-weight: 500; letter-spacing: .02em;
+  font-size: .69rem; font-weight: 500; letter-spacing: .02em;
   color: var(--stone-ink);
 }
 .secondary-links a:hover { color: var(--graphite-800); }
