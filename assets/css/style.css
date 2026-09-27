@@ -118,7 +118,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .eyebrow--center { justify-content: center; }
 .eyebrow--center::before { display: none; }
 .eyebrow--light { color: var(--stone-100); }
-.section--navy .eyebrow, .cta-band .eyebrow { color: var(--stone-100); }
+.cta-band .eyebrow { color: var(--stone-100); }
 
 h1, .h1 {
   font-family: var(--font-serif);
@@ -230,7 +230,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .site-header--transparent { background: transparent; }
 .site-header--solid,
 .site-header.is-scrolled {
-  background: rgba(247, 247, 245, .96);
+  background: rgba(255, 255, 255, .96); /* pure white, matching the page background -- was a warm off-white (247,247,245) that read as a visible grey seam against the white body, most noticeably at the very top of the page on mobile */
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom-color: var(--line-100);
 }
@@ -533,8 +533,12 @@ body.nav-open { overflow: hidden; }
 /* ---- Section rhythm ----------------------------------------------------*/
 .section { padding-block: var(--section-pad); }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
-.section--navy { background: var(--graphite-900); color: var(--white); }
-.section--navy h2, .section--navy h3 { color: var(--white); }
+/* A pale tint of the brand navy (not actually navy anymore -- kept the
+   dark, heavy treatment reserved for the hero and footer only) used to
+   set the "commitments" stat block apart from the plain white sections
+   around it, without the visual weight of a full dark band. */
+.section--tint { background: var(--graphite-100); color: var(--graphite-900); }
+.section--tint h2, .section--tint h3 { color: var(--graphite-900); }
 .section--cream { background: var(--cream-050); }
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head--center { margin-inline: auto; text-align: center; }
@@ -566,10 +570,10 @@ body.nav-open { overflow: hidden; }
   bottom: 0;
   left: -1rem;
   width: 1px;
-  background: rgba(255,255,255,.18);
+  background: rgba(11,42,74,.18); /* graphite-800 at low opacity -- was white-on-navy, now dark-on-pale-tint */
 }
-.stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--white); } /* only used inside .section--navy, so this stays white rather than following the (now navy) accent token */
-.stat__label { margin-top: .5rem; font-size: .82rem; letter-spacing: .06em; color: rgba(255,255,255,.75); }
+.stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
+.stat__label { margin-top: .5rem; font-size: .82rem; letter-spacing: .06em; color: var(--stone-ink); }
 @media (max-width: 780px) {
   .stat-grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.4rem; }
   .stat:nth-child(3)::before { display: none; }
