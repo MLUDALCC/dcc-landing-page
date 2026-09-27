@@ -16,14 +16,14 @@
   --graphite-600: #144e89;
   --graphite-100: #e9edf2;
 
-  --stone-600: #8c8579;
-  --stone-500: #a39c8d; /* muted warm-grey accent */
-  --stone-100: #e9e5dd;
-  --stone-ink: #726b5e; /* WCAG-AA-safe accent for small text on light backgrounds */
+  --stone-600: #0b2a4a; /* accent hover -- navy (was a warm tan/gold) */
+  --stone-500: #0f3964; /* accent -- navy (was a warm tan/gold); on navy hero/CTA sections the accent button flips to white instead, see .btn--accent override below */
+  --stone-100: #e6eaee; /* light neutral grey (was a warm sand tone) */
+  --stone-ink: #55616f; /* WCAG-AA-safe muted grey for small text on light backgrounds (was a warm brown-grey) */
 
-  --cream-000: #f7f7f5;
-  --cream-050: #efeeea;
-  --line-100: #e2e0dc;
+  --cream-000: #ffffff; /* page background -- crisp white (was a warm off-white) */
+  --cream-050: #f4f6f8; /* alternating section band -- cool pale grey (was a warm cream/sand) */
+  --line-100: #e1e5ea; /* hairline dividers -- cool light grey (was a warm sand-grey) */
 
   --ink-900: #0c2136;
   --ink-600: #2b5988;
@@ -172,8 +172,19 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .btn--primary { background: var(--graphite-800); color: var(--white); }
 .btn--primary:hover { background: var(--graphite-900); }
 
-.btn--accent { background: var(--stone-500); color: var(--graphite-900); }
+.btn--accent { background: var(--stone-500); color: var(--white); }
 .btn--accent:hover { background: var(--stone-600); }
+
+/* On navy backgrounds (hero banners, the CTA band) a navy accent button
+   would disappear against the navy fill, so it flips to a solid white
+   button there instead -- the same "one solid, one outline" CTA pairing
+   used on light sections, just inverted. */
+.hero .btn--accent, .page-hero .btn--accent, .cta-band .btn--accent {
+  background: var(--white); color: var(--graphite-900);
+}
+.hero .btn--accent:hover, .page-hero .btn--accent:hover, .cta-band .btn--accent:hover {
+  background: var(--cream-050);
+}
 
 .btn--outline { border-color: currentColor; color: var(--graphite-800); }
 .btn--outline:hover { background: var(--graphite-800); color: var(--white); }
