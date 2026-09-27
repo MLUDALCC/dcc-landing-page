@@ -159,8 +159,8 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .btn {
   display: inline-flex; align-items: center; gap: .6rem;
   font-family: var(--font-sans);
-  font-size: .92rem; font-weight: 600; letter-spacing: .02em;
-  padding: .95rem 1.9rem;
+  font-size: .86rem; font-weight: 600; letter-spacing: .02em;
+  padding: .7rem 1.45rem;
   border: 1px solid transparent;
   border-radius: 1px;
   transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .2s var(--ease);
@@ -207,7 +207,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   align-items: center;
   justify-content: space-between;
   max-width: 2000px; /* wider than the page content container, so a centered nav has room to breathe next to the wordmark and buttons */
-  height: 92px;
+  height: 92px; /* unchanged from before -- header-actions' two stacked rows now fit within the original height since the header buttons are shorter than the site-wide default */
   transition: height .3s var(--ease);
 }
 /* True centering (independent of the wordmark/actions' widths on either
@@ -337,8 +337,31 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 }
 .main-nav__panel a:hover { background: var(--cream-050); color: var(--graphite-800); }
 
-.header-actions { display: flex; align-items: center; gap: .9rem; }
+/* header-actions is now two stacked rows: the CTA buttons (+ the mobile
+   nav-toggle, which lives in that same row so it stays aligned with the
+   buttons rather than the smaller secondary row below), then the quiet
+   secondary links (News/Contact/Family Portal) tucked underneath them. */
+.header-actions {
+  display: flex; flex-direction: column; align-items: flex-end;
+  align-self: flex-end;
+  gap: .65rem;
+  padding-bottom: .5rem;
+}
+.header-actions__buttons { display: flex; align-items: center; gap: .7rem; }
+.header-actions__buttons .btn { padding-block: .5rem; } /* shorter than the site-wide .btn, just here, to make room for the secondary row below */
 .nav-toggle { display: none; }
+
+.secondary-links { display: flex; align-items: center; gap: 1rem; }
+.secondary-links a {
+  font-size: .64rem; font-weight: 500; letter-spacing: .02em;
+  color: var(--stone-ink);
+}
+.secondary-links a:hover { color: var(--graphite-800); }
+.site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
+/* Keeps the sticky/scrolled header compact rather than growing to fit
+   both rows permanently -- the secondary links are quiet, supplementary
+   content, so they can afford to step aside once the header shrinks. */
+.site-header.is-scrolled .secondary-links { display: none; }
 
 @media (max-width: 1199px) {
   /* Below ~1200px the nav row no longer has enough room to keep every
@@ -363,7 +386,11 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 @media (max-width: 640px) {
   .wordmark__tag { display: none; }
   .header-actions .btn--accent { display: none; }
-  .header-actions { gap: 0; }
+  .header-actions { gap: 0; padding-bottom: 0; }
+  /* No buttons left at this width (both are hidden above), so the
+     secondary links fold into the mobile drawer instead of floating
+     under a bare hamburger icon -- see .mobile-nav__secondary. */
+  .secondary-links { display: none; }
   .site-header .container { height: 76px; }
   .site-header.is-scrolled .container { height: 64px; }
 }
@@ -404,6 +431,16 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .mobile-nav li.is-open .chev { transform: rotate(180deg); }
 .mobile-nav__actions { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .8rem; }
 .mobile-nav__actions .btn { justify-content: center; }
+
+/* The drawer's own copy of the secondary links (News/Contact/Family
+   Portal) -- shown here instead of the header once the secondary-links
+   row hides itself at 640px and below. */
+.mobile-nav__secondary {
+  margin-top: 1.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line-100);
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.1rem;
+}
+.mobile-nav__secondary a { font-size: .82rem; font-weight: 500; color: var(--stone-ink); }
+.mobile-nav__secondary a:hover { color: var(--graphite-800); }
 
 body.nav-open { overflow: hidden; }
 
@@ -644,6 +681,72 @@ body.nav-open { overflow: hidden; }
 .news-card time { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
 .news-card h3 { margin-top: .6rem; }
 .news-card p { margin-top: .7rem; color: var(--ink-600); font-size: .95rem; }
+
+/* ---- News page (year sidebar + list) ---------------------------------------*/
+.news-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (92px) plus a little breathing room */
+.news-sidebar h2 {
+  font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--stone-ink); margin: 0 0 1rem;
+}
+.year-list { display: flex; flex-direction: column; gap: .15rem; }
+.year-list__btn {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  width: 100%; text-align: left;
+  background: none; border: 0; border-left: 2px solid transparent;
+  padding: .55rem .9rem;
+  font-family: var(--font-sans); font-size: .92rem; font-weight: 600;
+  color: var(--ink-600);
+  cursor: pointer;
+  transition: color .2s var(--ease), border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.year-list__btn:hover { color: var(--graphite-900); background: var(--cream-050); }
+.year-list__btn.is-active { color: var(--graphite-900); border-left-color: var(--stone-500); background: var(--cream-050); }
+.year-list__count { font-size: .74rem; font-weight: 500; color: var(--stone-ink); }
+
+.news-list { display: flex; flex-direction: column; gap: 2.4rem; }
+.news-list .news-card { border-top: 1px solid var(--line-100); padding-top: 1.6rem; }
+.news-list .news-card:first-child { border-top: none; padding-top: 0; }
+.news-empty { color: var(--ink-400); font-style: italic; }
+
+@media (max-width: 780px) {
+  .news-layout { grid-template-columns: 1fr; }
+  .news-sidebar { position: static; }
+  .year-list { flex-direction: row; flex-wrap: wrap; column-gap: 1.25rem; row-gap: .5rem; }
+  .year-list__btn { width: auto; border-left: 0; border-bottom: 2px solid transparent; padding: .3rem .1rem; background: none !important; }
+  .year-list__btn.is-active { border-bottom-color: var(--stone-500); }
+  .news-list .news-card:first-child { border-top: 1px solid var(--line-100); padding-top: 1.6rem; }
+}
+
+/* ---- Media page (recording grid) --------------------------------------------*/
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2.25rem, 4vw, 3.25rem);
+}
+@media (max-width: 780px) { .media-grid { grid-template-columns: 1fr; } }
+
+.media-item { display: flex; flex-direction: column; }
+.media-item .video-embed { margin-bottom: 1.6rem; }
+.media-item__placeholder {
+  aspect-ratio: 16/9;
+  margin-bottom: 1.6rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
+  background: var(--cream-050); border: 1px dashed var(--line-100);
+  color: var(--stone-ink);
+}
+.media-item__placeholder span { font-size: .82rem; font-weight: 600; letter-spacing: .02em; }
+.media-item__meta {
+  font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--stone-ink);
+}
+.media-item__body h3 { margin-top: .5rem; }
+.media-item__body p { margin-top: .6rem; color: var(--ink-600); font-size: .95rem; }
 
 /* ---- CTA band --------------------------------------------------------------*/
 .cta-band {
