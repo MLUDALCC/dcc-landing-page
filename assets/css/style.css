@@ -386,10 +386,13 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 @media (max-width: 640px) {
   .wordmark__tag { display: none; }
   .header-actions .btn--accent { display: none; }
-  .header-actions { gap: 0; padding-bottom: 0; }
-  /* No buttons left at this width (both are hidden above), so the
+  /* No buttons left at this width (both are hidden above) and the
      secondary links fold into the mobile drawer instead of floating
-     under a bare hamburger icon -- see .mobile-nav__secondary. */
+     under a bare hamburger icon -- see .mobile-nav__secondary. That
+     leaves header-actions holding just the hamburger, so the bottom
+     anchor that used to line its two rows up under the wordmark no
+     longer applies -- re-center it with the wordmark instead. */
+  .header-actions { gap: 0; padding-bottom: 0; align-self: center; }
   .secondary-links { display: none; }
   .site-header .container { height: 76px; }
   .site-header.is-scrolled .container { height: 64px; }
