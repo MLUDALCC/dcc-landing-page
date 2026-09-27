@@ -49,11 +49,21 @@ module.exports = async function (context, req) {
   const parentName = typeof body.parentName === "string" ? body.parentName.trim() : "";
   const email = typeof body.email === "string" ? body.email.trim() : "";
   const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+  // Mailing address is entirely optional -- not collected as a condition of
+  // submitting a pledge, just offered in case staff want to send a written
+  // thank-you or pledge reminder by mail.
+  const addressLine1 = typeof body.addressLine1 === "string" ? body.addressLine1.trim() : "";
+  const addressLine2 = typeof body.addressLine2 === "string" ? body.addressLine2.trim() : "";
+  const city = typeof body.city === "string" ? body.city.trim() : "";
+  const state = typeof body.state === "string" ? body.state.trim() : "";
+  const zip = typeof body.zip === "string" ? body.zip.trim() : "";
+  // Optional: not every donor is a chorister's family -- some are relatives
+  // or general supporters with no specific chorister to name.
   const choristerName = typeof body.choristerName === "string" ? body.choristerName.trim() : "";
   const cadence = typeof body.cadence === "string" ? body.cadence.trim() : "";
   const pledgeAmount = parseFloat(body.pledgeAmount);
 
-  if (!parentName || !email || !choristerName || !cadence) {
+  if (!parentName || !email || !cadence) {
     context.res.status = 400;
     context.res.body = { error: "Please fill in all required fields." };
     return;
@@ -76,7 +86,20 @@ module.exports = async function (context, req) {
     await appendRow(
       sheetId,
       SHEET_TAB_NAME,
-      [submittedAt, parentName, email, phone, choristerName, formattedAmount, cadence],
+      [
+        submittedAt,
+        parentName,
+        email,
+        phone,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        zip,
+        choristerName,
+        formattedAmount,
+        cadence,
+      ],
       clientEmail,
       privateKey
     );

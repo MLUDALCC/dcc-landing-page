@@ -345,7 +345,7 @@
 
         <form class="pledge-form" id="pledge-form" novalidate>
           <div class="donate-field">
-            <label for="pledge-parent-name">Parent/guardian name</label>
+            <label for="pledge-parent-name">Your name</label>
             <input type="text" id="pledge-parent-name" name="parentName" autocomplete="name" required placeholder="Your full name">
           </div>
 
@@ -360,8 +360,33 @@
           </div>
 
           <div class="donate-field">
-            <label for="pledge-chorister-name">Chorister&rsquo;s name</label>
-            <input type="text" id="pledge-chorister-name" name="choristerName" required placeholder="Your chorister&rsquo;s name">
+            <label for="pledge-address-line1">Mailing address (optional)</label>
+            <input type="text" id="pledge-address-line1" name="addressLine1" autocomplete="address-line1" placeholder="Street address">
+          </div>
+
+          <div class="donate-field">
+            <label for="pledge-address-line2" class="visually-hidden">Apartment, suite, etc. (optional)</label>
+            <input type="text" id="pledge-address-line2" name="addressLine2" autocomplete="address-line2" placeholder="Apt, suite, etc. (optional)">
+          </div>
+
+          <div class="donate-field">
+            <label for="pledge-city" class="visually-hidden">City</label>
+            <input type="text" id="pledge-city" name="city" autocomplete="address-level2" placeholder="City">
+          </div>
+
+          <div class="donate-field">
+            <label for="pledge-state" class="visually-hidden">State</label>
+            <input type="text" id="pledge-state" name="state" autocomplete="address-level1" placeholder="State" maxlength="2">
+          </div>
+
+          <div class="donate-field">
+            <label for="pledge-zip" class="visually-hidden">ZIP code</label>
+            <input type="text" id="pledge-zip" name="zip" autocomplete="postal-code" inputmode="numeric" placeholder="ZIP code" maxlength="10">
+          </div>
+
+          <div class="donate-field">
+            <label for="pledge-chorister-name">Chorister&rsquo;s name (optional)</label>
+            <input type="text" id="pledge-chorister-name" name="choristerName" placeholder="Leave blank if you&rsquo;re not connected to a specific chorister">
           </div>
 
           <div class="donate-custom-amount">
@@ -577,12 +602,17 @@
       var parentName = document.getElementById("pledge-parent-name").value.trim();
       var email = document.getElementById("pledge-email").value.trim();
       var phone = document.getElementById("pledge-phone").value.trim();
+      var addressLine1 = document.getElementById("pledge-address-line1").value.trim();
+      var addressLine2 = document.getElementById("pledge-address-line2").value.trim();
+      var city = document.getElementById("pledge-city").value.trim();
+      var state = document.getElementById("pledge-state").value.trim();
+      var zip = document.getElementById("pledge-zip").value.trim();
       var choristerName = document.getElementById("pledge-chorister-name").value.trim();
       var pledgeAmount = document.getElementById("pledge-amount").value;
       var cadenceInput = form.querySelector('input[name="cadence"]:checked');
       var cadence = cadenceInput ? cadenceInput.value : "";
 
-      if (!parentName || !email || !choristerName || !pledgeAmount || !cadence) {
+      if (!parentName || !email || !pledgeAmount || !cadence) {
         showError("Please fill in all required fields.");
         return;
       }
@@ -596,6 +626,11 @@
           parentName: parentName,
           email: email,
           phone: phone,
+          addressLine1: addressLine1,
+          addressLine2: addressLine2,
+          city: city,
+          state: state,
+          zip: zip,
           choristerName: choristerName,
           pledgeAmount: pledgeAmount,
           cadence: cadence
