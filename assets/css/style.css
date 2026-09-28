@@ -230,7 +230,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .site-header--transparent { background: transparent; }
 .site-header--solid,
 .site-header.is-scrolled {
-  background: rgba(255, 255, 255, .96); /* pure white, matching the page background -- was a warm off-white (247,247,245) that read as a visible grey seam against the white body, most noticeably at the very top of the page on mobile */
+  background: #fff; /* fully opaque -- at 96% opacity, the backdrop-filter's saturate(180%) boosted whatever sat directly behind the fixed header (most visibly the dark navy page-hero band that starts at the top of every interior page), tinting the header grey-blue instead of true white. Opaque leaves nothing for the filter to reveal. */
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom-color: var(--line-100);
 }
