@@ -644,16 +644,12 @@ body.nav-open { overflow: hidden; }
 .location-illustration .map-road-inwood-edge { fill: none; stroke: var(--cream-050); stroke-width: 34; }
 .location-illustration .map-road-inwood { fill: none; stroke: var(--graphite-600); stroke-width: 28; }
 .location-illustration .map-lane-divider { fill: none; stroke: rgba(255,255,255,.65); stroke-width: 1.5; stroke-dasharray: 7 8; }
-.location-illustration .map-lane-center { fill: none; stroke: rgba(255,255,255,.9); stroke-width: 2; stroke-dasharray: 14 10; }
 .location-illustration .map-road-drive { fill: none; stroke: var(--stone-100); stroke-width: 7; stroke-linecap: round; }
 
-/* Dedicated left-turn lane/pocket approaching the church drive, plus its
-   turn arrow -- drawn the same way as the roads (a light edge shape behind
-   a darker fill shape) so it reads as a lane, not a decoration. */
-.location-illustration .map-turnlane-edge { fill: var(--cream-050); }
-.location-illustration .map-turnlane { fill: var(--graphite-600); }
-.location-illustration .map-turn-arrow { fill: none; stroke: rgba(255,255,255,.9); stroke-width: 2.5; stroke-linecap: round; }
-.location-illustration .map-turn-arrowhead { fill: rgba(255,255,255,.9); }
+/* Raised median/gore island in the junction's acute corner -- the small
+   hatched island real skewed intersections use between merging roads. */
+.location-illustration .map-gore { fill: var(--cream-050); stroke: var(--line-100); stroke-width: 1.5; }
+.location-illustration .map-gore-hatch { stroke: var(--line-100); stroke-width: 1.5; }
 
 .location-illustration .map-building { fill: var(--stone-100); stroke: var(--line-100); stroke-width: 1.5; }
 .location-illustration .map-building-seam { stroke: var(--line-100); stroke-width: 1.5; }
@@ -669,7 +665,7 @@ body.nav-open { overflow: hidden; }
 }
 .location-illustration .map-label-road--sub { font-size: 10.5px; font-weight: 500; letter-spacing: .04em; fill: rgba(255,255,255,.8); }
 .location-illustration .map-label-building {
-  font-family: var(--font-serif); font-size: 18px; fill: var(--graphite-900);
+  font-family: var(--font-serif); font-size: 16.5px; fill: var(--graphite-900);
 }
 .location-illustration .map-label-building--sub { font-family: var(--font-sans); font-size: 12px; letter-spacing: .03em; fill: var(--stone-ink); }
 .location-illustration .map-label-building--prep { font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; letter-spacing: .02em; fill: var(--ink-600); }
