@@ -632,35 +632,64 @@ body.nav-open { overflow: hidden; }
   padding: 1.5rem;
 }
 .location-illustration svg { display: block; width: 100%; height: auto; }
-.location-illustration .map-road-highway { fill: none; stroke: var(--graphite-700); stroke-width: 15; stroke-linecap: round; }
-.location-illustration .map-road-inwood { fill: none; stroke: var(--graphite-600); stroke-width: 12; stroke-linecap: round; }
-.location-illustration .map-road-drive { fill: none; stroke: var(--stone-100); stroke-width: 5; stroke-linecap: round; }
-.location-illustration .map-lane-marking { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 1.5; stroke-dasharray: 8 9; }
+
+/* Roads are layered: a wider "edge" stroke drawn first, a narrower fill
+   stroke on top, leaving a thin light reveal at both edges (a cheap but
+   convincing stand-in for painted road-edge lines without having to compute
+   true parallel curves). A dashed centerline plus two dashed lane dividers
+   (offset copies of the same path -- an approximation, not a true parallel
+   offset, but convincing at this curve depth) suggest a multi-lane road. */
+.location-illustration .map-road-highway-edge { fill: none; stroke: var(--cream-050); stroke-width: 46; stroke-linecap: round; }
+.location-illustration .map-road-highway { fill: none; stroke: var(--graphite-700); stroke-width: 40; stroke-linecap: round; }
+.location-illustration .map-road-inwood-edge { fill: none; stroke: var(--cream-050); stroke-width: 34; }
+.location-illustration .map-road-inwood { fill: none; stroke: var(--graphite-600); stroke-width: 28; }
+.location-illustration .map-lane-divider { fill: none; stroke: rgba(255,255,255,.65); stroke-width: 1.5; stroke-dasharray: 7 8; }
+.location-illustration .map-lane-center { fill: none; stroke: rgba(255,255,255,.9); stroke-width: 2; stroke-dasharray: 14 10; }
+.location-illustration .map-road-drive { fill: none; stroke: var(--stone-100); stroke-width: 7; stroke-linecap: round; }
+
+/* Dedicated left-turn lane/pocket approaching the church drive, plus its
+   turn arrow -- drawn the same way as the roads (a light edge shape behind
+   a darker fill shape) so it reads as a lane, not a decoration. */
+.location-illustration .map-turnlane-edge { fill: var(--cream-050); }
+.location-illustration .map-turnlane { fill: var(--graphite-600); }
+.location-illustration .map-turn-arrow { fill: none; stroke: rgba(255,255,255,.9); stroke-width: 2.5; stroke-linecap: round; }
+.location-illustration .map-turn-arrowhead { fill: rgba(255,255,255,.9); }
+
 .location-illustration .map-building { fill: var(--stone-100); stroke: var(--line-100); stroke-width: 1.5; }
+.location-illustration .map-building-seam { stroke: var(--line-100); stroke-width: 1.5; }
+
+/* Road names sit in solid pill tags beside the road rather than as text
+   laid directly on a curving stroke -- guarantees full contrast regardless
+   of where the road bends, which loose text-on-road labels couldn't. */
+.location-illustration .map-tag rect { fill: var(--graphite-800); }
+.location-illustration .map-tag-leader { stroke: var(--line-100); stroke-width: 1.5; stroke-dasharray: 2 4; }
 .location-illustration .map-label-road {
-  font-family: var(--font-sans); font-size: 15px; font-weight: 600;
-  letter-spacing: .04em; text-transform: uppercase; fill: var(--cream-000);
+  font-family: var(--font-sans); font-size: 14px; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase; fill: var(--cream-000);
 }
-.location-illustration .map-label-road--sub { font-size: 11px; font-weight: 500; letter-spacing: .03em; fill: rgba(255,255,255,.85); }
+.location-illustration .map-label-road--sub { font-size: 10.5px; font-weight: 500; letter-spacing: .04em; fill: rgba(255,255,255,.8); }
 .location-illustration .map-label-building {
-  font-family: var(--font-serif); font-size: 17px; fill: var(--graphite-900);
+  font-family: var(--font-serif); font-size: 18px; fill: var(--graphite-900);
 }
-.location-illustration .map-label-building--sub {
-  font-family: var(--font-sans); font-size: 12px; letter-spacing: .03em; fill: var(--stone-ink);
-}
+.location-illustration .map-label-building--sub { font-family: var(--font-sans); font-size: 12px; letter-spacing: .03em; fill: var(--stone-ink); }
+.location-illustration .map-label-building--prep { font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; letter-spacing: .02em; fill: var(--ink-600); }
 .location-illustration .map-pin-tag {
-  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
-  letter-spacing: .02em; fill: var(--cream-000);
+  font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+  letter-spacing: .03em; fill: var(--cream-000);
 }
 .location-illustration .map-compass { fill: var(--stone-ink); font-family: var(--font-sans); font-size: 13px; font-weight: 600; }
+.location-illustration .map-not-to-scale {
+  font-family: var(--font-sans); font-size: 10.5px; font-style: italic; fill: var(--stone-ink); opacity: .75;
+}
 .location-illustration figcaption {
   margin-top: 1rem; font-size: .88rem; color: var(--ink-600); line-height: 1.55;
 }
 @media (max-width: 640px) {
   .location-illustration { padding: 1.1rem; }
-  .location-illustration .map-label-road { font-size: 13px; }
-  .location-illustration .map-label-road--sub { font-size: 10px; }
+  .location-illustration .map-label-road { font-size: 12px; }
+  .location-illustration .map-label-road--sub { font-size: 9.5px; }
   .location-illustration .map-label-building { font-size: 15px; }
+  .location-illustration .map-not-to-scale { display: none; }
 }
 .location-cta { margin-top: 1.25rem; }
 

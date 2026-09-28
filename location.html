@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/style.css?v=67">
+<link rel="stylesheet" href="assets/css/style.css?v=68">
 </head>
 <body>
 
@@ -165,49 +165,107 @@
       </dl>
 
       <figure class="location-illustration" data-reveal>
-        <svg viewBox="0 0 640 440" role="img" aria-labelledby="locMapTitle locMapDesc" xmlns="http://www.w3.org/2000/svg">
-          <title id="locMapTitle">Simplified map of the DCC rehearsal location</title>
-          <desc id="locMapDesc">Lovers Lane United Methodist Church sits at the northeast corner of Inwood Road and Northwest Highway (Loop 12) in Dallas. Turn into the church parking lot from Inwood Road and use Entrance D.</desc>
+        <svg viewBox="0 0 640 480" role="img" aria-labelledby="locMapTitle locMapDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="locMapTitle">Illustrated map of the DCC rehearsal location</title>
+          <desc id="locMapDesc">Lovers Lane United Methodist Church sits at the northeast corner of the signalized intersection of Inwood Road and Northwest Highway (Loop 12) in Dallas. Turn left into the church parking lot from Inwood Road and use Entrance D, at the Wesley Prep wing.</desc>
 
-          <path class="map-road-highway" d="M -10 250 C 120 220 220 290 300 320 C 400 360 520 330 650 285"/>
-          <path class="map-lane-marking" d="M -10 250 C 120 220 220 290 300 320 C 400 360 520 330 650 285"/>
+          <defs>
+            <filter id="mapSoftShadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0c2136" flood-opacity=".18"/>
+            </filter>
+          </defs>
 
-          <path class="map-road-inwood" d="M 255 -10 L 250 260 C 246 300 220 340 165 450"/>
-          <path class="map-lane-marking" d="M 255 -10 L 250 260 C 246 300 220 340 165 450"/>
+          <!-- Northwest Hwy: wide arterial band, edge lines + dashed lane dividers -->
+          <path class="map-road-highway-edge" d="M -10 300 C 110 283 180 300 250 330 C 320 360 470 322 650 300"/>
+          <path class="map-road-highway" d="M -10 300 C 110 283 180 300 250 330 C 320 360 470 322 650 300"/>
+          <path class="map-lane-divider" d="M -10 291 C 110 274 180 291 250 321 C 320 351 470 313 650 291" opacity=".55"/>
+          <path class="map-lane-divider" d="M -10 309 C 110 292 180 309 250 339 C 320 369 470 331 650 309" opacity=".55"/>
+          <path class="map-lane-center" d="M -10 300 C 110 283 180 300 250 330 C 320 360 470 322 650 300"/>
 
-          <path class="map-road-drive" d="M 252 165 C 278 168 305 173 332 179"/>
-          <path class="map-road-drive" d="M 233 330 C 272 315 308 300 348 290"/>
+          <!-- Inwood Rd: straight north/south arterial, edge lines + lane dividers -->
+          <path class="map-road-inwood-edge" d="M 250 -10 L 250 490"/>
+          <path class="map-road-inwood" d="M 250 -10 L 250 490"/>
+          <path class="map-lane-divider" d="M 241 -10 L 241 490" opacity=".55"/>
+          <path class="map-lane-divider" d="M 259 -10 L 259 490" opacity=".55"/>
+          <path class="map-lane-center" d="M 250 -10 L 250 165" stroke-dasharray="0"/>
+          <path class="map-lane-center" d="M 250 268 L 250 490" stroke-dasharray="0"/>
 
-          <polygon class="map-building" points="335,175 470,145 470,115 555,130 555,235 485,250 485,295 345,288"/>
+          <!-- dedicated left-turn lane into the church drive: the band tapers
+               smoothly outward rather than butting into a hard rectangle, so
+               it reads as a merge lane, not a stuck-on block -->
+          <polygon class="map-turnlane-edge" points="264,166 306,208 306,250 264,268"/>
+          <polygon class="map-turnlane" points="267,171 299,209 299,246 267,262"/>
+          <path class="map-lane-divider" d="M 266 172 L 266 262" opacity=".7"/>
+          <path class="map-turn-arrow" d="M 279 244 L 279 214 C 279 208 282 205 288 205 L 297 205"/>
+          <polygon class="map-turn-arrowhead" points="293,199 306,205 293,211"/>
 
-          <text class="map-label-road" x="70" y="232" transform="rotate(-9 70 232)">Northwest Hwy</text>
-          <text class="map-label-road map-label-road--sub" x="70" y="250" transform="rotate(-9 70 250)">Loop 12</text>
-          <text class="map-label-road" x="255" y="90" text-anchor="middle" transform="rotate(-90 255 90)">Inwood Rd</text>
+          <!-- signalized intersection marker -->
+          <g class="map-signal" transform="translate(206,338)" filter="url(#mapSoftShadow)">
+            <line x1="0" y1="26" x2="0" y2="0" stroke="#3a4148" stroke-width="3"/>
+            <rect x="-7" y="-30" width="14" height="32" rx="3" fill="#22262b"/>
+            <circle cx="0" cy="-23" r="3.4" fill="#cfd6dc"/>
+            <circle cx="0" cy="-14" r="3.4" fill="#6b7480"/>
+            <circle cx="0" cy="-5" r="3.4" fill="#6b7480"/>
+          </g>
 
-          <text class="map-label-building" x="465" y="185" text-anchor="middle">
-            <tspan x="465" dy="0">Lovers Lane</tspan>
-            <tspan x="465" dy="21">United Methodist Church</tspan>
+          <!-- driveway connector: turn lane into the campus drive -->
+          <path class="map-road-drive" d="M 306 214 L 332 222"/>
+
+          <!-- building: two adjoining wings sharing one roofline, Wesley
+               Prep (nearest Inwood Rd) divided from the main building by a
+               single seam rather than a contrasting fill, so it reads as
+               one campus rather than two unrelated blocks -->
+          <g filter="url(#mapSoftShadow)">
+            <rect class="map-building" x="332" y="180" width="100" height="118"/>
+            <rect class="map-building" x="432" y="122" width="188" height="176"/>
+            <line class="map-building-seam" x1="432" y1="122" x2="432" y2="298"/>
+          </g>
+
+          <!-- road name tags -->
+          <g class="map-tag" transform="translate(60,62)">
+            <rect width="128" height="32" rx="16"/>
+            <text x="64" y="21" text-anchor="middle" class="map-label-road">INWOOD RD</text>
+          </g>
+          <line class="map-tag-leader" x1="150" y1="94" x2="234" y2="140"/>
+
+          <g class="map-tag" transform="translate(16,384)">
+            <rect width="176" height="50" rx="16"/>
+            <text x="88" y="21" text-anchor="middle" class="map-label-road">NORTHWEST HWY</text>
+            <text x="88" y="39" text-anchor="middle" class="map-label-road map-label-road--sub">LOOP 12</text>
+          </g>
+          <line class="map-tag-leader" x1="130" y1="384" x2="152" y2="298"/>
+
+          <!-- building labels -->
+          <text class="map-label-building" x="526" y="196" text-anchor="middle">
+            <tspan x="526" dy="0">Lovers Lane</tspan>
+            <tspan x="526" dy="22">United Methodist Church</tspan>
           </text>
-          <text class="map-label-building map-label-building--sub" x="465" y="232" text-anchor="middle">9200 Inwood Rd</text>
+          <text class="map-label-building map-label-building--sub" x="526" y="246" text-anchor="middle">9200 Inwood Rd</text>
+          <text class="map-label-building map-label-building--prep" x="382" y="266" text-anchor="middle">Wesley Prep</text>
 
-          <line x1="300" y1="160" x2="328" y2="158" stroke="#0B2A4A" stroke-width="1.5"/>
-          <rect x="182" y="146" width="120" height="28" rx="4" fill="#0B2A4A"/>
-          <text class="map-pin-tag" x="242" y="164" text-anchor="middle">ENTRANCE D</text>
-          <g transform="translate(317,143)">
+          <!-- entrance D pin + tag: tag sits above the pin in the clear
+               space above the turn lane, so its leader doesn't cross (and
+               hide) the turn arrow below -->
+          <line x1="338" y1="160" x2="332" y2="198" stroke="#0B2A4A" stroke-width="1.5"/>
+          <g filter="url(#mapSoftShadow)">
+            <rect x="272" y="128" width="132" height="32" rx="5" fill="#0B2A4A"/>
+          </g>
+          <text class="map-pin-tag" x="338" y="149" text-anchor="middle">ENTRANCE D</text>
+          <g transform="translate(317,185)" filter="url(#mapSoftShadow)">
             <path d="M15 0C6.7 0 0 6.7 0 15c0 10.3 13 21.6 14 22.5.6.5 1.4.5 2 0C17 36.6 30 25.3 30 15 30 6.7 23.3 0 15 0z" fill="#0B2A4A"/>
             <circle cx="15" cy="15" r="5.5" fill="#ffffff"/>
           </g>
 
+          <!-- compass -->
           <g transform="translate(600,38)">
             <path class="map-compass" d="M0,-13 L6,5 L0,1 L-6,5 Z"/>
             <text class="map-compass" x="0" y="24" text-anchor="middle">N</text>
           </g>
+
+          <text class="map-not-to-scale" x="628" y="468" text-anchor="end">Illustration not to scale</text>
         </svg>
-        <figcaption>Lovers Lane United Methodist Church sits at the northeast corner of Inwood Road and Northwest Highway (Loop&nbsp;12). Turn into the church parking lot from Inwood Road and use <strong>Entrance D</strong>, near Wesley Prep, for DCC rehearsals.</figcaption>
+        <figcaption>Lovers Lane United Methodist Church sits at the northeast corner of the signalized intersection of Inwood Road and Northwest Highway (Loop&nbsp;12). Use the dedicated left-turn lane off Inwood Road into the church parking lot, then <strong>Entrance D</strong>, at the Wesley Prep wing, for DCC rehearsals.</figcaption>
       </figure>
-      <p class="location-cta">
-        <a class="btn btn--outline" href="contact.html">Other Ways to Reach Us</a>
-      </p>
     </div>
   </section>
 
