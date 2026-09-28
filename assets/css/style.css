@@ -234,7 +234,12 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom-color: var(--line-100);
 }
-.site-header.is-scrolled .container { height: 74px; }
+/* No height reduction here anymore: the scrolled header used to drop
+   the secondary links (News/Contact/Family Portal) so a single row of
+   buttons could fit a shorter bar. Now that those links stay visible at
+   every scroll position (see .secondary-links below), the header still
+   needs room for both rows while scrolled, so it keeps the same height
+   as the unscrolled state instead of shrinking out from under them. */
 
 .wordmark {
   font-family: var(--font-wordmark);
@@ -358,10 +363,6 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
-/* Keeps the sticky/scrolled header compact rather than growing to fit
-   both rows permanently -- the secondary links are quiet, supplementary
-   content, so they can afford to step aside once the header shrinks. */
-.site-header.is-scrolled .secondary-links { display: none; }
 
 @media (max-width: 1199px) {
   /* Below ~1200px the nav row no longer has enough room to keep every
