@@ -9,25 +9,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
 
 :root {
-  /* Brand — navy system, derived from the DCC logo (0B2A4A) */
-  --graphite-900: #09223d;
-  --graphite-800: #0B2A4A; /* primary brand navy, from the DCC logo */
-  --graphite-700: #0f3964;
-  --graphite-600: #144e89;
-  --graphite-100: #e9edf2;
+  /* Neutral system -- navy is reserved for the DCC logo artwork itself
+     (unchanged, still #0B2A4A) and no longer feeds any UI color below.
+     Text, buttons and section backgrounds all run on true neutral greys,
+     with a single teal accent standing in for the old navy "accent". */
+  --graphite-900: #1c1e21;
+  --graphite-800: #23262a; /* was the brand navy; now the one dark neutral reserved for buttons and other small dark UI elements */
+  --graphite-700: #3a3d40;
+  --graphite-600: #53565a;
+  --graphite-100: #eceeef;
 
-  --stone-600: #0b2a4a; /* accent hover -- navy (was a warm tan/gold) */
-  --stone-500: #0f3964; /* accent -- navy (was a warm tan/gold); on navy hero/CTA sections the accent button flips to white instead, see .btn--accent override below */
-  --stone-100: #e6eaee; /* light neutral grey (was a warm sand tone) */
-  --stone-ink: #55616f; /* WCAG-AA-safe muted grey for small text on light backgrounds (was a warm brown-grey) */
+  --stone-600: #0f5066; /* accent hover -- teal (was navy) */
+  --stone-500: #1a7b99; /* accent -- teal (was navy); the site's one accent colour, used for buttons, links, focus rings and small highlights */
+  --stone-100: #e9e9ea; /* light neutral grey, used for text on the one remaining dark section (the homepage hero video) */
+  --stone-ink: #5b5f63; /* WCAG-AA-safe true neutral grey for small text on light backgrounds (was blue-tinted) */
 
-  --cream-000: #ffffff; /* page background -- crisp white (was a warm off-white) */
-  --cream-050: #f4f6f8; /* alternating section band -- cool pale grey (was a warm cream/sand) */
-  --line-100: #e1e5ea; /* hairline dividers -- cool light grey (was a warm sand-grey) */
+  --cream-000: #ffffff; /* page background -- crisp white */
+  --cream-050: #f5f5f6; /* alternating section band / light section backgrounds (page-hero, CTA band, footer) -- true neutral, was a cool blue-tinted grey */
+  --line-100: #e3e5e7; /* hairline dividers -- true neutral, was blue-tinted */
 
-  --ink-900: #0c2136;
-  --ink-600: #2b5988;
-  --ink-400: #3b6a9a;
+  --ink-900: #1c1e21;
+  --ink-600: #4c5157;
+  --ink-400: #6b6f74;
 
   --white: #ffffff;
 
@@ -118,7 +121,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .eyebrow--center { justify-content: center; }
 .eyebrow--center::before { display: none; }
 .eyebrow--light { color: var(--stone-100); }
-.cta-band .eyebrow { color: var(--stone-100); }
+.cta-band .eyebrow { color: var(--stone-500); }
 
 h1, .h1 {
   font-family: var(--font-serif);
@@ -175,22 +178,25 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .btn--accent { background: var(--stone-500); color: var(--white); }
 .btn--accent:hover { background: var(--stone-600); }
 
-/* On navy backgrounds (hero banners, the CTA band) a navy accent button
-   would disappear against the navy fill, so it flips to a solid white
-   button there instead -- the same "one solid, one outline" CTA pairing
-   used on light sections, just inverted. */
-.hero .btn--accent, .page-hero .btn--accent, .cta-band .btn--accent {
-  background: var(--white); color: var(--graphite-900);
-}
-.hero .btn--accent:hover, .page-hero .btn--accent:hover, .cta-band .btn--accent:hover {
-  background: var(--cream-050);
-}
-
 .btn--outline { border-color: currentColor; color: var(--graphite-800); }
 .btn--outline:hover { background: var(--graphite-800); color: var(--white); }
 
+/* Built for the one remaining dark section (the homepage hero video) --
+   a light border/text that stays legible over the footage. */
 .btn--outline-light { border-color: rgba(255,255,255,.55); color: var(--white); }
 .btn--outline-light:hover { background: var(--white); color: var(--graphite-900); border-color: var(--white); }
+
+/* The CTA band and every interior page-hero are light sections now, so an
+   outline-light button there would be invisible (light-on-light) -- it
+   renders like the ordinary dark outline button instead. The homepage
+   hero keeps the light styling above, since its video background stays
+   dark. */
+.cta-band .btn--outline-light, .page-hero .btn--outline-light {
+  border-color: var(--graphite-800); color: var(--graphite-800);
+}
+.cta-band .btn--outline-light:hover, .page-hero .btn--outline-light:hover {
+  background: var(--graphite-800); color: var(--white); border-color: var(--graphite-800);
+}
 
 .btn--ghost { padding: 0; color: var(--graphite-800); border-bottom: 1px solid var(--stone-500); border-radius: 0; }
 .btn--ghost:hover { color: var(--stone-600); }
@@ -534,11 +540,12 @@ body.nav-open { overflow: hidden; }
 /* ---- Section rhythm ----------------------------------------------------*/
 .section { padding-block: var(--section-pad); }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
-/* A pale tint of the brand navy (not actually navy anymore -- kept the
-   dark, heavy treatment reserved for the hero and footer only) used to
-   set the "commitments" stat block apart from the plain white sections
-   around it, without the visual weight of a full dark band. */
-.section--tint { background: var(--graphite-100); color: var(--graphite-900); }
+/* Sets the "commitments" stat block apart from the plain white sections
+   around it. Uses the same --cream-050 floor as the page-hero, CTA band
+   and footer, so no section between the hero and the footer ever reads
+   darker than that shared light tone -- the homepage's video hero is the
+   one deliberately darker exception. */
+.section--tint { background: var(--cream-050); color: var(--graphite-900); }
 .section--tint h2, .section--tint h3 { color: var(--graphite-900); }
 .section--cream { background: var(--cream-050); }
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -558,7 +565,7 @@ body.nav-open { overflow: hidden; }
 .mission-strip cite { display: block; margin-bottom: 1.2rem; font-style: normal; }
 
 /* ---- Video embed ----------------------------------------------------------*/
-.video-embed { position: relative; aspect-ratio: 16/9; background: var(--graphite-800); }
+.video-embed { position: relative; aspect-ratio: 16/9; background: var(--cream-050); }
 .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
 .video-embed .frame { position: absolute; inset: 18px -18px -18px 18px; border: 1px solid var(--stone-500); z-index: -1; }
 /* ---- Stats ---------------------------------------------------------------*/
@@ -831,16 +838,16 @@ body.nav-open { overflow: hidden; }
 
 /* ---- CTA band --------------------------------------------------------------*/
 .cta-band {
-  background: var(--graphite-800); color: var(--white);
+  background: var(--cream-050); color: var(--graphite-900);
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
   text-align: center;
 }
-.cta-band h2 { color: var(--white); }
-.cta-band p { color: rgba(255,255,255,.82); margin-top: 1rem; max-width: 56ch; margin-inline: auto; }
+.cta-band h2 { color: var(--graphite-900); }
+.cta-band p { color: var(--ink-600); margin-top: 1rem; max-width: 56ch; margin-inline: auto; }
 .cta-band .btn-row { display: flex; justify-content: center; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap; }
 
 /* ---- Subscribe / newsletter -------------------------------------------------*/
-.subscribe-band { text-align: center; background: var(--stone-100); }
+.subscribe-band { text-align: center; background: var(--cream-050); }
 .subscribe-band p.body-text { max-width: 52ch; margin-inline: auto; margin-top: 1rem; }
 .subscribe-form { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
 .subscribe-form input[type="email"] {
@@ -849,57 +856,57 @@ body.nav-open { overflow: hidden; }
   font-family: var(--font-sans); font-size: .95rem; color: var(--ink-900); background: var(--white);
 }
 .subscribe-form input[type="email"]::placeholder { color: var(--stone-ink); }
-.subscribe-form input[type="email"]:focus { outline: 2px solid var(--graphite-600); outline-offset: 2px; }
+.subscribe-form input[type="email"]:focus { outline: 2px solid var(--stone-500); outline-offset: 2px; }
 .subscribe-form .btn { flex: 0 0 auto; }
 .subscribe-form__placeholder-note { margin-top: 1rem; font-size: .85rem; color: var(--stone-ink); }
 
 .footer-subscribe { display: flex; gap: .5rem; margin-top: 1.3rem; max-width: 320px; }
 .footer-subscribe input[type="email"] {
   flex: 1 1 auto; min-width: 0; padding: .65rem .85rem;
-  border: 1px solid rgba(255,255,255,.25); border-radius: 4px;
-  background: rgba(255,255,255,.06); color: var(--white);
+  border: 1px solid var(--line-100); border-radius: 4px;
+  background: var(--white); color: var(--graphite-900);
   font-family: var(--font-sans); font-size: .88rem;
 }
-.footer-subscribe input[type="email"]::placeholder { color: rgba(255,255,255,.5); }
-.footer-subscribe input[type="email"]:focus { outline: 2px solid var(--white); outline-offset: 1px; background: rgba(255,255,255,.1); }
+.footer-subscribe input[type="email"]::placeholder { color: var(--stone-ink); }
+.footer-subscribe input[type="email"]:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
 .footer-subscribe button {
   flex: 0 0 auto; width: 40px; height: 40px; border-radius: 4px;
-  border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--white);
+  border: 1px solid var(--stone-500); background: transparent; color: var(--stone-500);
   display: inline-flex; align-items: center; justify-content: center;
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
-.footer-subscribe button:hover { background: var(--white); color: var(--graphite-900); border-color: var(--white); }
-.footer-brand .subscribe-form__placeholder-note { margin-top: .6rem; font-size: .8rem; color: rgba(255,255,255,.55); max-width: 40ch; }
+.footer-subscribe button:hover { background: var(--stone-500); color: var(--white); border-color: var(--stone-500); }
+.footer-brand .subscribe-form__placeholder-note { margin-top: .6rem; font-size: .8rem; color: var(--stone-ink); max-width: 40ch; }
 
 /* ---- Footer ----------------------------------------------------------------*/
-.site-footer { background: var(--graphite-900); color: rgba(255,255,255,.85); padding-top: clamp(3.5rem, 7vw, 5rem); }
+.site-footer { background: var(--cream-050); color: var(--ink-600); border-top: 1px solid var(--line-100); padding-top: clamp(3.5rem, 7vw, 5rem); }
 .footer-grid {
   display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 2.5rem;
-  padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.14);
+  padding-bottom: 3rem; border-bottom: 1px solid var(--line-100);
 }
 @media (max-width: 980px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
-.footer-brand .wordmark { color: var(--white); }
-.footer-brand p { margin-top: 1.2rem; color: rgba(255,255,255,.65); font-size: .92rem; max-width: 40ch; }
+.footer-brand .wordmark { color: var(--graphite-800); }
+.footer-brand p { margin-top: 1.2rem; color: var(--stone-ink); font-size: .92rem; max-width: 40ch; }
 .footer-col h4 {
   font-family: var(--font-sans); font-size: .78rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--stone-100); margin-bottom: 1.1rem;
+  text-transform: uppercase; color: var(--stone-ink); margin-bottom: 1.1rem;
 }
 .footer-col li { margin-bottom: .45rem; }
-.footer-col a { font-size: .92rem; color: rgba(255,255,255,.78); }
-.footer-col a:hover { color: var(--white); }
+.footer-col a { font-size: .92rem; color: var(--ink-600); }
+.footer-col a:hover { color: var(--stone-500); }
 .footer-social { display: flex; gap: .9rem; margin-top: 1.3rem; }
 .footer-social a {
-  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%;
+  width: 36px; height: 36px; border: 1px solid var(--line-100); border-radius: 50%; color: var(--graphite-800);
   display: inline-flex; align-items: center; justify-content: center;
 }
-.footer-social a:hover { background: var(--white); color: var(--graphite-900); border-color: var(--white); }
+.footer-social a:hover { background: var(--stone-500); color: var(--white); border-color: var(--stone-500); }
 .footer-bottom {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-  padding-block: 1.6rem; font-size: .82rem; color: rgba(255,255,255,.55);
+  padding-block: 1.6rem; font-size: .82rem; color: var(--stone-ink);
 }
 .footer-bottom ul { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.footer-bottom a:hover { color: var(--white); }
+.footer-bottom a:hover { color: var(--stone-500); }
 
 /* ---- Reveal-on-scroll -------------------------------------------------------
    Progressive enhancement only: content is fully visible by default so it
@@ -913,15 +920,16 @@ body.nav-open { overflow: hidden; }
 .page-hero {
   padding-top: clamp(9rem, 14vw, 11rem);
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
-  background: linear-gradient(180deg, var(--graphite-900), var(--graphite-800));
-  color: var(--white);
+  background: var(--cream-050);
+  border-bottom: 1px solid var(--line-100);
+  color: var(--graphite-900);
 }
-.page-hero .eyebrow { color: var(--stone-100); }
-.page-hero h1 { color: var(--white); margin-top: 1rem; max-width: 20ch; }
-.page-hero p.lede { color: rgba(255,255,255,.82); margin-top: 1.3rem; max-width: 56ch; }
+.page-hero .eyebrow { color: var(--stone-500); }
+.page-hero h1 { margin-top: 1rem; max-width: 20ch; }
+.page-hero p.lede { color: var(--ink-600); margin-top: 1.3rem; max-width: 56ch; }
 .page-hero .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-.breadcrumb { display: flex; gap: .5rem; align-items: center; font-size: .8rem; color: rgba(255,255,255,.6); margin-bottom: 1.2rem; }
-.breadcrumb a:hover { color: var(--white); }
+.breadcrumb { display: flex; gap: .5rem; align-items: center; font-size: .8rem; color: var(--stone-ink); margin-bottom: 1.2rem; }
+.breadcrumb a:hover { color: var(--stone-500); }
 
 /* ---- Artistic Director welcome (centered title, left-aligned letter) ------
    The eyebrow/heading stay centered like every other section title, but the
@@ -977,7 +985,7 @@ body.nav-open { overflow: hidden; }
   display: inline-flex; align-items: center; justify-content: center; color: var(--graphite-800);
   flex: none; transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
-.quote-carousel__arrow:hover { background: var(--graphite-800); color: var(--white); border-color: var(--graphite-800); }
+.quote-carousel__arrow:hover { background: var(--stone-500); color: var(--white); border-color: var(--stone-500); }
 .quote-carousel__dots { display: flex; align-items: center; gap: .55rem; }
 .quote-carousel__dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--line-100); padding: 0; border: none;
@@ -1136,7 +1144,7 @@ body.modal-open { overflow: hidden; }
   transition: border-color .2s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
 }
 .donate-amount:hover { border-color: var(--stone-500); }
-.donate-amount.is-selected { background: var(--graphite-800); border-color: var(--graphite-800); color: var(--white); }
+.donate-amount.is-selected { background: var(--stone-500); border-color: var(--stone-500); color: var(--white); }
 @media (max-width: 460px) { .donate-amounts { grid-template-columns: repeat(2, 1fr); } }
 
 .donate-custom-amount { display: flex; flex-direction: column; gap: .4rem; }
@@ -1152,7 +1160,7 @@ body.modal-open { overflow: hidden; }
   border: 1px solid var(--line-100); border-radius: 4px; padding: .7rem .9rem;
   background: var(--white);
 }
-.donate-custom-input-wrap:focus-within { outline: 2px solid var(--graphite-600); outline-offset: 1px; }
+.donate-custom-input-wrap:focus-within { outline: 2px solid var(--stone-500); outline-offset: 1px; }
 .donate-custom-input-wrap span { color: var(--stone-ink); font-weight: 600; }
 .donate-custom-amount input {
   flex: 1; min-width: 0; border: none; padding: 0; font-family: var(--font-sans);
@@ -1174,7 +1182,7 @@ body.modal-open { overflow: hidden; }
 .donate-field input[type="email"]:focus,
 .donate-field input[type="password"]:focus,
 .donate-field input[type="tel"]:focus,
-.donate-field input[type="number"]:focus { outline: 2px solid var(--graphite-600); outline-offset: 1px; }
+.donate-field input[type="number"]:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
 .donate-field input[type="text"]::placeholder,
 .donate-field input[type="email"]::placeholder,
 .donate-field input[type="password"]::placeholder,

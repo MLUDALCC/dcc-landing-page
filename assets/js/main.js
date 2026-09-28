@@ -636,9 +636,9 @@
   var STRIPE_APPEARANCE = {
     theme: "stripe",
     variables: {
-      colorPrimary: "#0B2A4A",
+      colorPrimary: "#1a7b99",
       colorBackground: "#ffffff",
-      colorText: "#0c2136",
+      colorText: "#1c1e21",
       colorDanger: "#8a2f2f",
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       borderRadius: "4px",
