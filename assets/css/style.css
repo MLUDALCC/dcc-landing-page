@@ -616,6 +616,41 @@ body.nav-open { overflow: hidden; }
   .contact-details__image .contact-details__image--wide { display: block; width: 100%; height: auto; }
   .contact-details__facts { border-left: none; padding-left: 0; }
 }
+
+/* Rehearsal-location map (Contact page): a real Leaflet map, but built from
+   a free no-key basemap (Esri's light grey canvas tiles) recolored toward
+   the site's own navy/cool-grey palette, instead of the default red-pin/
+   blue-road Google Maps look. The CSS filter targets only the tile pane --
+   the marker, popup, and controls are separate Leaflet layers stacked above
+   it, so they render in their own true colors, untouched by the filter. */
+.location-map {
+  margin-top: 2rem;
+  min-height: 340px; /* reserves the space immediately, so the section doesn't collapse to nothing while Leaflet's JS/CSS are still loading (or on the rare visitor where they fail to) */
+  background: var(--cream-050);
+  border: 1px solid var(--line-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.location-map .leaflet-container {
+  height: 340px;
+  width: 100%;
+  font-family: var(--font-sans);
+  background: var(--cream-050);
+}
+.location-map .leaflet-tile-pane {
+  filter: grayscale(1) sepia(.6) hue-rotate(195deg) saturate(1.4) brightness(.95) contrast(1.05);
+}
+.location-map .leaflet-popup-content-wrapper {
+  border-radius: 2px;
+  box-shadow: 0 18px 40px -12px rgba(58,62,66,.18);
+}
+.location-map .leaflet-popup-content { font-size: .88rem; color: var(--ink-900); line-height: 1.55; margin: .8rem 1rem; }
+.location-map .leaflet-popup-content a { color: var(--graphite-700); font-weight: 500; }
+.location-map .leaflet-control-attribution {
+  font-size: .62rem; background: rgba(255,255,255,.85); color: var(--stone-ink);
+}
+.location-cta { margin-top: 1.25rem; }
+
 .program-facts dt { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin: 0; }
 .program-facts dd { margin: .3rem 0 0; color: var(--ink-900); font-size: .95rem; }
 .program-note { margin-top: 1rem; font-size: .82rem; color: var(--ink-400); font-style: italic; }
