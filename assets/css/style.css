@@ -616,6 +616,10 @@ body.nav-open { overflow: hidden; }
 
 /* Contact page: single-column facts, spanning the full text width (like Programs page fact rows) */
 .contact-details { grid-template-columns: 1fr; }
+/* Location page only: sits directly on the white page background (no card)
+   so it reads as part of the same white canvas as the map below it, rather
+   than boxed off like the Contact page's version of this same component. */
+.contact-details--plain { padding: 0; background: none; border-radius: 0; margin-top: 0; }
 .contact-details.has-image { grid-template-columns: auto 1fr; align-items: center; gap: 1.2rem 1.5rem; }
 .contact-details__facts { display: grid; gap: 1.2rem; border-left: 2px solid var(--stone-500); padding-left: 1.5rem; }
 .contact-details__image img { display: block; border-radius: 4px; }
@@ -645,18 +649,9 @@ body.nav-open { overflow: hidden; }
 .location-illustration {
   margin-top: 2rem;
 }
-.location-illustration__frame { position: relative; }
 .location-illustration img { display: block; width: 100%; height: auto; }
-.location-illustration .map-not-to-scale-note {
-  position: absolute; right: 10px; bottom: 8px;
-  font-family: var(--font-sans); font-size: 10.5px; font-style: italic;
-  color: var(--stone-ink); opacity: .75;
-}
 .location-illustration figcaption {
   margin-top: 1rem; font-size: .88rem; color: var(--ink-600); line-height: 1.55;
-}
-@media (max-width: 640px) {
-  .location-illustration .map-not-to-scale-note { display: none; }
 }
 .location-cta { margin-top: 1.25rem; }
 
