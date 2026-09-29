@@ -643,16 +643,12 @@ body.nav-open { overflow: hidden; }
    so the labels render in the exact typeface and layout chosen for it,
    rather than depending on a visitor's installed fonts. */
 .location-illustration {
-  position: relative;
   margin-top: 2rem;
-  background: var(--cream-050);
-  border: 1px solid var(--line-100);
-  border-radius: 4px;
-  padding: 1.5rem;
 }
+.location-illustration__frame { position: relative; }
 .location-illustration img { display: block; width: 100%; height: auto; }
 .location-illustration .map-not-to-scale-note {
-  position: absolute; right: calc(1.5rem + 10px); bottom: calc(1.5rem + 8px);
+  position: absolute; right: 10px; bottom: 8px;
   font-family: var(--font-sans); font-size: 10.5px; font-style: italic;
   color: var(--stone-ink); opacity: .75;
 }
@@ -660,7 +656,6 @@ body.nav-open { overflow: hidden; }
   margin-top: 1rem; font-size: .88rem; color: var(--ink-600); line-height: 1.55;
 }
 @media (max-width: 640px) {
-  .location-illustration { padding: 1.1rem; }
   .location-illustration .map-not-to-scale-note { display: none; }
 }
 .location-cta { margin-top: 1.25rem; }
