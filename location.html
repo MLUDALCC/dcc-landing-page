@@ -165,9 +165,9 @@
       </dl>
 
       <figure class="location-illustration" data-reveal>
-        <svg viewBox="0 0 640 480" role="img" aria-labelledby="locMapTitle locMapDesc" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 640 360" role="img" aria-labelledby="locMapTitle locMapDesc" xmlns="http://www.w3.org/2000/svg">
           <title id="locMapTitle">Illustrated map of the DCC rehearsal location</title>
-          <desc id="locMapDesc">Lovers Lane United Methodist Church sits northeast of where Inwood Road merges into Northwest Highway (Loop 12) in Dallas, at a signalized junction. Follow the campus drive off Inwood Road, past Wesley Prep, to Entrance D at the porte cochere.</desc>
+          <desc id="locMapDesc">Lovers Lane United Methodist Church sits at the signalized crossroads of Inwood Road and Northwest Highway (Loop 12) in Dallas. The campus has three driveway connections: two curb cuts on Inwood Road (the northern one is Entrance D, used for DCC rehearsals, past Wesley Prep at the porte cochere) and one on Northwest Highway.</desc>
 
           <defs>
             <filter id="mapSoftShadow" x="-40%" y="-40%" width="180%" height="180%">
@@ -175,35 +175,19 @@
             </filter>
           </defs>
 
-          <!-- Inwood Rd and Northwest Hwy meet at an angled junction, not a
-               perpendicular crossing: four short legs share one endpoint, so
-               the paved edges blend into a single junction the way the
-               roads actually merge, rather than two bands stacked in a "+". -->
-          <path class="map-road-inwood-edge" d="M 300 -10 C 312 100 340 220 365 300"/>
-          <path class="map-road-highway-edge" d="M -10 338 C 120 322 255 308 365 300"/>
-          <path class="map-road-highway-edge" d="M 365 300 C 460 294 565 306 650 322"/>
-          <path class="map-road-inwood-edge" d="M 365 300 C 352 352 338 420 332 490"/>
+          <!-- Inwood Rd (vertical) and Northwest Hwy (horizontal) cross in a
+               plain signalized four-way intersection. -->
+          <path class="map-road-inwood-edge" d="M 110 -10 L 110 370"/>
+          <path class="map-road-highway-edge" d="M -10 300 L 650 300"/>
 
-          <path class="map-road-inwood" d="M 300 -10 C 312 100 340 220 365 300"/>
-          <path class="map-road-highway" d="M -10 338 C 120 322 255 308 365 300"/>
-          <path class="map-road-highway" d="M 365 300 C 460 294 565 306 650 322"/>
-          <path class="map-road-inwood" d="M 365 300 C 352 352 338 420 332 490"/>
+          <path class="map-road-inwood" d="M 110 -10 L 110 370"/>
+          <path class="map-road-highway" d="M -10 300 L 650 300"/>
 
-          <path class="map-lane-divider" d="M 291 -10 C 303 100 331 218 354 288" opacity=".55"/>
-          <path class="map-lane-divider" d="M 309 -10 C 321 100 349 222 376 310" opacity=".55"/>
-          <path class="map-lane-divider" d="M -10 329 C 120 313 250 300 350 293" opacity=".55"/>
-          <path class="map-lane-divider" d="M -10 347 C 120 331 258 316 360 308" opacity=".55"/>
-          <path class="map-lane-divider" d="M 375 299 C 460 293 555 304 650 313" opacity=".55"/>
-          <path class="map-lane-divider" d="M 372 309 C 458 303 560 316 650 331" opacity=".55"/>
-          <path class="map-lane-divider" d="M 361 314 C 349 362 336 428 330 480" opacity=".55"/>
+          <path class="map-lane-divider" d="M 110 -10 L 110 370" opacity=".55"/>
+          <path class="map-lane-divider" d="M -10 300 L 650 300" opacity=".55"/>
 
-          <!-- raised median island in the junction's acute corner, matching
-               the hatched gore island real skewed intersections use -->
-          <polygon class="map-gore" points="322,258 358,286 336,312 308,290"/>
-          <path class="map-gore-hatch" d="M 316,278 L 330,266 M 322,292 L 342,274 M 332,300 L 350,282"/>
-
-          <!-- signalized junction marker -->
-          <g class="map-signal" transform="translate(300,335)" filter="url(#mapSoftShadow)">
+          <!-- signalized junction marker, at the corner of the crossing -->
+          <g class="map-signal" transform="translate(140,266)" filter="url(#mapSoftShadow)">
             <line x1="0" y1="26" x2="0" y2="0" stroke="#3a4148" stroke-width="3"/>
             <rect x="-7" y="-30" width="14" height="32" rx="3" fill="#22262b"/>
             <circle cx="0" cy="-23" r="3.4" fill="#cfd6dc"/>
@@ -211,69 +195,83 @@
             <circle cx="0" cy="-5" r="3.4" fill="#6b7480"/>
           </g>
 
-          <!-- campus drive: off Inwood Rd, staying clear of the road-name
-               tag, up to the porte cochere that projects above the main
-               roofline at the Wesley Prep seam -->
-          <path class="map-road-drive" d="M 314 106 C 355 84 425 82 458 96 C 468 101 474 106 476 115"/>
+          <!-- campus loop drive: leaves Inwood Rd at Entrance D, wraps the
+               north and east side of the building, and rejoins Northwest
+               Hwy on the east side -->
+          <path class="map-road-drive" d="M 110 73 C 160 45 220 30 280 29 C 350 28 420 29 470 31 C 500 33 518 42 528 60 C 536 76 535 95 535 130 C 535 170 534 210 534 250 C 534 270 534 285 534 300"/>
 
-          <!-- building: three wings sharing one roofline -- Wesley Prep
-               (nearest Inwood Rd), the main sanctuary/education wing behind
-               a porte cochere that projects above the roofline at their
-               seam (where the campus drive arrives -- Entrance D), and a
-               smaller fellowship wing -- divided by seams rather than
-               contrasting fill, so it reads as one campus -->
+          <!-- second, separate driveway off Inwood Rd, south of Entrance D -->
+          <path class="map-road-drive" d="M 110 165 C 145 160 165 158 178 158"/>
+
+          <!-- building: staircase footprint of connected wings sharing
+               rooflines -- Wesley Prep nearest Inwood Rd, a porte cochere
+               projecting above the roofline at Entrance D, the sanctuary
+               wing (tinted slightly darker), and the fellowship/education
+               wings extending south and east -->
           <g filter="url(#mapSoftShadow)">
-            <rect class="map-building" x="370" y="155" width="95" height="115"/>
-            <rect class="map-building" x="465" y="115" width="125" height="155"/>
-            <rect class="map-building" x="405" y="270" width="90" height="55"/>
-            <polygon class="map-building" points="450,115 450,88 502,88 502,115"/>
-            <line class="map-building-seam" x1="465" y1="115" x2="465" y2="270"/>
-            <line class="map-building-seam" x1="405" y1="270" x2="495" y2="270"/>
+            <rect class="map-building" x="245" y="40" width="90" height="70"/>
+            <rect class="map-building" x="285" y="95" width="180" height="90"/>
+            <rect class="map-building map-building--accent" x="425" y="55" width="90" height="75"/>
+            <rect class="map-building" x="345" y="175" width="170" height="65"/>
+            <rect class="map-building" x="445" y="205" width="80" height="70"/>
+            <rect class="map-building" x="265" y="190" width="90" height="55"/>
+            <polygon class="map-building" points="270,40 270,20 315,20 315,40"/>
+            <line class="map-building-seam" x1="285" y1="95" x2="285" y2="240"/>
+            <line class="map-building-seam" x1="345" y1="175" x2="515" y2="175"/>
           </g>
 
           <!-- road name tags -->
-          <g class="map-tag" transform="translate(70,50)">
+          <g class="map-tag" transform="translate(8,4)">
             <rect width="128" height="32" rx="16"/>
             <text x="64" y="21" text-anchor="middle" class="map-label-road">INWOOD RD</text>
           </g>
-          <line class="map-tag-leader" x1="160" y1="82" x2="305" y2="150"/>
+          <line class="map-tag-leader" x1="72" y1="36" x2="108" y2="55"/>
 
-          <g class="map-tag" transform="translate(16,400)">
-            <rect width="176" height="50" rx="16"/>
-            <text x="88" y="21" text-anchor="middle" class="map-label-road">NORTHWEST HWY</text>
-            <text x="88" y="39" text-anchor="middle" class="map-label-road map-label-road--sub">LOOP 12</text>
+          <g class="map-tag" transform="translate(14,318)">
+            <rect width="176" height="38" rx="16"/>
+            <text x="88" y="16" text-anchor="middle" class="map-label-road">NORTHWEST HWY</text>
+            <text x="88" y="31" text-anchor="middle" class="map-label-road map-label-road--sub">LOOP 12</text>
           </g>
-          <line class="map-tag-leader" x1="150" y1="400" x2="180" y2="330"/>
+          <line class="map-tag-leader" x1="102" y1="318" x2="108" y2="302"/>
 
           <!-- building labels -->
-          <text class="map-label-building" x="527" y="160" text-anchor="middle">
-            <tspan x="527" dy="0">Lovers Lane</tspan>
-            <tspan x="527" dy="21">United Methodist Church</tspan>
+          <text class="map-label-building" x="375" y="125" text-anchor="middle">
+            <tspan x="375" dy="0">Lovers Lane</tspan>
+            <tspan x="375" dy="21">United Methodist Church</tspan>
           </text>
-          <text class="map-label-building map-label-building--sub" x="527" y="209" text-anchor="middle">9200 Inwood Rd</text>
-          <text class="map-label-building map-label-building--prep" x="410" y="200" text-anchor="middle">Wesley Prep</text>
+          <text class="map-label-building map-label-building--sub" x="375" y="165" text-anchor="middle">9200 Inwood Rd</text>
+          <text class="map-label-building map-label-building--prep" x="290" y="80" text-anchor="middle">Wesley Prep</text>
 
-          <!-- entrance D pin + tag, at the porte cochere just right of the
-               Wesley Prep name -->
-          <line x1="394" y1="87" x2="466" y2="82" stroke="#1a7b99" stroke-width="1.5"/>
+          <!-- Entrance D pin + tag, at the porte cochere on Inwood Rd --
+               this is the entrance DCC families use -->
           <g filter="url(#mapSoftShadow)">
-            <rect x="328" y="55" width="132" height="32" rx="5" fill="#1a7b99"/>
+            <rect x="130" y="54" width="112" height="28" rx="5" fill="#1a7b99"/>
           </g>
-          <text class="map-pin-tag" x="394" y="76" text-anchor="middle">ENTRANCE D</text>
-          <g transform="translate(461,63)" filter="url(#mapSoftShadow)">
+          <text class="map-pin-tag" x="186" y="73" text-anchor="middle">ENTRANCE D</text>
+          <g transform="translate(95,40)" filter="url(#mapSoftShadow)">
             <path d="M15 0C6.7 0 0 6.7 0 15c0 10.3 13 21.6 14 22.5.6.5 1.4.5 2 0C17 36.6 30 25.3 30 15 30 6.7 23.3 0 15 0z" fill="#1a7b99"/>
             <circle cx="15" cy="15" r="5.5" fill="#ffffff"/>
           </g>
 
+          <!-- second Inwood Rd entrance/exit, south of Entrance D -->
+          <circle class="map-entrance-dot" cx="110" cy="165" r="5"/>
+          <line class="map-tag-leader" x1="116" y1="162" x2="140" y2="150"/>
+          <text class="map-label-entrance" x="145" y="147">Entrance / Exit</text>
+
+          <!-- Northwest Hwy entrance/exit, east side of the campus -->
+          <circle class="map-entrance-dot" cx="534" cy="300" r="5"/>
+          <line class="map-tag-leader" x1="534" y1="306" x2="534" y2="325"/>
+          <text class="map-label-entrance" x="534" y="336" text-anchor="middle">Entrance / Exit</text>
+
           <!-- compass -->
-          <g transform="translate(612,38)">
+          <g transform="translate(600,32)">
             <path class="map-compass" d="M0,-13 L6,5 L0,1 L-6,5 Z"/>
             <text class="map-compass" x="0" y="24" text-anchor="middle">N</text>
           </g>
 
-          <text class="map-not-to-scale" x="628" y="468" text-anchor="end">Illustration not to scale</text>
+          <text class="map-not-to-scale" x="400" y="352" text-anchor="middle">Illustration not to scale</text>
         </svg>
-        <figcaption>Lovers Lane United Methodist Church sits just northeast of the signal where Inwood Road merges into Northwest Highway (Loop&nbsp;12). Turn into the campus drive off Inwood Road and follow it past Wesley Prep to <strong>Entrance D</strong>, at the porte cochere, for DCC rehearsals.</figcaption>
+        <figcaption>Lovers Lane United Methodist Church sits at the signalized crossroads of Inwood Road and Northwest Highway (Loop&nbsp;12). The campus has three driveway connections: two on Inwood Road and one on Northwest Highway. Use the northern Inwood Road driveway &mdash; past Wesley Prep to <strong>Entrance D</strong> at the porte cochere &mdash; for DCC rehearsals.</figcaption>
       </figure>
     </div>
   </section>

@@ -25,7 +25,8 @@
   --stone-ink: #5b5f63; /* WCAG-AA-safe true neutral grey for small text on light backgrounds (was blue-tinted) */
 
   --cream-000: #ffffff; /* page background -- crisp white */
-  --cream-050: #f5f5f6; /* alternating section band / light section backgrounds (page-hero, CTA band, footer) -- true neutral, was a cool blue-tinted grey */
+  --cream-025: #fafafb; /* midpoint between white and --cream-050 -- gives the CTA band (and, per-instance via .on-mid, an occasional section) its own step on the staircase when white/cream-050 alone can't keep every neighboring pair distinct */
+  --cream-050: #f5f5f6; /* alternating section band / light section backgrounds (page-hero, footer) -- true neutral, was a cool blue-tinted grey */
   --line-100: #e3e5e7; /* hairline dividers -- true neutral, was blue-tinted */
 
   --ink-900: #1c1e21;
@@ -541,18 +542,24 @@ body.nav-open { overflow: hidden; }
 .section { padding-block: var(--section-pad); }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
 /* Sets the "commitments" stat block apart from the plain white sections
-   around it. Uses the same --cream-050 floor as the page-hero, CTA band
-   and footer, so no section between the hero and the footer ever reads
-   darker than that shared light tone -- the homepage's video hero is the
-   one deliberately darker exception. */
-/* Bordered on both edges rather than just given a darker fill: it's the
-   same --cream-050 as --section--cream, the page-hero, and the footer (so
-   it's never darker than any of them), and on the homepage and the About
-   page it sits directly against one of those same-shaded sections -- the
-   hairlines are what keep it reading as its own distinct band either way. */
+   around it. Uses the same --cream-050 floor as --section--cream, the
+   page-hero, the CTA band and the footer, so no section between the hero
+   and the footer ever reads darker than that shared light tone -- the
+   homepage's video hero is the one deliberately darker exception. The
+   top/bottom hairlines are a belt-and-suspenders fallback for wherever a
+   page still lands two same-shaded bands back to back. */
 .section--tint { background: var(--cream-050); color: var(--graphite-900); border-top: 1px solid var(--line-100); border-bottom: 1px solid var(--line-100); }
 .section--tint h2, .section--tint h3 { color: var(--graphite-900); }
 .section--cream { background: var(--cream-050); }
+/* Per-instance escape hatch: --section--cream and --section--tint both
+   default to --cream-050, but the same section class shows up in
+   different neighborhoods on different pages. Adding .on-white to one
+   specific instance drops it back to plain white, and .on-mid drops it to
+   the --cream-025 midpoint instead -- either way it alternates properly
+   against whichever neighbor it happens to sit next to on that page,
+   without changing the class's default anywhere else. */
+.section--cream.on-white, .section--tint.on-white { background: var(--cream-000); }
+.section--cream.on-mid, .section--tint.on-mid { background: var(--cream-025); }
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head--center { margin-inline: auto; text-align: center; }
 .section-head h2 { margin-top: 1rem; }
@@ -664,7 +671,16 @@ body.nav-open { overflow: hidden; }
 .location-illustration .map-gore-hatch { stroke: var(--line-100); stroke-width: 1.5; }
 
 .location-illustration .map-building { fill: var(--stone-100); stroke: var(--line-100); stroke-width: 1.5; }
+.location-illustration .map-building--accent { fill: var(--graphite-100); }
 .location-illustration .map-building-seam { stroke: var(--line-100); stroke-width: 1.5; }
+
+/* Secondary driveway connections (not the DCC entrance) -- a plain dot and
+   small label, deliberately less prominent than the teal Entrance D pin. */
+.location-illustration .map-entrance-dot { fill: var(--graphite-700); stroke: var(--cream-000); stroke-width: 1.5; }
+.location-illustration .map-label-entrance {
+  font-family: var(--font-sans); font-size: 10.5px; font-weight: 600;
+  letter-spacing: .01em; fill: var(--ink-600);
+}
 
 /* Road names sit in solid pill tags beside the road rather than as text
    laid directly on a curving stroke -- guarantees full contrast regardless
@@ -843,11 +859,17 @@ body.nav-open { overflow: hidden; }
 
 /* ---- CTA band --------------------------------------------------------------*/
 .cta-band {
-  background: var(--cream-050); color: var(--graphite-900);
-  border-top: 1px solid var(--line-100); /* several pages place this directly
-     after another --cream-050 section (a --section--cream block, or the
-     subscribe band) -- without this, two identically-shaded sections in a
-     row would read as one undifferentiated block. */
+  /* Its own permanent step on the staircase -- lighter than the
+     --cream-050 used by --section--cream/--section--tint/the subscribe
+     band/the footer, but not plain white either. The CTA band is almost
+     always sandwiched between one of those --cream-050 sections and the
+     --cream-050 footer, so giving it a color of its own (rather than
+     matching one side or the other) keeps every page's last two seams
+     distinct without needing a page-by-page override. */
+  background: var(--cream-025); color: var(--graphite-900);
+  border-top: 1px solid var(--line-100); /* belt-and-suspenders: still a
+     visible seam even on the rare page where a neighbor also ends up at
+     this same tone. */
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
   text-align: center;
 }
