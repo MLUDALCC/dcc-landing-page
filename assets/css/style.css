@@ -545,7 +545,12 @@ body.nav-open { overflow: hidden; }
    and footer, so no section between the hero and the footer ever reads
    darker than that shared light tone -- the homepage's video hero is the
    one deliberately darker exception. */
-.section--tint { background: var(--cream-050); color: var(--graphite-900); }
+/* Bordered on both edges rather than just given a darker fill: it's the
+   same --cream-050 as --section--cream, the page-hero, and the footer (so
+   it's never darker than any of them), and on the homepage and the About
+   page it sits directly against one of those same-shaded sections -- the
+   hairlines are what keep it reading as its own distinct band either way. */
+.section--tint { background: var(--cream-050); color: var(--graphite-900); border-top: 1px solid var(--line-100); border-bottom: 1px solid var(--line-100); }
 .section--tint h2, .section--tint h3 { color: var(--graphite-900); }
 .section--cream { background: var(--cream-050); }
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -839,6 +844,10 @@ body.nav-open { overflow: hidden; }
 /* ---- CTA band --------------------------------------------------------------*/
 .cta-band {
   background: var(--cream-050); color: var(--graphite-900);
+  border-top: 1px solid var(--line-100); /* several pages place this directly
+     after another --cream-050 section (a --section--cream block, or the
+     subscribe band) -- without this, two identically-shaded sections in a
+     row would read as one undifferentiated block. */
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
   text-align: center;
 }
@@ -847,7 +856,7 @@ body.nav-open { overflow: hidden; }
 .cta-band .btn-row { display: flex; justify-content: center; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap; }
 
 /* ---- Subscribe / newsletter -------------------------------------------------*/
-.subscribe-band { text-align: center; background: var(--cream-050); }
+.subscribe-band { text-align: center; background: var(--cream-050); border-top: 1px solid var(--line-100); }
 .subscribe-band p.body-text { max-width: 52ch; margin-inline: auto; margin-top: 1rem; }
 .subscribe-form { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
 .subscribe-form input[type="email"] {
