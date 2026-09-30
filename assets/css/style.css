@@ -173,6 +173,15 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .btn svg { width: 1em; height: 1em; transition: transform .25s var(--ease); }
 .btn:hover svg { transform: translateX(3px); }
 
+/* Off-site links (e.g. to the DSO's own website): a diagonal arrow rather
+   than the chevron used for links within the DCC site, so it's clear at a
+   glance the button leads away from dallaschildrenschorus.org. */
+.btn--external:hover svg { transform: translate(2px, -2px); }
+
+/* Generic side-by-side button group -- context-specific spots below (the
+   CTA band, page-hero) add their own centering/margin on top of this. */
+.btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+
 .btn--primary { background: var(--graphite-800); color: var(--white); }
 .btn--primary:hover { background: var(--graphite-900); }
 
