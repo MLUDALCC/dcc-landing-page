@@ -468,7 +468,19 @@ body.nav-open { overflow: hidden; }
 .hero {
   position: relative;
   width: 100%;
-  height: clamp(600px, 96vh, 1080px); /* mobile only — overridden below at 900px+ */
+  /* mobile only — overridden below at 900px+. This is deliberately a loose
+     pre-JS starting point, not the real target height: on a tall phone
+     (tall viewport, i.e. the 96vh term this used to use) it left a lot of
+     dead, over-zoomed video below the buttons, since object-fit:cover on
+     this wide ~2.35:1 footage inside a too-tall box crops hard on the
+     sides to fill that extra height rather than showing more of the
+     scene. main.js's hero-height sync (below the CSS, see that file)
+     measures the real copy height on every device and raises min-height
+     to match almost exactly — same mechanism the desktop breakpoint
+     relies on — so this formula only needs to be a reasonable floor/cap
+     for the instant before that runs; the JS result is what actually
+     ships. Oct 2026. */
+  height: clamp(480px, 55vh, 620px);
   overflow: hidden;
   background: var(--graphite-900);
 }
