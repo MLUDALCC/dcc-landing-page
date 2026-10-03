@@ -484,14 +484,20 @@ body.nav-open { overflow: hidden; }
   .hero {
     height: auto;
     aspect-ratio: 40 / 17; /* native crop of hero-*.mp4/webm, ~2.35:1 */
-    /* 780px is a floor, not just a starting point: below roughly 1835px
-       wide the aspect-ratio-derived height shrinks faster than the hero
-       copy (eyebrow + title + paragraph + buttons) does, and without a
-       floor tall enough for that copy at its most-wrapped width, the
-       buttons get clipped by this section's overflow:hidden. Widths above
-       ~1835px already clear 780px via the aspect ratio alone, so this only
-       affects the shrinking mid-range. (The wider 2.35:1 footage hits this
-       floor sooner than the old 16:9 cut did — expected and fine.) */
+    /* 780px is a static worst-case floor for the instant before main.js
+       runs (and for no-JS) — not the real, operative one. main.js measures
+       the hero copy's actual rendered height on every load/resize and sets
+       an inline min-height from that, which — being inline — overrides
+       this value outright rather than just raising it. So in practice the
+       box is always max(aspect-ratio height, that measured copy height),
+       and the true crossover into pure ~2.35:1 (no floor influence at all)
+       is wherever the aspect-ratio height overtakes the copy's real
+       height, which as of the Oct 2026 copy-block trim above is ~1412px
+       wide, not whatever plugging 780 into the ratio formula would
+       suggest. Narrowing the copy block (shorter padding-top/margins, or
+       shorter button labels) lowers that crossover further; this 780
+       value only matters for that brief pre-JS instant and is deliberately
+       a bit generous there. */
     min-height: 780px;
   }
 }
@@ -510,14 +516,25 @@ body.nav-open { overflow: hidden; }
 .hero__content {
   /* Anchored near the top rather than the bottom: on very tall hero boxes
      (wide/4K viewports, where the box can run well past 1000px following
-     the 16:9 ratio above) bottom-anchored copy could sit far below the
+     the ~2.35:1 ratio above) bottom-anchored copy could sit far below the
      fold. Pinning it just under the fixed header keeps it visible as soon
-     as the page loads, at any hero height. */
+     as the page loads, at any hero height.
+
+     The padding-top formula, plus the eyebrow/sub/actions margins below,
+     were all trimmed together (Oct 2026) specifically to lower how much
+     vertical space the copy block needs: main.js's hero-height sync (see
+     that file) raises .hero's min-height above the aspect-ratio value
+     whenever this content needs more room than the ratio currently gives
+     it, which is what was quietly overriding the old 780px CSS floor
+     across most of the mid-width range. A shorter copy block means that
+     override kicks in less often and by less, so more of that range shows
+     the true ~2.35:1 crop instead of a content-driven taller box. Still
+     plenty of clearance under the ~92px fixed header at the 7rem floor. */
   position: relative; z-index: 4; height: 100%;
   display: flex; flex-direction: column; justify-content: flex-start;
-  padding-top: clamp(7.5rem, 13vw, 10.5rem);
+  padding-top: clamp(7rem, 9vw, 9rem);
 }
-.hero__eyebrow { color: var(--stone-100); margin-bottom: 1.4rem; }
+.hero__eyebrow { color: var(--stone-100); margin-bottom: 1.1rem; }
 .hero__title {
   color: var(--white);
   max-width: 22ch;
@@ -526,9 +543,9 @@ body.nav-open { overflow: hidden; }
 .hero__sub {
   color: rgba(255,255,255,.86);
   max-width: 60ch;
-  margin-top: 1.4rem;
+  margin-top: 1.1rem;
 }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.4rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.9rem; }
 .hero__scroll-cue {
   position: absolute; z-index: 4; left: var(--gutter); bottom: 1.75rem;
   display: flex; align-items: center; gap: .7rem;
