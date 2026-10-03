@@ -15,10 +15,14 @@
   var NEWS_ITEMS = [
     {
       year: 2026,
-      date: "September 2026",
-      sortDate: "2026-09-01",
-      title: "Fall Concert Tickets Now Available",
-      blurb: "Tickets are on sale for the DSCC Fall Concert on November 1 at the Morton H. Meyerson Symphony Center, where all three choruses open the 2026/27 season together."
+      date: "October 2026",
+      sortDate: "2026-10-01",
+      title: "Fall and Spring Concert Tickets Now on Sale",
+      blurb: "Tickets are now on sale for both of the Dallas Symphony Children's Chorus's Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses -- Training Choir, Symphonic Voices, and Mixed Ensemble -- opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra's website using the links below.",
+      ctas: [
+        { label: "Buy Fall Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" },
+        { label: "Buy Spring Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-spring-concert-2027/" }
+      ]
     },
     {
       year: 2026,
@@ -114,6 +118,46 @@
       card.appendChild(time);
       card.appendChild(h3);
       card.appendChild(p);
+
+      /* Optional call-to-action buttons (e.g. "Buy Tickets" linking out to
+         the DSO's site). Mirrors the external-link button markup used on
+         index.html / our-connection-to-the-dso.html -- diagonal arrow icon
+         plus visually-hidden "(opens in a new tab)" text -- built with the
+         DOM API since this list is rendered from plain data, not HTML. */
+      if (item.ctas && item.ctas.length) {
+        var svgNS = "http://www.w3.org/2000/svg";
+        var row = document.createElement("div");
+        row.className = "btn-row mt-sm";
+        item.ctas.forEach(function (cta) {
+          var a = document.createElement("a");
+          a.href = cta.href;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.className = "btn btn--accent btn--external";
+          a.appendChild(document.createTextNode(cta.label));
+
+          var vh = document.createElement("span");
+          vh.className = "visually-hidden";
+          vh.textContent = " (opens in a new tab)";
+          a.appendChild(vh);
+
+          var svg = document.createElementNS(svgNS, "svg");
+          svg.setAttribute("viewBox", "0 0 16 16");
+          svg.setAttribute("fill", "none");
+          var path = document.createElementNS(svgNS, "path");
+          path.setAttribute("d", "M5 11 11 5M11 5H6M11 5v5");
+          path.setAttribute("stroke", "currentColor");
+          path.setAttribute("stroke-width", "1.4");
+          path.setAttribute("stroke-linecap", "round");
+          path.setAttribute("stroke-linejoin", "round");
+          svg.appendChild(path);
+          a.appendChild(svg);
+
+          row.appendChild(a);
+        });
+        card.appendChild(row);
+      }
+
       return card;
     }
 

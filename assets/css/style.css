@@ -708,6 +708,10 @@ body.nav-open { overflow: hidden; }
   background: var(--stone-100);
   color: var(--stone-ink);
 }
+/* Positive/active variant (e.g. "Tickets On Sale Now") -- the site's one
+   accent colour, same as .btn--accent, instead of the muted gray default
+   used for neutral states like "Past Performance". */
+.status-badge--accent { background: var(--stone-500); color: var(--white); }
 
 /* ---- Board of Trustees ------------------------------------------------------ */
 .trustee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
