@@ -18,7 +18,7 @@
       date: "October 2026",
       sortDate: "2026-10-01",
       title: "Fall and Spring Concert Tickets Now on Sale",
-      blurb: "Tickets are now on sale for both of the Dallas Symphony Children's Chorus's Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses -- Training Choir, Symphonic Voices, and Mixed Ensemble -- opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra's website using the links below.",
+      blurb: "Tickets are now on sale for both of the Dallas Symphony Children's Chorus's Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra's website using the links below.",
       ctas: [
         { label: "Buy Fall Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" },
         { label: "Buy Spring Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-spring-concert-2027/" }
