@@ -653,16 +653,13 @@ body.nav-open { overflow: hidden; }
 /* Widescreen photo banner at the top of a program card (Programs page) or
    at the top of a narrow text column (.page-banner, Auditions page).
    2.35:1 echoes the homepage hero and keeps the picture short so the facts
-   below stay close to the top; phones get a taller 16:10 crop, since a
-   2.35:1 strip would only be ~160px high at that width. The vertical crop
+   below stay close to the top. It stays 2.35:1 at every screen width, phones
+   included, so the photos always read as widescreen. The vertical crop
    point is set per photo with an inline object-position. */
 .program-card__media { margin: 0 0 1.4rem; }
 .page-banner { margin: 0 0 2rem; }
 .program-card__media img, .page-banner img {
   display: block; width: 100%; aspect-ratio: 2.35 / 1; object-fit: cover;
-}
-@media (max-width: 640px) {
-  .program-card__media img, .page-banner img { aspect-ratio: 16 / 10; }
 }
 .program-card__tag { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
 .program-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem 2rem; margin-top: 1.5rem; padding: 1.5rem; background: var(--cream-050); border-radius: 4px; }
