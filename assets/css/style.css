@@ -19,8 +19,8 @@
   --graphite-600: #53565a;
   --graphite-100: #eceeef;
 
-  --stone-600: #0f5066; /* accent hover -- teal (was navy) */
-  --stone-500: #1a7b99; /* accent -- teal (was navy); the site's one accent colour, used for buttons, links, focus rings and small highlights */
+  --stone-600: #0f4a6b; /* accent hover -- deep blue-teal (was navy) */
+  --stone-500: #1a70a3; /* accent -- blue-teal, a lighter cousin of the logo navy (was navy, then #1a7b99); the site's one accent colour, used for buttons, links, focus rings and small highlights */
   --stone-100: #e9e9ea; /* light neutral grey, used for text on the one remaining dark section (the homepage hero video) */
   --stone-ink: #5b5f63; /* WCAG-AA-safe true neutral grey for small text on light backgrounds (was blue-tinted) */
 
