@@ -1264,6 +1264,7 @@ body.modal-open { overflow: hidden; }
   margin: 0; font-family: var(--font-serif); font-size: clamp(3.5rem, 9vw, 5.75rem);
   line-height: 1; color: var(--stone-500); white-space: nowrap;
 }
+.gift-gap__caption { margin: .7rem 0 0; max-width: 15rem; font-size: .92rem; line-height: 1.45; color: var(--ink-600); }
 .gift-gap__note { margin-top: 1.1rem; font-size: .88rem; color: var(--ink-400); }
 @media (max-width: 720px) { .gift-gap { grid-template-columns: 1fr; } }
 .share-status { min-height: 1.5em; margin-top: 1.1rem !important; font-size: .92rem; }
