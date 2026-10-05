@@ -44,34 +44,6 @@
       sortDate: "2026-02-01",
       title: "Auditions Open for the 2026/27 Season",
       blurb: "Auditions for Training Choir, Symphonic Voices, and Mixed Ensemble opened for singers in grades 4–12, with no prior experience required for our entry-level choruses."
-    },
-    {
-      year: 2025,
-      date: "October 2025",
-      sortDate: "2025-10-01",
-      title: "DSCC to Become the Dallas Children's Chorus",
-      blurb: "The Dallas Symphony Children's Chorus announced its transition to an independent 501(c)(3) nonprofit, taking on the Dallas Children's Chorus name beginning with the 2027/28 season."
-    },
-    {
-      year: 2025,
-      date: "May 3, 2025",
-      sortDate: "2025-05-03",
-      title: "DSCC Celebrates Its Fourth Season",
-      blurb: "The combined choruses closed the 2024/25 season at the Meyerson, the ensemble's fourth season of concerts since being founded by the Dallas Symphony Orchestra."
-    },
-    {
-      year: 2024,
-      date: "November 2024",
-      sortDate: "2024-11-01",
-      title: "Holidays with the DSO Concerts Announced",
-      blurb: "Symphonic Voices was invited to join the Dallas Symphony Orchestra and the Dallas Symphony Chorus for the beloved holiday tradition at the Meyerson."
-    },
-    {
-      year: 2024,
-      date: "August 2024",
-      sortDate: "2024-08-01",
-      title: "DSCC Returns for a Third Season",
-      blurb: "Rehearsals resumed at Lovers Lane United Methodist Church as the ensemble began its third season, welcoming new choristers across all three choruses."
     }
   ];
 
