@@ -1268,3 +1268,18 @@ body.modal-open { overflow: hidden; }
 .gift-gap__note { margin-top: 1.1rem; font-size: .88rem; color: var(--ink-400); }
 @media (max-width: 720px) { .gift-gap { grid-template-columns: 1fr; } }
 .share-status { min-height: 1.5em; margin-top: 1.1rem !important; font-size: .92rem; }
+
+/* "Where your gift goes" bar: one track, grey for tuition fading into the accent
+   across the 15-20% range, so the soft edge says "about", not an exact split. The
+   label grid uses the same 17.5 / 82.5 proportions as the bar. */
+.gap-bar { margin: clamp(2rem, 4vw, 2.75rem) 0 0; }
+.gap-bar__track {
+  height: .9rem; border-radius: 999px;
+  background: linear-gradient(to right, #c7ccd1 0, #c7ccd1 15%, var(--stone-500) 20%, var(--stone-500) 100%);
+}
+.gap-bar__labels {
+  display: grid; grid-template-columns: minmax(max-content, 17.5fr) 82.5fr; gap: .75rem; margin-top: .75rem;
+  font-size: .85rem; line-height: 1.35; color: var(--ink-600);
+}
+.gap-bar__labels strong { display: block; white-space: nowrap; font-size: 1rem; color: var(--ink-900); }
+.gap-bar__labels .gap-bar__strong--support { color: var(--stone-500); }
