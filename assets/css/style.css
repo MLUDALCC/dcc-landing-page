@@ -366,7 +366,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .header-actions {
   display: flex; flex-direction: column; align-items: flex-end;
   align-self: flex-end;
-  gap: .65rem;
+  gap: .5625rem; /* 9px: makes the space above the secondary links match the space below them */
   padding-bottom: .5rem;
 }
 .header-actions__buttons { display: flex; align-items: center; gap: .7rem; }
