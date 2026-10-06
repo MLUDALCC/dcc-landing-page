@@ -328,44 +328,24 @@
     </div>
   </section>
 
-  <!-- ============================= PAST PERFORMANCES ============================= -->
+  <!-- ============================= PAST PERFORMANCES (by year) =============================
+       Cards are generated from assets/js/performances-data.js -- add new
+       entries there once a performance is over. -->
   <section class="section section--cream">
-    <div class="container container--narrow">
+    <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">2026/27 Season</span>
+        <span class="eyebrow">Performance History</span>
         <h2>Past Performances</h2>
       </div>
 
-      <div class="programs-list">
+      <div class="news-layout">
 
-        <div class="program-card" data-reveal>
-          <span class="status-badge">Past Performance</span>
-          <div class="program-card__head">
-            <h2>Performance with Foreigner</h2>
-            <span class="program-card__tag">August 28, 2026 &middot; 6:30 PM &middot; Symphonic Voices</span>
-          </div>
-          <p class="body-text">Symphonic Voices joined the rock band Foreigner on stage at Fair Park&rsquo;s Dos Equis Pavilion, performing the band&rsquo;s hit &ldquo;I Want to Know What Love Is.&rdquo;</p>
-          <dl class="program-facts">
-            <div>
-              <dt>Date</dt>
-              <dd>August 28, 2026</dd>
-            </div>
-            <div>
-              <dt>Time</dt>
-              <dd>6:30 PM</dd>
-            </div>
-            <div>
-              <dt>Choir</dt>
-              <dd>Symphonic Voices</dd>
-            </div>
-            <div>
-              <dt>Location</dt>
-              <dd>Dos Equis Pavilion, Fair Park</dd>
-            </div>
-          </dl>
-          <div class="btn-row mt-sm">
-            <a href="media.html" class="btn btn--accent">Watch the Video</a>
-          </div>
+        <aside class="news-sidebar" data-reveal>
+          <nav class="year-list perf-year-list" aria-label="Filter past performances by year"></nav>
+        </aside>
+
+        <div class="news-list-wrap">
+          <div class="programs-list perf-list" aria-live="polite"></div>
         </div>
 
       </div>
@@ -455,5 +435,6 @@
 </footer>
 
 <script src="assets/js/main.js?v=15"></script>
+<script src="assets/js/performances-data.js?v=1"></script>
 </body>
 </html>
