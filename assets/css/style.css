@@ -1325,3 +1325,11 @@ body.modal-open { overflow: hidden; }
 }
 .gap-bar__labels strong { display: block; white-space: nowrap; font-size: 1rem; color: var(--ink-900); }
 .gap-bar__labels .gap-bar__strong--support { color: var(--stone-500); }
+
+/* ---- Phone country picker (intl-tel-input; see assets/js/phone-input.js) ----
+   The library wraps each tel input in .iti with a flag + dial-code button on
+   the left. Make the wrapper fill the form field and match the site's inputs. */
+.dcc-iti { width: 100%; --iti-border-color: var(--line-100); --iti-dropdown-bg: var(--white); --iti-hover-color: var(--graphite-100); --iti-arrow-color: var(--stone-ink); }
+.dcc-iti input[type="tel"] { width: 100%; box-sizing: border-box; }
+.iti__country-list, .iti__dropdown-content { font-family: var(--font-sans); font-size: .9rem; }
+.iti--fullscreen-popup, .iti--container, .iti__dropdown-content { z-index: 400; }

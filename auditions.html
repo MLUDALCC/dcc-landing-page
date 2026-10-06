@@ -10,7 +10,8 @@
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/style.css?v=87">
+<link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=89">
 </head>
 <body>
 
@@ -434,6 +435,8 @@
 </footer>
 
 <script src="assets/js/main.js?v=15"></script>
+<script src="assets/vendor/intl-tel-input/js/intlTelInput.min.js"></script>
+<script src="assets/js/phone-input.js?v=1"></script>
 <script>
   // Audition Interest modal open/close: same accessible pattern as the
   // Annual Pledge modal on give.html (focus trap, Escape and backdrop click
@@ -537,6 +540,16 @@
       submitBtn.disabled = isLoading;
       submitBtn.classList.toggle("is-loading", isLoading);
     }
+    // Phone fields carry a country picker (see assets/js/phone-input.js); read
+    // them as full international numbers.
+    function phone(name) {
+      var input = form.elements[name];
+      return window.dccPhone ? window.dccPhone.read(input).value : (input ? input.value.trim() : "");
+    }
+    function phoneInvalid(name) {
+      var input = form.elements[name];
+      return !!(window.dccPhone && input && input.value.trim() && !window.dccPhone.read(input).valid);
+    }
     function val(name) {
       var el = form.elements[name];
       return el ? el.value.trim() : "";
@@ -559,11 +572,11 @@
         parent1Name: val("parent1Name"),
         parent1Address: val("parent1Address"),
         parent1Email: val("parent1Email"),
-        parent1Phone: val("parent1Phone"),
+        parent1Phone: phone("parent1Phone"),
         parent2Name: val("parent2Name"),
         parent2Address: val("parent2Address"),
         parent2Email: val("parent2Email"),
-        parent2Phone: val("parent2Phone"),
+        parent2Phone: phone("parent2Phone"),
         heardAbout: val("heardAbout"),
         wantsFutureInfo: form.elements["wantsFutureInfo"].checked
       };
@@ -580,6 +593,11 @@
       if (!emailPattern.test(data.studentEmail) || !emailPattern.test(data.parent1Email) ||
           (data.parent2Email && !emailPattern.test(data.parent2Email))) {
         showError("Please enter valid email addresses.");
+        return;
+      }
+
+      if (phoneInvalid("parent1Phone") || phoneInvalid("parent2Phone")) {
+        showError("Please enter a valid phone number, or choose the correct country.");
         return;
       }
 

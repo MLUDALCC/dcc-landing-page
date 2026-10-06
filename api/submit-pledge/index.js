@@ -21,6 +21,14 @@ const { appendRow } = require("../pledge-data/googleSheets");
 const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_PLEDGE_TAB_NAME || "Pledges";
 const ALLOWED_CADENCES = ["One-time gift", "Monthly installments", "Quarterly installments"];
 
+// Values are written with USER_ENTERED, so anything starting with = + - or @
+// (international phone numbers start with "+") would be read as a formula or
+// number by Google Sheets. Prefixing an apostrophe keeps it as plain text.
+function safe(value) {
+  const s = typeof value === "string" ? value : "";
+  return /^[=+\-@]/.test(s) ? "'" + s : s;
+}
+
 module.exports = async function (context, req) {
   context.res = { headers: { "Content-Type": "application/json" } };
 
@@ -88,15 +96,15 @@ module.exports = async function (context, req) {
       SHEET_TAB_NAME,
       [
         submittedAt,
-        parentName,
-        email,
-        phone,
-        addressLine1,
-        addressLine2,
-        city,
-        state,
-        zip,
-        choristerName,
+        safe(parentName),
+        safe(email),
+        safe(phone),
+        safe(addressLine1),
+        safe(addressLine2),
+        safe(city),
+        safe(state),
+        safe(zip),
+        safe(choristerName),
         formattedAmount,
         cadence,
       ],

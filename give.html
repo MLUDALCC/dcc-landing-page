@@ -11,7 +11,8 @@
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <script src="https://js.stripe.com/v3/"></script>
-<link rel="stylesheet" href="assets/css/style.css?v=84">
+<link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=89">
 </head>
 <body>
 
@@ -515,6 +516,8 @@
 </footer>
 
 <script src="assets/js/main.js?v=15"></script>
+<script src="assets/vendor/intl-tel-input/js/intlTelInput.min.js"></script>
+<script src="assets/js/phone-input.js?v=1"></script>
 <script>
   // Annual Pledge modal open/close -- a small copy of the same accessible
   // pattern main.js uses for the Give Now / .donate-modal (focus trap,
@@ -530,7 +533,22 @@
     var closeBtn = modal.querySelector(".pledge-modal__close");
     var lastTrigger = null;
 
+    // After a successful pledge the modal shows a thank-you message;
+    // reopening it starts a fresh, empty form so another pledge can be made.
+    function resetIfSubmitted() {
+      var successEl = document.getElementById("pledge-success");
+      if (!successEl || successEl.hidden) return;
+      var form = document.getElementById("pledge-form");
+      if (form) form.reset();
+      var errorEl = document.getElementById("pledge-form-error");
+      if (errorEl) { errorEl.hidden = true; errorEl.textContent = ""; }
+      successEl.hidden = true;
+      document.getElementById("pledge-form-wrap").hidden = false;
+      modal.querySelector(".pledge-modal__dialog").scrollTop = 0;
+    }
+
     function openModal(trigger) {
+      resetIfSubmitted();
       lastTrigger = trigger || null;
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
@@ -616,7 +634,9 @@
 
       var parentName = document.getElementById("pledge-parent-name").value.trim();
       var email = document.getElementById("pledge-email").value.trim();
-      var phone = document.getElementById("pledge-phone").value.trim();
+      var phoneInput = document.getElementById("pledge-phone");
+      var phoneResult = window.dccPhone ? window.dccPhone.read(phoneInput) : { value: phoneInput.value.trim(), valid: true };
+      var phone = phoneResult.value;
       var addressLine1 = document.getElementById("pledge-address-line1").value.trim();
       var addressLine2 = document.getElementById("pledge-address-line2").value.trim();
       var city = document.getElementById("pledge-city").value.trim();
@@ -629,6 +649,11 @@
 
       if (!parentName || !email || !pledgeAmount || !cadence) {
         showError("Please fill in all required fields.");
+        return;
+      }
+
+      if (!phoneResult.valid) {
+        showError("Please enter a valid phone number, or choose the correct country.");
         return;
       }
 
