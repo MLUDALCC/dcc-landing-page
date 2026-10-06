@@ -30,7 +30,10 @@
       sortDate: "2026-08-28",
       title: "Choristers Join Foreigner at Fair Park",
       blurb: "Symphonic Voices took the stage with the rock band Foreigner at the Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is” in front of a sold-out crowd.",
-      videoId: "7Aa4BVeEmuE"
+      videoId: "7Aa4BVeEmuE",
+      ctas: [
+        { label: "More Recordings", href: "media.html", internal: true }
+      ]
     },
     {
       year: 2026,
@@ -129,10 +132,18 @@
         item.ctas.forEach(function (cta) {
           var a = document.createElement("a");
           a.href = cta.href;
+          a.appendChild(document.createTextNode(cta.label));
+
+          /* An "internal" CTA stays in the same tab and skips the external-
+             link arrow / "(opens in a new tab)" text. */
+          if (cta.internal) {
+            a.className = "btn btn--accent";
+            row.appendChild(a);
+            return;
+          }
           a.target = "_blank";
           a.rel = "noopener noreferrer";
           a.className = "btn btn--accent btn--external";
-          a.appendChild(document.createTextNode(cta.label));
 
           var vh = document.createElement("span");
           vh.className = "visually-hidden";
