@@ -1333,3 +1333,7 @@ body.modal-open { overflow: hidden; }
 .dcc-iti input[type="tel"] { width: 100%; box-sizing: border-box; }
 .iti__country-list, .iti__dropdown-content { font-family: var(--font-sans); font-size: .9rem; }
 .iti--fullscreen-popup, .iti--container, .iti__dropdown-content { z-index: 400; }
+
+/* Required-field marker on the Audition Interest form */
+.req { color: #8a2f2f; font-weight: 700; }
+.audition-form__required-note { margin-top: .75rem; font-size: .82rem; color: var(--stone-ink); }

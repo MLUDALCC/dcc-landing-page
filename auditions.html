@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
-<link rel="stylesheet" href="assets/css/style.css?v=91">
+<link rel="stylesheet" href="assets/css/style.css?v=92">
 </head>
 <body>
 
@@ -241,34 +241,35 @@
           <span class="eyebrow eyebrow--center">2027/28 Season</span>
           <h2 id="audition-modal-title">Audition Interest Form</h2>
           <p class="body-text mt-lg">Thank you for your interest in auditioning for the Dallas Children&rsquo;s Chorus! Tell us a little about your student and family, and we&rsquo;ll be in touch with audition dates and details.</p>
+          <p class="audition-form__required-note"><span class="req" aria-hidden="true">*</span> indicates a required field</p>
         </div>
 
         <form class="audition-form" id="audition-form" novalidate>
           <h3 class="audition-form__group">About the student</h3>
           <div class="audition-form__row">
           <div class="donate-field">
-            <label for="aud-first-name">Student&rsquo;s first name</label>
+            <label for="aud-first-name">Student&rsquo;s first name<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-first-name" name="studentFirstName" autocomplete="given-name" required>
           </div>
           <div class="donate-field">
-            <label for="aud-last-name">Student&rsquo;s last name</label>
+            <label for="aud-last-name">Student&rsquo;s last name<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-last-name" name="studentLastName" autocomplete="family-name" required>
           </div>
           </div>
           <div class="donate-field">
-            <label for="aud-student-email">Student&rsquo;s email address</label>
+            <label for="aud-student-email">Student&rsquo;s email address<span class="req" aria-hidden="true"> *</span></label>
             <input type="email" id="aud-student-email" name="studentEmail" autocomplete="email" required placeholder="student@example.com">
           </div>
 
           <fieldset class="pledge-cadence-fieldset">
-            <legend>Gender</legend>
+            <legend>Gender<span class="req" aria-hidden="true"> *</span></legend>
             <label class="donate-checkbox"><input type="radio" name="gender" value="Female"><span>Female</span></label>
             <label class="donate-checkbox"><input type="radio" name="gender" value="Male"><span>Male</span></label>
             <label class="donate-checkbox"><input type="radio" name="gender" value="Other"><span>Other</span></label>
           </fieldset>
 
           <div class="donate-field">
-            <label for="aud-grade">Grade (or homeschool equivalent) your student will be entering for the 2027&ndash;28 school year</label>
+            <label for="aud-grade">Grade (or homeschool equivalent) your student will be entering for the 2027&ndash;28 school year<span class="req" aria-hidden="true"> *</span></label>
             <select id="aud-grade" name="grade" required>
               <option value="">Select a grade</option>
               <option value="4th">4th grade</option>
@@ -285,34 +286,34 @@
 
           <div class="audition-form__row">
           <div class="donate-field">
-            <label for="aud-age">Student&rsquo;s age</label>
+            <label for="aud-age">Student&rsquo;s age<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-age" name="age" required>
           </div>
           <div class="donate-field">
-            <label for="aud-height">Student&rsquo;s height</label>
+            <label for="aud-height">Student&rsquo;s height<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-height" name="height" required placeholder="e.g. 5&prime;2&Prime;">
           </div>
           </div>
           <div class="donate-field">
-            <label for="aud-student-address">Student&rsquo;s address</label>
+            <label for="aud-student-address">Student&rsquo;s address<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-student-address" name="studentAddress" autocomplete="street-address" required placeholder="Street, city, state, ZIP">
           </div>
 
           <h3 class="audition-form__group">Parent/Guardian #1</h3>
           <div class="donate-field">
-            <label for="aud-p1-name">Name</label>
+            <label for="aud-p1-name">Name<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-p1-name" name="parent1Name" autocomplete="name" required placeholder="Full name">
           </div>
           <div class="donate-field">
-            <label for="aud-p1-address">Address</label>
+            <label for="aud-p1-address">Address<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-p1-address" name="parent1Address" required placeholder="Street, city, state, ZIP">
           </div>
           <div class="donate-field">
-            <label for="aud-p1-email">Email address</label>
+            <label for="aud-p1-email">Email address<span class="req" aria-hidden="true"> *</span></label>
             <input type="email" id="aud-p1-email" name="parent1Email" autocomplete="email" required placeholder="you@example.com">
           </div>
           <div class="donate-field">
-            <label for="aud-p1-phone">Phone number</label>
+            <label for="aud-p1-phone">Phone number<span class="req" aria-hidden="true"> *</span></label>
             <input type="tel" id="aud-p1-phone" name="parent1Phone" autocomplete="tel" required placeholder="(214) 555-0100">
           </div>
 
@@ -336,7 +337,7 @@
 
           <h3 class="audition-form__group">One last thing</h3>
           <div class="donate-field">
-            <label for="aud-heard">How did you hear about the DCC?</label>
+            <label for="aud-heard">How did you hear about the DCC?<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-heard" name="heardAbout" required>
           </div>
 
