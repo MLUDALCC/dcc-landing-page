@@ -223,7 +223,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   align-items: center;
   justify-content: space-between;
   max-width: 2000px; /* wider than the page content container, so a centered nav has room to breathe next to the wordmark and buttons */
-  height: 92px; /* unchanged from before -- header-actions' two stacked rows now fit within the original height since the header buttons are shorter than the site-wide default */
+  height: 83px; /* trimmed from 92px so the buttons and secondary links sit with equal space above and below (about 13px each) */
   transition: height .3s var(--ease);
 }
 /* True centering (independent of the wordmark/actions' widths on either
@@ -545,7 +545,7 @@ body.nav-open { overflow: hidden; }
      across most of the mid-width range. A shorter copy block means that
      override kicks in less often and by less, so more of that range shows
      the true ~2.35:1 crop instead of a content-driven taller box. Still
-     plenty of clearance under the ~92px fixed header at the 7rem floor. */
+     plenty of clearance under the ~83px fixed header at the 7rem floor. */
   position: relative; z-index: 4; height: 100%;
   display: flex; flex-direction: column; justify-content: flex-start;
   padding-top: clamp(7rem, 9vw, 9rem);
@@ -814,7 +814,7 @@ body.nav-open { overflow: hidden; }
   gap: clamp(2.5rem, 5vw, 4.5rem);
   align-items: start;
 }
-.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (92px) plus a little breathing room */
+.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (83px) plus breathing room */
 .news-sidebar h2 {
   font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   color: var(--stone-ink); margin: 0 0 1rem;
