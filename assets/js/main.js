@@ -341,6 +341,10 @@
       dots.forEach(function (d, di) {
         d.classList.toggle("is-active", di === i);
       });
+      // Every settled slide (autoplay, arrow, dot, or swipe) restarts the
+      // reading clock for the quote now in view -- a no-op while autoplay is
+      // paused or off.
+      if (autoplayOn) scheduleNext();
     }
 
     // A custom-animated scroll rather than the browser's built-in "smooth"
@@ -468,16 +472,35 @@
       }, 100);
     });
 
+    /* Proportional dwell time: each quote stays up for roughly how long it
+       takes to read -- about 3s to take it in, plus ~0.25s per word (around
+       215 words a minute) -- clamped to 7-20s so very short quotes don't
+       linger and very long ones don't stall the carousel. */
+    var MIN_DWELL = 7000;
+    var MAX_DWELL = 20000;
+    function dwellFor(slideEl) {
+      var words = (slideEl.textContent || "").trim().split(/\s+/).length;
+      return Math.min(MAX_DWELL, Math.max(MIN_DWELL, 3000 + words * 250));
+    }
+
     var autoplayTimer = null;
+    var autoplayOn = false;
+    function scheduleNext() {
+      clearTimeout(autoplayTimer);
+      autoplayTimer = setTimeout(function () {
+        // step() settles via setActive(), which schedules the following
+        // quote using that quote's own length.
+        step(1);
+      }, dwellFor(slides[current]));
+    }
     function startAutoplay() {
       if (prefersReducedMotion) return;
-      stopAutoplay();
-      autoplayTimer = setInterval(function () {
-        step(1);
-      }, 7000);
+      autoplayOn = true;
+      scheduleNext();
     }
     function stopAutoplay() {
-      clearInterval(autoplayTimer);
+      autoplayOn = false;
+      clearTimeout(autoplayTimer);
     }
     function restartAutoplay() {
       startAutoplay();
