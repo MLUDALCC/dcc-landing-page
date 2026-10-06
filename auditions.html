@@ -445,7 +445,22 @@
     var closeBtn = modal.querySelector(".audition-modal__close");
     var lastTrigger = null;
 
+    // After a successful submission the modal shows a thank-you message;
+    // reopening it starts a fresh, empty form so another student can be entered.
+    function resetIfSubmitted() {
+      var successEl = document.getElementById("audition-success");
+      if (!successEl || successEl.hidden) return;
+      var form = document.getElementById("audition-form");
+      if (form) form.reset();
+      var errorEl = document.getElementById("audition-form-error");
+      if (errorEl) { errorEl.hidden = true; errorEl.textContent = ""; }
+      successEl.hidden = true;
+      document.getElementById("audition-form-wrap").hidden = false;
+      modal.querySelector(".audition-modal__dialog").scrollTop = 0;
+    }
+
     function openModal(trigger) {
+      resetIfSubmitted();
       lastTrigger = trigger || null;
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
