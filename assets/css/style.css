@@ -424,9 +424,9 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .mobile-nav {
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 250; background: var(--cream-000);
   width: 100%; max-width: 440px;
-  transform: translateX(100%); transition: transform .35s var(--ease);
+  transform: translateX(100%); transition: transform .35s var(--ease), box-shadow .35s var(--ease);
   overflow-y: auto;
-  box-shadow: -24px 0 48px -20px rgba(20, 24, 28, .25);
+  box-shadow: none; /* only shown while open -- a shadow on the closed, off-screen panel leaks a faint grey strip onto the right edge of every page */
 }
 @media (min-width: 500px) {
   /* Past real-phone-portrait widths there's room to spare, and the
@@ -436,7 +436,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
      which is most noticeable in landscape on a phone. */
   .mobile-nav { max-width: 340px; }
 }
-.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav.is-open { transform: translateX(0); box-shadow: -24px 0 48px -20px rgba(20, 24, 28, .25); }
 .mobile-nav__head { display: flex; justify-content: flex-end; padding: 1.4rem var(--gutter) 0; }
 .mobile-nav__close { width: 42px; height: 42px; }
 .mobile-nav__body { padding: 1rem var(--gutter) 3rem; }
@@ -635,14 +635,22 @@ body.nav-open { overflow: hidden; }
 .stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
 .stat__label { margin-top: .5rem; font-size: .82rem; letter-spacing: .06em; color: var(--stone-ink); }
 @media (max-width: 780px) {
-  .stat-grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.4rem; }
+  /* minmax(0, 1fr) lets both columns shrink to the same width instead of growing around
+     a long word ("Education") and pushing the right column off-centre / off-screen. */
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.4rem; }
   .stat:nth-child(3)::before { display: none; }
+}
+@media (max-width: 480px) {
+  /* Scale the big words with the screen so the longest one fits its half-width column
+     on every phone (about 320-430px wide). */
+  .stat__num { font-size: clamp(1.4rem, 7.6vw, 2.1rem); }
 }
 
 /* ---- Pillars section (What Guides Us) overrides ---------------------------- */
 .pillars .section-head { max-width: 1000px; }
 .pillars .stat__num { font-size: clamp(1.5rem, 2.6vw, 2.5rem); line-height: 1.2; }
 .pillars .stat__label { margin-top: .35rem; }
+@media (max-width: 480px) { .pillars .stat__num { font-size: clamp(1.25rem, 6.4vw, 1.5rem); } } /* keeps "Belonging" inside its half-width column on the smallest phones */
 
 /* ---- Programs page: ensemble breakdown ------------------------------------- */
 .programs-list { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4rem); }
