@@ -44,7 +44,7 @@
   --container: 1280px;
   --container-narrow: 860px;
   --gutter: clamp(1.5rem, 4vw, 3.5rem);
-  --section-pad: clamp(4.5rem, 9vw, 8rem);
+  --section-pad: clamp(4rem, 7vw, 6.5rem);
 
   /* Motion */
   --ease: cubic-bezier(.4,0,.2,1);
@@ -584,7 +584,7 @@ body.nav-open { overflow: hidden; }
 
 /* ---- Section rhythm ----------------------------------------------------*/
 .section { padding-block: var(--section-pad); }
-.section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
+.section--tight { padding-block: clamp(2.75rem, 4.7vw, 4rem); }
 /* Whatever ends (or starts) a section shouldn't add its own margin on top of
    the section's padding -- otherwise sections finishing in a pull-quote, quote
    carousel or <dl> end up 16-56px roomier at the bottom than the rest. */
@@ -618,7 +618,7 @@ body.nav-open { overflow: hidden; }
 .rule { border: none; border-top: 1px solid var(--line-100); }
 
 /* ---- Mission strip -------------------------------------------------------*/
-.mission-strip { padding-block: clamp(3rem, 6vw, 5rem); border-bottom: 1px solid var(--line-100); }
+.mission-strip { padding-block: clamp(2.75rem, 4.7vw, 4rem); border-bottom: 1px solid var(--line-100); }
 .mission-strip blockquote {
   font-family: var(--font-serif); font-weight: 400;
   font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.4; color: var(--graphite-900);
