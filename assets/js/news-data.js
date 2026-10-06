@@ -29,7 +29,8 @@
       date: "August 28, 2026",
       sortDate: "2026-08-28",
       title: "Choristers Join Foreigner at Fair Park",
-      blurb: "Symphonic Voices took the stage with the rock band Foreigner at the Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is” in front of a sold-out crowd."
+      blurb: "Symphonic Voices took the stage with the rock band Foreigner at the Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is” in front of a sold-out crowd.",
+      videoId: "7Aa4BVeEmuE"
     },
     {
       year: 2026,
@@ -97,6 +98,24 @@
       card.appendChild(time);
       card.appendChild(h3);
       card.appendChild(p);
+
+      /* Optional YouTube recording ("videoId" = the part after /embed/ or
+         "watch?v="). Uses the same privacy-enhanced youtube-nocookie embed as
+         the Media page. */
+      if (item.videoId) {
+        var embed = document.createElement("div");
+        embed.className = "video-embed";
+        var iframe = document.createElement("iframe");
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(item.videoId) + "?rel=0";
+        iframe.title = "Video: " + item.title;
+        iframe.loading = "lazy";
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+        iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+        iframe.setAttribute("allowfullscreen", "");
+        embed.appendChild(iframe);
+        card.appendChild(embed);
+      }
 
       /* Optional call-to-action buttons (e.g. "Buy Tickets" linking out to
          the DSO's site). Mirrors the external-link button markup used on

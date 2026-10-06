@@ -15,6 +15,12 @@
 
   var MEDIA_ITEMS = [
     {
+      videoId: "7Aa4BVeEmuE",
+      title: "Symphonic Voices with Foreigner",
+      meta: "August 28, 2026 · Symphonic Voices",
+      desc: "Symphonic Voices joined the rock band Foreigner on stage at Fair Park's Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is.”"
+    },
+    {
       videoId: "wzswrw1HDOs",
       title: "United in Song",
       meta: "Combined Choruses · Victor C. Johnson",

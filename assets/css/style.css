@@ -802,6 +802,7 @@ body.nav-open { overflow: hidden; }
 .news-card time { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
 .news-card h3 { margin-top: .6rem; }
 .news-card p { margin-top: .7rem; color: var(--ink-600); font-size: .95rem; }
+.news-card .video-embed { margin-top: 1.4rem; max-width: 640px; } /* recordings embedded in a news entry; no offset .frame here, so nothing pokes past the card edge */
 
 /* ---- News page (year sidebar + list) ---------------------------------------*/
 .news-layout {
