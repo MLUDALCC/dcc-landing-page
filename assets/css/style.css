@@ -804,7 +804,8 @@ body.nav-open { overflow: hidden; }
 .news-card time { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
 .news-card h3 { margin-top: .6rem; }
 .news-card p { margin-top: .7rem; color: var(--ink-600); font-size: .95rem; }
-.news-card .video-embed { margin-top: 1.4rem; max-width: 640px; } /* recordings embedded in a news entry; no offset .frame here, so nothing pokes past the card edge */
+.news-card .video-embed { margin-top: 1.4rem; margin-bottom: calc(18px + 1.2rem); max-width: 640px; } /* recordings embedded in a news entry; the offset .frame pokes 18px right and down, so the bottom margin keeps it clear of what follows */
+@media (max-width: 700px) { .news-card .video-embed { max-width: calc(100% - 18px); } } /* leaves room for the offset frame so it never extends past the page edge */
 
 /* ---- News page (year sidebar + list) ---------------------------------------*/
 .news-layout {

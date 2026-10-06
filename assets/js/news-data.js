@@ -117,6 +117,11 @@
         iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
         iframe.setAttribute("allowfullscreen", "");
         embed.appendChild(iframe);
+        // Offset outline behind the video, same treatment as the Give page video.
+        var frame = document.createElement("div");
+        frame.className = "frame";
+        frame.setAttribute("aria-hidden", "true");
+        embed.appendChild(frame);
         card.appendChild(embed);
       }
 
