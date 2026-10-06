@@ -323,7 +323,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .main-nav__link {
   display: flex; align-items: center; gap: .3rem;
   padding: 0 .7rem;
-  font-size: .76rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase;
+  font-size: .76rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--graphite-800);
   position: relative;
 }
@@ -354,7 +354,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 }
 .main-nav__item.is-open .main-nav__panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); }
 .main-nav__panel a {
-  display: block; padding: .6rem .75rem; font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  display: block; padding: .6rem .75rem; font-size: .7rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--ink-900); border-radius: 2px; white-space: nowrap;
 }
 .main-nav__panel a:hover { background: var(--cream-050); color: var(--graphite-800); }
@@ -370,26 +370,27 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   padding-bottom: .5rem;
 }
 .header-actions__buttons { display: flex; align-items: center; gap: .7rem; }
-.header-actions__buttons .btn { padding-block: .5rem; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; } /* shorter than the site-wide .btn, just here, to make room for the secondary row below */
+.header-actions__buttons .btn { padding-block: .5rem; font-size: .74rem; letter-spacing: .02em; text-transform: uppercase; } /* shorter than the site-wide .btn, just here, to make room for the secondary row below */
 .nav-toggle { display: none; }
 
 .secondary-links { display: flex; align-items: center; gap: 1rem; }
 .secondary-links a {
-  font-size: .63rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  font-size: .63rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--stone-ink);
 }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
-@media (max-width: 1249px) {
-  /* Below ~1250px the nav row no longer has enough room to keep every
+@media (max-width: 1199px) {
+  /* Below ~1200px the nav row no longer has enough room to keep every
      label (e.g. "Sing With Us") on one line without wrapping, so the
      drawer menu takes over instead of showing a cramped nav row. This
-     moved down to 1199px when "Home" was dropped from the nav, then
-     back up to 1249px once the labels went all-caps (wider letterforms
-     plus tracking leave only ~2px between the nav and the wordmark at
-     1200px). From 1250px up through ~1549px it still shows inline, just
-     left-flowing rather than centered (see the note above the matching
+     was 1249px, but dropping "Home" from the nav (the logo already
+     links there) freed up ~30-40px, so the cutoff moved down to match.
+     The labels are now all-caps but untracked (letter-spacing .02em),
+     which keeps them narrow enough for the 1199px cutoff to hold.
+     From 1200px up through ~1549px it still shows inline, just left-
+     flowing rather than centered (see the note above the matching
      centering rule) -- comfortably covering ordinary 13"-15" laptop
      widths. */
   .main-nav { display: none; }
