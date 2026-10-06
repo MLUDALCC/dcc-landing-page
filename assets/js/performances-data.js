@@ -46,7 +46,9 @@
       facts: [
         ["Dates", "May 15, 16 & 17, 2026"],
         ["Choir", "Symphonic Voices"],
-        ["With", "Dallas Symphony Orchestra, Dallas Symphony Chorus & Baltimore Choral Arts Society"]
+        ["With", "Dallas Symphony Orchestra, Dallas Symphony Chorus & Baltimore Choral Arts Society"],
+        ["Location", "Morton H. Meyerson Symphony Center"],
+        ["Address", "2301 Flora Street\nDallas, TX 75201"]
       ]
     },
     {
