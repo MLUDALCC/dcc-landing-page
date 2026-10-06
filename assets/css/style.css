@@ -1258,7 +1258,13 @@ body.modal-open { overflow: hidden; }
   font-family: var(--font-sans); font-size: .95rem; color: var(--ink-900); background: var(--white);
 }
 .donate-field select:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
-.audition-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.audition-form__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; }
+/* Inputs have an intrinsic minimum width, which pushed the right-hand field
+   of each pair past the edge of the box; let them shrink to their column. */
+.audition-form .donate-field { min-width: 0; }
+.audition-form .donate-field input,
+.audition-form .donate-field select { width: 100%; min-width: 0; box-sizing: border-box; }
+.audition-modal__dialog { max-width: 680px; }
 @media (max-width: 460px) { .audition-form__row { grid-template-columns: 1fr; } }
 .audition-form__group { margin: .5rem 0 -.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line-100); font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink-900); }
 .audition-form__group:first-child { margin-top: 0; padding-top: 0; border-top: none; }
