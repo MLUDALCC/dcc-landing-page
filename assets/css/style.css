@@ -322,7 +322,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .main-nav > ul > li { position: relative; display: flex; }
 .main-nav__link {
   display: flex; align-items: center; gap: .3rem;
-  padding: 0 .7rem;
+  padding: 0 .5rem;
   font-size: .76rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--graphite-800);
   position: relative;
@@ -332,7 +332,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .site-header--transparent:not(.is-scrolled) .header-actions .btn--outline { border-color: rgba(255,255,255,.55); }
 
 .main-nav__link::after {
-  content: ""; position: absolute; left: .7rem; right: .7rem; bottom: 22px; height: 1px;
+  content: ""; position: absolute; left: .5rem; right: .5rem; bottom: 22px; height: 1px;
   background: var(--stone-500); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease);
 }
 .main-nav__link:hover::after, .main-nav__item.is-open .main-nav__link::after,
@@ -373,7 +373,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .header-actions__buttons .btn { padding-block: .5rem; font-size: .74rem; letter-spacing: .02em; text-transform: uppercase; } /* shorter than the site-wide .btn, just here, to make room for the secondary row below */
 .nav-toggle { display: none; }
 
-.secondary-links { display: flex; align-items: center; gap: 1rem; }
+.secondary-links { display: flex; align-items: center; gap: .85rem; }
 .secondary-links a {
   font-size: .63rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--stone-ink);
@@ -381,15 +381,15 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
-@media (max-width: 1199px) {
-  /* Below ~1200px the nav row no longer has enough room to keep every
+@media (max-width: 1159px) {
+  /* Below ~1160px the nav row no longer has enough room to keep every
      label (e.g. "Sing With Us") on one line without wrapping, so the
-     drawer menu takes over instead of showing a cramped nav row. This
-     was 1249px, but dropping "Home" from the nav (the logo already
-     links there) freed up ~30-40px, so the cutoff moved down to match.
-     The labels are now all-caps but untracked (letter-spacing .02em),
-     which keeps them narrow enough for the 1199px cutoff to hold.
-     From 1200px up through ~1549px it still shows inline, just left-
+     drawer menu takes over instead of showing a cramped nav row. The
+     cutoff has moved over time: 1249px originally, 1199px once "Home"
+     left the nav, and now 1159px since the labels are all-caps but
+     untracked (letter-spacing .02em) with tighter .5rem side padding
+     on each link, leaving ~22px of air either side of the nav at 1160px.
+     From 1160px up through ~1549px it still shows inline, just left-
      flowing rather than centered (see the note above the matching
      centering rule) -- comfortably covering ordinary 13"-15" laptop
      widths. */
