@@ -33,8 +33,8 @@
     },
     {
       year: 2026,
-      date: "May 2, 2026",
-      sortDate: "2026-05-02",
+      date: "April 19, 2026",
+      sortDate: "2026-04-19",
       title: "DSCC Spring Concert Caps a Milestone Season",
       blurb: "All three choruses closed out the 2025/26 season together at the Meyerson, marking the ensemble's fourth season of concerts since its founding."
     },
