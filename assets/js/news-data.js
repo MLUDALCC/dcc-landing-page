@@ -40,7 +40,7 @@
       date: "May 15, 16 & 17, 2026",
       sortDate: "2026-05-15",
       title: "Symphonic Voices Performs Mahler's Symphony No. 8 with the DSO",
-      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler's Symphony No. 8 on May 15, 16, and 17, 2026."
+      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler's Symphony No. 8 at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026."
     },
     {
       year: 2026,
