@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/style.css?v=84">
+<link rel="stylesheet" href="assets/css/style.css?v=86">
 </head>
 <body>
 
@@ -174,6 +174,11 @@
           <dd>To be announced in late winter or early spring 2027</dd>
         </div>
       </dl>
+
+      <div class="btn-row mt-lg">
+        <button type="button" class="btn btn--accent js-open-audition-modal">Audition Interest Form</button>
+      </div>
+      <p class="body-text mt-sm">Interested in auditioning for 2027/28? Let us know, and we&rsquo;ll send audition dates and details as soon as they&rsquo;re available.</p>
     </div>
   </section>
 
@@ -215,6 +220,150 @@
   </section>
 
 </main>
+
+
+<!-- ============================= AUDITION INTEREST MODAL =============================
+     Opened by the "Audition Interest Form" button (class js-open-audition-modal).
+     Same pattern as the Annual Pledge modal on give.html: its own modal class
+     with a small inline copy of the accessible open/close logic (focus trap,
+     Escape closes, backdrop click closes). Posts to /api/submit-audition-interest
+     (see that Function), which appends the submission as a new row in a Google
+     Sheet for staff to follow up on. -->
+<div class="audition-modal" aria-hidden="true">
+  <div class="audition-modal__backdrop"></div>
+  <div class="audition-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="audition-modal-title">
+    <div class="donate-box">
+      <button class="audition-modal__close" type="button" aria-label="Close">&times;</button>
+
+      <div id="audition-form-wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow eyebrow--center">2027/28 Season</span>
+          <h2 id="audition-modal-title">Audition Interest Form</h2>
+          <p class="body-text mt-lg">Thank you for your interest in auditioning for the Dallas Children&rsquo;s Chorus! Tell us a little about your student and family, and we&rsquo;ll be in touch with audition dates and details.</p>
+        </div>
+
+        <form class="audition-form" id="audition-form" novalidate>
+          <h3 class="audition-form__group">About the student</h3>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-first-name">Student&rsquo;s first name</label>
+            <input type="text" id="aud-first-name" name="studentFirstName" autocomplete="given-name" required>
+          </div>
+          <div class="donate-field">
+            <label for="aud-last-name">Student&rsquo;s last name</label>
+            <input type="text" id="aud-last-name" name="studentLastName" autocomplete="family-name" required>
+          </div>
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-email">Student&rsquo;s email address</label>
+            <input type="email" id="aud-student-email" name="studentEmail" autocomplete="email" required placeholder="student@example.com">
+          </div>
+
+          <fieldset class="pledge-cadence-fieldset">
+            <legend>Gender</legend>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Female"><span>Female</span></label>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Male"><span>Male</span></label>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Other"><span>Other</span></label>
+          </fieldset>
+
+          <div class="donate-field">
+            <label for="aud-grade">Grade (or homeschool equivalent) your student will be entering for the 2027&ndash;28 school year</label>
+            <select id="aud-grade" name="grade" required>
+              <option value="">Select a grade</option>
+              <option value="4th">4th grade</option>
+              <option value="5th">5th grade</option>
+              <option value="6th">6th grade</option>
+              <option value="7th">7th grade</option>
+              <option value="8th">8th grade</option>
+              <option value="9th">9th grade</option>
+              <option value="10th">10th grade</option>
+              <option value="11th">11th grade</option>
+              <option value="12th">12th grade</option>
+            </select>
+          </div>
+
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-age">Student&rsquo;s age</label>
+            <input type="text" id="aud-age" name="age" required>
+          </div>
+          <div class="donate-field">
+            <label for="aud-height">Student&rsquo;s height</label>
+            <input type="text" id="aud-height" name="height" required placeholder="e.g. 5&prime;2&Prime;">
+          </div>
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-address">Student&rsquo;s address</label>
+            <input type="text" id="aud-student-address" name="studentAddress" autocomplete="street-address" required placeholder="Street, city, state, ZIP">
+          </div>
+
+          <h3 class="audition-form__group">Parent/Guardian #1</h3>
+          <div class="donate-field">
+            <label for="aud-p1-name">Name</label>
+            <input type="text" id="aud-p1-name" name="parent1Name" autocomplete="name" required placeholder="Full name">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-address">Address</label>
+            <input type="text" id="aud-p1-address" name="parent1Address" required placeholder="Street, city, state, ZIP">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-email">Email address</label>
+            <input type="email" id="aud-p1-email" name="parent1Email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-phone">Phone number</label>
+            <input type="tel" id="aud-p1-phone" name="parent1Phone" autocomplete="tel" required placeholder="(214) 555-0100">
+          </div>
+
+          <h3 class="audition-form__group">Parent/Guardian #2 (optional)</h3>
+          <div class="donate-field">
+            <label for="aud-p2-name">Name</label>
+            <input type="text" id="aud-p2-name" name="parent2Name" placeholder="Full name">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-address">Address</label>
+            <input type="text" id="aud-p2-address" name="parent2Address" placeholder="Street, city, state, ZIP">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-email">Email address</label>
+            <input type="email" id="aud-p2-email" name="parent2Email" placeholder="you@example.com">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-phone">Phone number</label>
+            <input type="tel" id="aud-p2-phone" name="parent2Phone" placeholder="(214) 555-0100">
+          </div>
+
+          <h3 class="audition-form__group">One last thing</h3>
+          <div class="donate-field">
+            <label for="aud-heard">How did you hear about the DCC?</label>
+            <input type="text" id="aud-heard" name="heardAbout" required>
+          </div>
+
+          <label class="donate-checkbox">
+            <input type="checkbox" id="aud-future" name="wantsFutureInfo">
+            <span>Yes, please send me information about future DCC auditions.</span>
+          </label>
+
+          <div class="donate-form__error" id="audition-form-error" role="alert" hidden></div>
+
+          <button type="submit" class="btn btn--accent donate-submit" id="audition-submit">
+            <span class="donate-submit__label">Submit</span>
+          </button>
+
+          <p class="donate-form__note">Submitting this form doesn&rsquo;t schedule an audition &mdash; we&rsquo;ll follow up with dates and details. Questions? Contact us at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+        </form>
+      </div>
+
+      <div id="audition-success" hidden>
+        <div class="section-head section-head--center">
+          <span class="eyebrow eyebrow--center">Thank You</span>
+          <h2>We&rsquo;ve received your form</h2>
+          <p class="body-text mt-lg">Thank you for your interest in the Dallas Children&rsquo;s Chorus! A member of our team will be in touch with audition dates and details. If you have questions in the meantime, reach out at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ============================= FOOTER ============================= -->
 <footer class="site-footer">
@@ -285,5 +434,168 @@
 </footer>
 
 <script src="assets/js/main.js?v=15"></script>
+<script>
+  // Audition Interest modal open/close: same accessible pattern as the
+  // Annual Pledge modal on give.html (focus trap, Escape and backdrop click
+  // close, focus returns to the opening button).
+  (function () {
+    var modal = document.querySelector(".audition-modal");
+    if (!modal) return;
+    var backdrop = modal.querySelector(".audition-modal__backdrop");
+    var closeBtn = modal.querySelector(".audition-modal__close");
+    var lastTrigger = null;
+
+    function openModal(trigger) {
+      lastTrigger = trigger || null;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeBtn.focus();
+      document.addEventListener("keydown", onKeydown);
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      document.removeEventListener("keydown", onKeydown);
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    function getFocusable() {
+      return Array.prototype.slice
+        .call(modal.querySelectorAll('button, a[href], input, select, [tabindex]:not([tabindex="-1"])'))
+        .filter(function (el) { return el.offsetParent !== null && !el.disabled; });
+    }
+
+    function onKeydown(e) {
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (e.key === "Tab") {
+        var focusable = getFocusable();
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    document.querySelectorAll(".js-open-audition-modal").forEach(function (trigger) {
+      trigger.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+  })();
+</script>
+<script>
+  // Audition Interest form: a plain fetch to /api/submit-audition-interest.
+  (function () {
+    var form = document.getElementById("audition-form");
+    if (!form) return;
+
+    var formWrap = document.getElementById("audition-form-wrap");
+    var successEl = document.getElementById("audition-success");
+    var errorEl = document.getElementById("audition-form-error");
+    var submitBtn = document.getElementById("audition-submit");
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+    function hideError() {
+      errorEl.hidden = true;
+      errorEl.textContent = "";
+    }
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      submitBtn.classList.toggle("is-loading", isLoading);
+    }
+    function val(name) {
+      var el = form.elements[name];
+      return el ? el.value.trim() : "";
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      hideError();
+
+      var genderInput = form.querySelector('input[name="gender"]:checked');
+      var data = {
+        studentFirstName: val("studentFirstName"),
+        studentLastName: val("studentLastName"),
+        studentEmail: val("studentEmail"),
+        gender: genderInput ? genderInput.value : "",
+        grade: val("grade"),
+        age: val("age"),
+        height: val("height"),
+        studentAddress: val("studentAddress"),
+        parent1Name: val("parent1Name"),
+        parent1Address: val("parent1Address"),
+        parent1Email: val("parent1Email"),
+        parent1Phone: val("parent1Phone"),
+        parent2Name: val("parent2Name"),
+        parent2Address: val("parent2Address"),
+        parent2Email: val("parent2Email"),
+        parent2Phone: val("parent2Phone"),
+        heardAbout: val("heardAbout"),
+        wantsFutureInfo: form.elements["wantsFutureInfo"].checked
+      };
+
+      var required = ["studentFirstName", "studentLastName", "studentEmail", "gender", "grade", "age", "height",
+        "studentAddress", "parent1Name", "parent1Address", "parent1Email", "parent1Phone", "heardAbout"];
+      for (var i = 0; i < required.length; i++) {
+        if (!data[required[i]]) {
+          showError("Please fill in all required fields.");
+          return;
+        }
+      }
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(data.studentEmail) || !emailPattern.test(data.parent1Email) ||
+          (data.parent2Email && !emailPattern.test(data.parent2Email))) {
+        showError("Please enter valid email addresses.");
+        return;
+      }
+
+      setLoading(true);
+
+      fetch("/api/submit-audition-interest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (body) {
+            return { ok: res.ok, data: body };
+          });
+        })
+        .then(function (result) {
+          setLoading(false);
+          if (!result.ok) {
+            showError((result.data && result.data.error) || "Something went wrong submitting your form. Please try again, or contact us at chorus@dalcc.org.");
+            return;
+          }
+          formWrap.hidden = true;
+          successEl.hidden = false;
+          successEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        })
+        .catch(function () {
+          setLoading(false);
+          showError("We couldn\u2019t reach our server. Please check your connection and try again, or contact us at chorus@dalcc.org.");
+        });
+    });
+  })();
+</script>
 </body>
 </html>
