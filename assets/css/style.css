@@ -585,6 +585,13 @@ body.nav-open { overflow: hidden; }
 /* ---- Section rhythm ----------------------------------------------------*/
 .section { padding-block: var(--section-pad); }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
+/* Whatever ends (or starts) a section shouldn't add its own margin on top of
+   the section's padding -- otherwise sections finishing in a pull-quote, quote
+   carousel or <dl> end up 16-56px roomier at the bottom than the rest. */
+.section .container > :first-child,
+.section .container--narrow > :first-child { margin-top: 0; }
+.section .container > :last-child,
+.section .container--narrow > :last-child { margin-bottom: 0; }
 /* Sets the "commitments" stat block apart from the plain white sections
    around it. Uses the same --cream-050 floor as --section--cream, the
    page-hero, the CTA band and the footer, so no section between the hero
@@ -611,7 +618,7 @@ body.nav-open { overflow: hidden; }
 .rule { border: none; border-top: 1px solid var(--line-100); }
 
 /* ---- Mission strip -------------------------------------------------------*/
-.mission-strip { padding-block: clamp(3rem, 6vw, 4.5rem); border-bottom: 1px solid var(--line-100); }
+.mission-strip { padding-block: clamp(3rem, 6vw, 5rem); border-bottom: 1px solid var(--line-100); }
 .mission-strip blockquote {
   font-family: var(--font-serif); font-weight: 400;
   font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.4; color: var(--graphite-900);
