@@ -6,7 +6,7 @@
    ========================================================================= */
 
 /* ---- Fonts ------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap');
 
 :root {
   /* Neutral system -- navy is reserved for the DCC logo artwork itself
@@ -148,14 +148,15 @@ h3, .h3 {
   color: var(--graphite-900);
 }
 .lede {
-  /* Text under page and hero headings: Newsreader, a serif made for
-     reading, which pairs with the Instrument Serif headline while staying
-     comfortable over several lines (the condensed Instrument Serif gets thin
-     at paragraph length). */
-  font-family: "Newsreader", Georgia, "Times New Roman", serif;
-  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+  /* Text under page and hero headings: EB Garamond, a classic old-style
+     serif that echoes the upright stress and narrow proportions of the
+     Instrument Serif headline while staying comfortable over several lines
+     (the condensed Instrument Serif gets thin at paragraph length). Garamond
+     has a small x-height, so it is set a little larger than other serifs. */
+  font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 1.85vw, 1.6rem);
   line-height: 1.45;
-  color: var(--ink-600);
+  color: #41464c;
   font-weight: 400;
 }
 p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
