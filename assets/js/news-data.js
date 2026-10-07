@@ -142,7 +142,7 @@
           /* An "internal" CTA stays in the same tab and skips the external-
              link arrow / "(opens in a new tab)" text. */
           if (cta.internal) {
-            a.className = "btn btn--accent";
+            a.className = "btn btn--outline";
             row.appendChild(a);
             return;
           }

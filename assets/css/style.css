@@ -381,14 +381,14 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
-/* Desktop (inline nav) only: a slimmer 72px header. The wordmark, the
+/* Desktop (inline nav) only: a slim 64px header. The wordmark, the
    primary nav labels, the secondary links and the Give button are all
    centered on the header's middle line (equal space above and below). The
    active-page underline sits ~10px under the labels. Drawer-menu widths keep
    the taller header, which needs the room for the stacked Give/hamburger +
    links. */
 @media (min-width: 1237px) {
-  .site-header .container { height: 72px; }
+  .site-header .container { height: 64px; }
   /* The wordmark image carries a little extra space below its ink, so its
      visible letters would sit ~1.9px above the header's true middle;
      nudging it down centers the logo + tagline as seen. */
@@ -399,7 +399,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
      put the visible letters on the header's exact middle line. */
   .main-nav__link { padding-top: 1.8px; }
   .secondary-links { top: 1.2px; }
-  .main-nav__link::after { bottom: 19px; }
+  .main-nav__link::after { bottom: 15px; }
 }
 
 @media (max-width: 1236px) {
@@ -842,7 +842,7 @@ body.nav-open { overflow: hidden; }
   gap: clamp(2.5rem, 5vw, 4.5rem);
   align-items: start;
 }
-.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (72-83px depending on width) plus breathing room */
+.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (64-83px depending on width) plus breathing room */
 .news-sidebar h2 {
   font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   color: var(--stone-ink); margin: 0 0 1rem;
