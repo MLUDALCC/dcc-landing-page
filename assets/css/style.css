@@ -395,9 +395,17 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
    header, which needs the room for the stacked Give/hamburger + links. */
 @media (min-width: 1237px) {
   .site-header .container { height: 72px; }
+  /* The wordmark image carries a little extra space below its ink, so its
+     visible letters sit ~1.9px above the header's true middle. Nudging it
+     down centers the logo + tagline as seen (equal space above and below),
+     which is also the line the Give button is centered on. The nav labels,
+     underline and secondary links below are offset by the same 1.9px so they
+     keep hanging from the tagline's baseline. */
+  .site-header .wordmark { position: relative; top: 1.9px; }
   .header-actions { align-self: center; padding-bottom: 0; }
-  .secondary-links { top: 12.4px; }
-  .main-nav__link::after { bottom: 8.5px; }
+  .secondary-links { top: 14.3px; }
+  .main-nav__link { padding-top: 26.8px; }
+  .main-nav__link::after { bottom: 6.6px; }
 }
 
 @media (max-width: 1236px) {
