@@ -993,8 +993,8 @@ body.nav-open { overflow: hidden; }
 
 /* ---- Page hero (interior pages) --------------------------------------------*/
 .page-hero {
-  padding-top: clamp(9rem, 14vw, 11rem);
-  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  padding-top: clamp(7.5rem, 10vw, 9rem); /* ~80px of air under the 64px header at desktop width */
+  padding-bottom: clamp(2.5rem, 4.5vw, 3.5rem);
   background: var(--cream-050);
   border-bottom: 1px solid var(--line-100);
   color: var(--graphite-900);
