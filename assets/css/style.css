@@ -655,7 +655,7 @@ body.nav-open { overflow: hidden; }
 .mission-strip blockquote {
   font-family: var(--font-serif); font-weight: 400;
   font-size: clamp(1.6rem, 2.9vw, 2.3rem); line-height: 1.3; color: var(--graphite-900);
-  margin: 0 auto; text-align: center; max-width: 62ch;
+  margin: 0 auto; text-align: center; max-width: 74rem; text-wrap: balance;
 }
 .mission-strip blockquote p { margin: 0; }
 .mission-strip cite { display: block; margin-bottom: 1.2rem; font-style: normal; }
