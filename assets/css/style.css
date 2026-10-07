@@ -686,7 +686,7 @@ body.nav-open { overflow: hidden; }
   background: rgba(11,42,74,.18); /* graphite-800 at low opacity -- was white-on-navy, now dark-on-pale-tint */
 }
 .stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
-.stat__label { margin-top: .5rem; font-size: 0.921rem; letter-spacing: .06em; color: var(--stone-ink); }
+.stat__label { margin-top: .5rem; font-size: 1.05rem; letter-spacing: .04em; color: var(--stone-ink); }
 @media (max-width: 780px) {
   /* minmax(0, 1fr) lets both columns shrink to the same width instead of growing around
      a long word ("Education") and pushing the right column off-centre / off-screen. */
