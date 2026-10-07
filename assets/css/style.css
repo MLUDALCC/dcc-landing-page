@@ -322,11 +322,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .main-nav > ul > li { position: relative; display: flex; }
 .main-nav__link {
   display: flex; align-items: center; gap: .3rem;
-  /* The top padding pushes the label down so its baseline lines up with the
-     bottom of the wordmark's tagline; the link box itself still fills the
-     header's full height, so the hover area and the dropdown anchor (the
-     header's bottom edge) are unchanged. */
-  padding: 23px .5rem 0;
+  padding: 0 .5rem;
   font-size: .72rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--graphite-800);
   position: relative;
@@ -364,10 +360,8 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .main-nav__panel a:hover { background: var(--cream-050); color: var(--graphite-800); }
 
 /* header-actions is one row on desktop: the quiet secondary links
-   (News/Contact/Family Portal) sit to the left of the Give button, and the
-   row's vertical position puts them and the button on the same line as the
-   primary nav labels, whose baseline matches the bottom of the wordmark's
-   tagline. In drawer-menu mode (see the 1236px-and-below rules further down) it
+   (News/Contact/Family Portal) sit to the left of the Give button, all
+   centered on the header's middle line along with the primary nav labels. In drawer-menu mode (see the 1236px-and-below rules further down) it
    goes back to two stacked rows: Give + hamburger on top, links beneath. */
 .header-actions {
   display: flex; flex-direction: row; align-items: center;
@@ -387,25 +381,25 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
-/* Desktop (inline nav) only: a slimmer 72px header. The wordmark block stays
-   centered; the Give button is centered on it too; the nav labels and the
-   secondary links hang from the tagline's baseline (the link padding-top and
-   the .secondary-links offset below do that shift), and the active-page
-   underline sits ~10px under the labels. Drawer-menu widths keep the taller
-   header, which needs the room for the stacked Give/hamburger + links. */
+/* Desktop (inline nav) only: a slimmer 72px header. The wordmark, the
+   primary nav labels, the secondary links and the Give button are all
+   centered on the header's middle line (equal space above and below). The
+   active-page underline sits ~10px under the labels. Drawer-menu widths keep
+   the taller header, which needs the room for the stacked Give/hamburger +
+   links. */
 @media (min-width: 1237px) {
   .site-header .container { height: 72px; }
   /* The wordmark image carries a little extra space below its ink, so its
-     visible letters sit ~1.9px above the header's true middle. Nudging it
-     down centers the logo + tagline as seen (equal space above and below),
-     which is also the line the Give button is centered on. The nav labels,
-     underline and secondary links below are offset by the same 1.9px so they
-     keep hanging from the tagline's baseline. */
+     visible letters would sit ~1.9px above the header's true middle;
+     nudging it down centers the logo + tagline as seen. */
   .site-header .wordmark { position: relative; top: 1.9px; }
   .header-actions { align-self: center; padding-bottom: 0; }
-  .secondary-links { top: 14.3px; }
-  .main-nav__link { padding-top: 26.8px; }
-  .main-nav__link::after { bottom: 6.6px; }
+  /* Capital letters sit a little above their line box's middle (the box
+     reserves room for descenders), so the labels get a small nudge down to
+     put the visible letters on the header's exact middle line. */
+  .main-nav__link { padding-top: 1.8px; }
+  .secondary-links { top: 1.2px; }
+  .main-nav__link::after { bottom: 19px; }
 }
 
 @media (max-width: 1236px) {
