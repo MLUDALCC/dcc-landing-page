@@ -294,6 +294,15 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
      in that edge case, instead of distorting it. */
   object-fit: contain;
 }
+/* Wherever the tagline is shown, the logo is scaled to exactly the tagline's
+   width: the name box contributes no width of its own (width:0 + min-width:100%)
+   so the wordmark is as wide as the tagline, and the artwork fills that width
+   with its height following proportionally. Below 641px the tagline is hidden,
+   so the fixed-height rule above applies instead. */
+@media (min-width: 641px) {
+  .site-header .wordmark__name { width: 0; min-width: 100%; }
+  .site-header .wordmark__name img { width: 100%; height: auto; max-width: none; }
+}
 /* Footer logo: fills the footer-brand column up to a sensible cap;
    height is always derived from width, so it can never be distorted
    even as the column narrows at smaller breakpoints. */
@@ -393,18 +402,18 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
    the taller header, which needs the room for the stacked Give/hamburger +
    links. */
 @media (min-width: 1237px) {
-  .site-header .container { height: 64px; }
+  .site-header .container { height: 58px; }
   /* The wordmark image carries a little extra space below its ink, so its
      visible letters would sit ~1.9px above the header's true middle;
      nudging it down centers the logo + tagline as seen. */
-  .site-header .wordmark { position: relative; top: 1.5px; }
+  .site-header .wordmark { position: relative; top: 1px; }
   .header-actions { align-self: center; padding-bottom: 0; }
   /* Capital letters sit a little above their line box's middle (the box
      reserves room for descenders), so the labels get a small nudge down to
      put the visible letters on the header's exact middle line. */
   .main-nav__link { padding-top: 1.8px; }
   .secondary-links { top: 1.2px; }
-  .main-nav__link::after { bottom: 15px; }
+  .main-nav__link::after { bottom: 12px; }
 }
 
 @media (max-width: 1236px) {
