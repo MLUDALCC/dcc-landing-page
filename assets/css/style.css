@@ -6,7 +6,7 @@
    ========================================================================= */
 
 /* ---- Fonts ------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap');
 
 :root {
   /* Neutral system -- navy is reserved for the DCC logo artwork itself
@@ -36,8 +36,8 @@
   --white: #ffffff;
 
   /* Type */
-  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif; /* display serif: one weight (400) only -- never set bolder weights on it or browsers fake-bold it */
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-wordmark: Optima, Candara, "Noto Sans", var(--font-sans);
 
   /* Layout */
@@ -126,30 +126,32 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 h1, .h1 {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(2.4rem, 4.4vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -.01em;
+  font-weight: 400;
+  font-size: clamp(2.75rem, 5vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -.005em;
   color: var(--graphite-900);
 }
 h2, .h2 {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
-  line-height: 1.14;
+  font-weight: 400;
+  font-size: clamp(2.15rem, 3.6vw, 3.1rem);
+  line-height: 1.1;
   color: var(--graphite-900);
 }
 h3, .h3 {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(1.35rem, 1.8vw, 1.65rem);
-  line-height: 1.3;
+  font-weight: 400;
+  font-size: clamp(1.55rem, 2vw, 1.9rem);
+  line-height: 1.2;
   color: var(--graphite-900);
 }
 .lede {
-  font-family: var(--font-serif);
-  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
-  line-height: 1.55;
+  /* Intro paragraphs run several lines, which reads better in the sans than
+     in the condensed display serif. */
+  font-family: var(--font-sans);
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
   color: var(--ink-600);
   font-weight: 400;
 }
@@ -392,7 +394,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
   /* The wordmark image carries a little extra space below its ink, so its
      visible letters would sit ~1.9px above the header's true middle;
      nudging it down centers the logo + tagline as seen. */
-  .site-header .wordmark { position: relative; top: 1.9px; }
+  .site-header .wordmark { position: relative; top: 1px; }
   .header-actions { align-self: center; padding-bottom: 0; }
   /* Capital letters sit a little above their line box's middle (the box
      reserves room for descenders), so the labels get a small nudge down to
@@ -475,7 +477,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .mobile-nav__body > ul > li { border-bottom: 1px solid var(--line-100); }
 .mobile-nav__top {
   width: 100%; display: flex; align-items: center; justify-content: space-between;
-  padding: 1.1rem 0; font-family: var(--font-serif); font-size: 1.15rem; color: var(--graphite-900); text-align: left;
+  padding: 1.1rem 0; font-family: var(--font-sans); font-weight: 500; font-size: 1.05rem; color: var(--graphite-900); text-align: left;
 }
 .mobile-nav__sub { display: none; padding: 0 0 1rem 1rem; }
 .mobile-nav__sub a { display: block; padding: .5rem 0; color: var(--ink-600); font-size: .95rem; }
@@ -582,7 +584,7 @@ body.nav-open { overflow: hidden; }
 .hero__title {
   color: var(--white);
   max-width: 22ch;
-  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+  font-size: clamp(3rem, 6.2vw, 5.2rem);
 }
 .hero__sub {
   color: rgba(255,255,255,.86);
@@ -649,7 +651,7 @@ body.nav-open { overflow: hidden; }
 .mission-strip { padding-block: clamp(2.75rem, 4.7vw, 4rem); border-bottom: 1px solid var(--line-100); }
 .mission-strip blockquote {
   font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.4; color: var(--graphite-900);
+  font-size: clamp(1.6rem, 2.9vw, 2.3rem); line-height: 1.3; color: var(--graphite-900);
   margin: 0 auto; text-align: center; max-width: 62ch;
 }
 .mission-strip blockquote p { margin: 0; }
@@ -1036,7 +1038,7 @@ body.nav-open { overflow: hidden; }
   padding-left: clamp(1.5rem, 3vw, 2.5rem);
   margin-block: clamp(2.5rem, 5vw, 3.5rem);
 }
-.pull-quote p { font-family: var(--font-serif); font-size: clamp(1.25rem, 2vw, 1.6rem); color: var(--graphite-900); line-height: 1.5; }
+.pull-quote p { font-family: var(--font-serif); font-size: clamp(1.45rem, 2.3vw, 1.85rem); color: var(--graphite-900); line-height: 1.4; }
 .pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: .85rem; color: var(--ink-400); letter-spacing: .04em; }
 
 /* ---- Quote carousel (chorister quotes) --------------------------------------
@@ -1158,7 +1160,7 @@ body.modal-open { overflow: hidden; }
 .accordion__item { border-bottom: 1px solid var(--line-100); }
 .accordion__trigger {
   width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 1.4rem 0; text-align: left; font-family: var(--font-serif); font-size: 1.1rem; color: var(--graphite-900);
+  padding: 1.4rem 0; text-align: left; font-family: var(--font-sans); font-weight: 500; font-size: 1.05rem; color: var(--graphite-900);
 }
 .accordion__trigger .chev { width: 1em; height: 1em; flex: none; transition: transform .3s var(--ease); }
 .accordion__item.is-open .chev { transform: rotate(180deg); }
@@ -1181,7 +1183,7 @@ body.modal-open { overflow: hidden; }
    material to be scanned section by section, not marketing copy, so the
    heading shouldn't compete with a page's actual headline treatment.
    Scoped to .prose only, so every other page's h2 is untouched. */
-.prose h2 { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: .75rem; font-size: clamp(1.3rem, 2vw, 1.6rem); }
+.prose h2 { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: .75rem; font-size: clamp(1.55rem, 2.3vw, 1.9rem); }
 /* Sub-headers within a section (e.g. "Information You Provide" under
    "Information We Collect") switch to sans-serif at a smaller size, so
    they read as clearly subordinate to the serif section heading above
