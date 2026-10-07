@@ -768,10 +768,10 @@ body.nav-open { overflow: hidden; }
   background: var(--stone-100);
   color: var(--stone-ink);
 }
-/* Positive/active variant (e.g. "Tickets On Sale Now") -- the site's one
-   accent colour, same as .btn--accent, instead of the muted gray default
-   used for neutral states like "Past Performance". */
-.status-badge--accent { background: var(--stone-500); color: var(--white); }
+/* Positive/active variant (e.g. "Tickets On Sale Now") -- accent-coloured
+   text only (no filled box), so it flags the status without competing
+   with the solid Buy Tickets button below it. */
+.status-badge--accent { background: transparent; color: var(--stone-500); padding: 0; }
 
 /* ---- Board of Trustees ------------------------------------------------------ */
 .trustee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
