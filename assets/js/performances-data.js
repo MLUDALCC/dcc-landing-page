@@ -230,7 +230,7 @@
     if (ctas && ctas.length) {
       var row2 = el("div", "btn-row mt-sm");
       ctas.forEach(function (cta) {
-        var a = el("a", "btn btn--accent");
+        var a = el("a", "btn btn--outline");
         a.href = cta.href;
         a.appendChild(document.createTextNode(cta.label));
         if (!isPast) {
