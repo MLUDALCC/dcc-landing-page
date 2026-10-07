@@ -363,21 +363,23 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 }
 .main-nav__panel a:hover { background: var(--cream-050); color: var(--graphite-800); }
 
-/* header-actions is now two stacked rows: the CTA buttons (+ the mobile
-   nav-toggle, which lives in that same row so it stays aligned with the
-   buttons rather than the smaller secondary row below), then the quiet
-   secondary links (News/Contact/Family Portal) tucked underneath them. */
+/* header-actions is one row on desktop: the quiet secondary links
+   (News/Contact/Family Portal) sit to the left of the Give button, and the
+   row's vertical position puts them and the button on the same line as the
+   primary nav labels, whose baseline matches the bottom of the wordmark's
+   tagline. In drawer-menu mode (see the 1236px-and-below rules further down) it
+   goes back to two stacked rows: Give + hamburger on top, links beneath. */
 .header-actions {
-  display: flex; flex-direction: column; align-items: flex-end;
+  display: flex; flex-direction: row; align-items: center;
   align-self: flex-end;
-  gap: .5625rem; /* 9px: makes the space above the secondary links match the space below them */
-  padding-bottom: .5rem;
+  gap: 1.75rem;
+  padding-bottom: 11.75px; /* centers the Give button on the nav labels' line */
 }
 .header-actions__buttons { display: flex; align-items: center; gap: .7rem; }
-.header-actions__buttons .btn { padding-block: .5rem; font-size: .72rem; letter-spacing: .02em; text-transform: uppercase; } /* shorter than the site-wide .btn, just here, to make room for the secondary row below */
+.header-actions__buttons .btn { padding-block: .5rem; font-size: .72rem; letter-spacing: .02em; text-transform: uppercase; } /* shorter than the site-wide .btn, just for the header */
 .nav-toggle { display: none; }
 
-.secondary-links { display: flex; align-items: center; gap: .85rem; }
+.secondary-links { display: flex; align-items: center; gap: .85rem; position: relative; top: .8px; } /* .8px: lines their baseline up with the tagline's and the nav labels' */
 .secondary-links a {
   font-size: .63rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--stone-ink);
@@ -385,21 +387,28 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
-@media (max-width: 1134px) {
-  /* Below ~1135px the nav row no longer has enough room to keep every
+@media (max-width: 1236px) {
+  /* Below ~1237px the nav row no longer has enough room to keep every
      label (e.g. "Sing With Us") on one line without wrapping, so the
      drawer menu takes over instead of showing a cramped nav row. The
      cutoff has moved over time: 1249px originally, 1199px once "Home"
      left the nav, 1159px once the labels went all-caps but untracked
      (letter-spacing .02em) with tighter .5rem side padding, and now
      1134px with the primary labels at .72rem -- leaving ~21px of air
-     either side of the nav at 1135px.
-     From 1135px up through ~1549px it still shows inline, just left-
+     either side of the nav at 1135px. Moving the secondary links onto
+     the same row as the Give button (and dropping the Auditions button)
+     widened the right-hand group, so the cutoff is now 1236px: ~21px of
+     air either side of the nav at 1237px.
+     From 1237px up through ~1549px it still shows inline, just left-
      flowing rather than centered (see the note above the matching
      centering rule) -- comfortably covering ordinary 13"-15" laptop
      widths. */
   .main-nav { display: none; }
-  .header-actions .btn--outline { display: none; }
+  .header-actions {
+    flex-direction: column-reverse; align-items: flex-end;
+    gap: .5625rem; /* 9px: makes the space above the secondary links match the space below them */
+    padding-bottom: .5rem;
+  }
   .nav-toggle {
     display: inline-flex; align-items: center; justify-content: center;
     width: 42px; height: 42px; flex-direction: column; gap: 5px;
@@ -417,7 +426,7 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
      leaves header-actions holding just the hamburger, so the bottom
      anchor that used to line its two rows up under the wordmark no
      longer applies -- re-center it with the wordmark instead. */
-  .header-actions { gap: 0; padding-bottom: 0; align-self: center; }
+  .header-actions { flex-direction: column; gap: 0; padding-bottom: 0; align-self: center; }
   .secondary-links { display: none; }
   .site-header .container { height: 76px; }
   .site-header.is-scrolled .container { height: 64px; }
