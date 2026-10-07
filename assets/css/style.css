@@ -387,6 +387,19 @@ p.body, .body-text { font-size: 1.05rem; color: var(--ink-600); }
 .secondary-links a:hover { color: var(--graphite-800); }
 .site-header--transparent:not(.is-scrolled) .secondary-links a { color: var(--stone-100); }
 
+/* Desktop (inline nav) only: a slimmer 72px header. The wordmark block stays
+   centered; the Give button is centered on it too; the nav labels and the
+   secondary links hang from the tagline's baseline (the link padding-top and
+   the .secondary-links offset below do that shift), and the active-page
+   underline sits ~10px under the labels. Drawer-menu widths keep the taller
+   header, which needs the room for the stacked Give/hamburger + links. */
+@media (min-width: 1237px) {
+  .site-header .container { height: 72px; }
+  .header-actions { align-self: center; padding-bottom: 0; }
+  .secondary-links { top: 12.4px; }
+  .main-nav__link::after { bottom: 8.5px; }
+}
+
 @media (max-width: 1236px) {
   /* Below ~1237px the nav row no longer has enough room to keep every
      label (e.g. "Sing With Us") on one line without wrapping, so the
@@ -558,7 +571,7 @@ body.nav-open { overflow: hidden; }
      across most of the mid-width range. A shorter copy block means that
      override kicks in less often and by less, so more of that range shows
      the true ~2.35:1 crop instead of a content-driven taller box. Still
-     plenty of clearance under the ~83px fixed header at the 7rem floor. */
+     plenty of clearance under the ~72-83px fixed header at the 7rem floor. */
   position: relative; z-index: 4; height: 100%;
   display: flex; flex-direction: column; justify-content: flex-start;
   padding-top: clamp(7rem, 9vw, 9rem);
@@ -827,7 +840,7 @@ body.nav-open { overflow: hidden; }
   gap: clamp(2.5rem, 5vw, 4.5rem);
   align-items: start;
 }
-.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (83px) plus breathing room */
+.news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (72-83px depending on width) plus breathing room */
 .news-sidebar h2 {
   font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   color: var(--stone-ink); margin: 0 0 1rem;
