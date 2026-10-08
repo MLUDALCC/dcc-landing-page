@@ -1400,3 +1400,11 @@ body.modal-open { overflow: hidden; }
    step beyond that mapping. */
 .cta-band p { font-size: 1.18rem; }           /* matches section intro text (.body-text) */
 .donate-form__note { font-size: 1rem; }       /* fine print stays comfortably readable */
+
+/* Compact teaser (Give page "Ways to Give"): spacing matches the CTA band below */
+.teaser .section-head { margin-bottom: 0; }
+.teaser .section-head p.mt-lg { margin-top: 1rem; }
+.teaser .text-center.mt-lg { margin-top: 2.2rem; }
+.teaser .donate-form__note { margin-top: 0; }
+.teaser .text-center + .mt-lg { margin-top: 2.2rem; }
+.cta-band .eyebrow + h2 { margin-top: 1rem; }
