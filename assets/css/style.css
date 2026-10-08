@@ -774,7 +774,7 @@ body.nav-open { overflow: hidden; }
 
 .program-facts dt { font-size: 0.8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin: 0; }
 .program-facts dd { margin: .3rem 0 0; color: var(--ink-900); font-size: 1.07rem; }
-.program-note { margin-top: 1rem; font-size: 0.94rem; color: var(--ink-400); font-style: italic; }
+.program-note { margin-top: 1rem; font-size: 0.94rem; color: var(--stone-500); font-style: normal; }
 .status-badge {
   display: inline-block;
   font-size: 0.8rem; font-weight: 700; letter-spacing: .08em;
