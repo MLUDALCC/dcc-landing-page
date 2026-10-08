@@ -37,6 +37,7 @@
 
   /* Type */
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif; /* display serif: one weight (400) only -- never set bolder weights on it or browsers fake-bold it */
+  --font-text-serif: "EB Garamond", Georgia, "Times New Roman", serif; /* reading serif: quotes, small serif headings */
   --font-sans: "Encode Sans Semi Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-wordmark: Optima, Candara, "Noto Sans", var(--font-sans);
 
@@ -141,9 +142,9 @@ h2, .h2 {
   color: var(--graphite-900);
 }
 h3, .h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-text-serif);
   font-weight: 400;
-  font-size: clamp(1.55rem, 2vw, 1.9rem);
+  font-size: clamp(1.7rem, 2.2vw, 2.1rem);
   line-height: 1.2;
   color: var(--graphite-900);
 }
@@ -161,7 +162,7 @@ h3, .h3 {
 }
 p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
 .small-caps-label {
-  font-size: 0.8rem; font-weight: 600; letter-spacing: .14em;
+  font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; letter-spacing: .14em; font-style: normal;
   text-transform: uppercase; color: var(--ink-400);
 }
 
@@ -686,7 +687,7 @@ body.nav-open { overflow: hidden; }
   width: 1px;
   background: rgba(11,42,74,.18); /* graphite-800 at low opacity -- was white-on-navy, now dark-on-pale-tint */
 }
-.stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
+.stat__num { max-width: 5.3em; margin-inline: auto; text-wrap: balance; font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
 .stat__label { margin-top: .5rem; font-size: 1.07rem; letter-spacing: .04em; color: var(--stone-ink); }
 @media (max-width: 780px) {
   /* minmax(0, 1fr) lets both columns shrink to the same width instead of growing around
@@ -794,7 +795,7 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 900px) { .trustee-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .trustee-grid { grid-template-columns: 1fr; } }
 .trustee { border-top: 1px solid var(--line-100); padding-top: 1.5rem; }
-.trustee h3 { font-size: 1.4rem; margin: 0; }
+.trustee h3 { font-size: 1.55rem; margin: 0; }
 .trustee .role { font-size: 0.94rem; color: var(--stone-ink); margin-top: .2rem; font-weight: 600; letter-spacing: .02em; }
 .trustee .affiliation { margin-top: .5rem; color: var(--ink-600); font-size: 1rem; line-height: 1.5; }
 
@@ -1051,7 +1052,7 @@ body.nav-open { overflow: hidden; }
   padding-left: clamp(1.5rem, 3vw, 2.5rem);
   margin-block: clamp(2.5rem, 5vw, 3.5rem);
 }
-.pull-quote p { font-family: var(--font-serif); font-size: clamp(1.45rem, 2.3vw, 1.85rem); color: var(--graphite-900); line-height: 1.4; }
+.pull-quote p { font-family: var(--font-text-serif); font-size: clamp(1.5rem, 2.2vw, 1.8rem); color: var(--graphite-900); line-height: 1.45; }
 .pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: 0.94rem; color: var(--ink-400); letter-spacing: .04em; }
 
 /* ---- Quote carousel (chorister quotes) --------------------------------------
@@ -1104,7 +1105,7 @@ body.nav-open { overflow: hidden; }
 .person__photo { flex: 0 0 100px; width: 100px; aspect-ratio: 1/1; background: var(--graphite-100); overflow: hidden; border-radius: 50%; }
 .person__photo img { width: 100%; height: 100%; object-fit: cover; }
 .person__info { flex: 1; min-width: 0; border-left: 2px solid var(--stone-500); padding-left: 1.25rem; }
-.person h3 { margin-top: 0; font-size: 1.4rem; }
+.person h3 { margin-top: 0; font-size: 1.55rem; }
 .person .role { font-size: 0.94rem; color: var(--stone-ink); margin-top: .2rem; }
 .person__bio { margin-top: .6rem; font-size: 1rem; color: var(--ink-900); line-height: 1.6; }
 .person__detail { margin-top: .85rem; font-size: 0.94rem; color: var(--ink-600); line-height: 1.6; }
@@ -1196,7 +1197,7 @@ body.modal-open { overflow: hidden; }
    material to be scanned section by section, not marketing copy, so the
    heading shouldn't compete with a page's actual headline treatment.
    Scoped to .prose only, so every other page's h2 is untouched. */
-.prose h2 { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: .75rem; font-size: clamp(1.55rem, 2.3vw, 1.9rem); }
+.prose h2 { margin-top: clamp(2rem, 4vw, 2.75rem); margin-bottom: .75rem; font-family: var(--font-text-serif); font-size: clamp(1.7rem, 2.5vw, 2.1rem); }
 /* Sub-headers within a section (e.g. "Information You Provide" under
    "Information We Collect") switch to sans-serif at a smaller size, so
    they read as clearly subordinate to the serif section heading above
