@@ -92,6 +92,8 @@ body {
   width: 100%;
 }
 img, video { max-width: 100%; display: block; }
+/* Images declare width/height so the browser reserves their space (no layout jump while loading); height:auto keeps CSS in control of the final shape. */
+img[width][height] { height: auto; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; margin: 0; padding: 0; }
 h1, h2, h3, h4, p, figure { margin: 0; }
@@ -1433,3 +1435,36 @@ main p, main li, main dd, main figcaption,
 @media (max-width: 640px) {
   :root { --lh-read: 1.44; --lh-long: 1.55; }
 }
+
+/* ---- Keyboard focus: one visible ring everywhere -------------------------
+   Shown only for keyboard users (:focus-visible), so mouse clicks stay clean. */
+a:focus-visible, button:focus-visible, summary:focus-visible,
+[tabindex]:focus-visible, select:focus-visible, textarea:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--stone-500);
+  outline-offset: 3px;
+}
+.hero a:focus-visible, .hero button:focus-visible,
+.site-header--transparent:not(.is-scrolled) a:focus-visible { outline-color: var(--white); }
+.donate-custom-amount input:focus-visible { outline: none; } /* its wrapper shows the ring */
+
+/* ---- Print: clean, ink-friendly pages (audition details, FAQ, bios) ------ */
+@media print {
+  @page { margin: 1.8cm; }
+  .site-header, .skip-link, .site-footer, .footer-subscribe, .cta-band, .subscribe-band,
+  .hero__video, .video-embed, .quote-carousel__controls, [class*="-modal"],
+  .btn-row, .btn, .feature__media .frame, .breadcrumb { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; font-size: 11.5pt; }
+  *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .section, .page-hero { padding-block: 1.2rem !important; background: #fff !important; }
+  .container, .container--narrow { max-width: none !important; padding-inline: 0 !important; }
+  h1, h2, h3 { color: #000 !important; break-after: avoid; }
+  p, li, .program-facts, .timeline__item, .person, .accordion__item { break-inside: avoid; }
+  img { max-width: 100% !important; break-inside: avoid; }
+  .accordion__panel { max-height: none !important; overflow: visible !important; }
+  .accordion__trigger svg, .accordion__trigger::after { display: none !important; }
+  main a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; word-break: break-all; }
+  main a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+}
+.main-nav__link:focus-visible { outline-offset: -9px; border-radius: 2px; }
