@@ -202,7 +202,7 @@
         <div class="section-head" data-reveal>
           <span class="eyebrow">Welcome</span>
           <h2 id="portal-greeting">Welcome back!</h2>
-          <p class="body-text mt-lg">Here&rsquo;s what's coming up this season. Check back regularly for new announcements.</p>
+          <p class="body-text mt-lg">Here&rsquo;s what&rsquo;s coming up this season. Check back regularly for new announcements.</p>
         </div>
         <div class="text-center mt-lg">
           <button type="button" class="btn btn--outline" id="family-logout">Log Out</button>
@@ -409,7 +409,7 @@
           showPortal(data.familyName || session.familyName);
         } else {
           clearSession();
-          showLoginGate("Your session has ended -- please log in again with this season's password.");
+          showLoginGate("Your session has ended — please log in again with this season’s password.");
         }
       })
       .catch(function () {
@@ -446,7 +446,7 @@
       .then(function (result) {
         setLoading(false);
         if (!result.ok || !result.data || !result.data.token) {
-          loginError.textContent = (result.data && result.data.error) || "That email and season password combination wasn't recognized. Please double-check and try again, or contact chorus@dalcc.org.";
+          loginError.textContent = (result.data && result.data.error) || "That email and season password combination wasn’t recognized. Please double-check and try again, or contact chorus@dalcc.org.";
           loginError.hidden = false;
           return;
         }
@@ -458,7 +458,7 @@
       })
       .catch(function () {
         setLoading(false);
-        loginError.textContent = "We couldn't reach the login system just now. Please try again in a moment, or contact chorus@dalcc.org.";
+        loginError.textContent = "We couldn’t reach the login system just now. Please try again in a moment, or contact chorus@dalcc.org.";
         loginError.hidden = false;
       });
   });

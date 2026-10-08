@@ -3,7 +3,7 @@
 
    Every performance -- upcoming or past -- lives in the PERFORMANCES list
    below. Nothing needs to be moved by hand: on each visit the page compares
-   today's date with each performance's date and sorts it into either
+   today’s date with each performance’s date and sorts it into either
    "Upcoming Performances" (until the end of its last day) or the "Past
    Performances" archive, which is grouped by concert season.
 
@@ -11,7 +11,7 @@
    through July 31, 2027). This is deliberately not the DCC fiscal year
    (June 1 - May 31) so that summer performances stay with the season they
    belong to. A season button appears automatically the first time a past
-   performance falls in it. To override a performance's season, add
+   performance falls in it. To override a performance’s season, add
    season: "2025/26" to its entry.
 
    Fields
@@ -21,14 +21,14 @@
      title       card heading
      tag         short line beside the heading (dates · time · choir)
      desc        sentence(s) shown while the performance is upcoming
-     pastDesc    optional -- same, in the past tense, shown once it's over
+     pastDesc    optional -- same, in the past tense, shown once it’s over
                  (falls back to desc)
      facts       [["Label", "Value"], ...] -- the grey facts box; use "\n"
                  inside a value for a line break (e.g. an address)
      badge       optional label shown above an upcoming card (e.g. "Tickets
                  On Sale Now")
-     note        optional line under an upcoming card's facts
-     noteLink    optional { label, href } link under an upcoming card's facts
+     note        optional line under an upcoming card’s facts
+     noteLink    optional { label, href } link under an upcoming card’s facts
      ctas        optional buttons while upcoming: { label, href }  (open in a
                  new tab -- for ticket links)
      pastCtas    optional buttons once past: { label, href }  (same tab -- for
@@ -159,7 +159,7 @@
   /* ---- helpers --------------------------------------------------------- */
   function pad(n) { return (n < 10 ? "0" : "") + n; }
 
-  // Visitor's local calendar date as "YYYY-MM-DD" (a performance stays
+  // Visitor’s local calendar date as "YYYY-MM-DD" (a performance stays
   // "upcoming" through the whole of its last day).
   function todayString() {
     var d = new Date();

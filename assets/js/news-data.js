@@ -3,11 +3,11 @@
 
    To add a new announcement, add one object to NEWS_ITEMS below -- everything
    else (the year sidebar, counts, and card markup) is generated from this
-   list automatically. Newest-first within a year isn't required; items are
+   list automatically. Newest-first within a year isn’t required; items are
    sorted by date automatically as long as the "date" string is written so it
    sorts correctly, which is why each one also carries a plain ISO "sortDate".
 
-   Replace these placeholder entries with the DCC's real announcements.
+   Replace these placeholder entries with the DCC’s real announcements.
    ========================================================================= */
 (function () {
   "use strict";
@@ -18,7 +18,7 @@
       date: "October 2026",
       sortDate: "2026-10-01",
       title: "Fall and Spring Concert Tickets Now on Sale",
-      blurb: "Tickets are now on sale for both of the Dallas Symphony Children's Chorus's Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra's website using the links below.",
+      blurb: "Tickets are now on sale for both of the Dallas Symphony Children’s Chorus’s Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra’s website using the links below.",
       ctas: [
         { label: "Buy Fall Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" },
         { label: "Buy Spring Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-spring-concert-2027/" }
@@ -29,7 +29,7 @@
       date: "August 28, 2026",
       sortDate: "2026-08-28",
       title: "Choristers Join Foreigner at Fair Park",
-      blurb: "Symphonic Voices took the stage with the rock band Foreigner at the Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is” in front of a sold-out crowd.",
+      blurb: "Symphonic Voices took the stage with the rock band Foreigner at the Dos Equis Pavilion, performing the band’s hit “I Want to Know What Love Is” in front of a sold-out crowd.",
       videoId: "7Aa4BVeEmuE",
       ctas: [
         { label: "More Recordings", href: "media.html", internal: true }
@@ -39,15 +39,15 @@
       year: 2026,
       date: "May 15, 16 & 17, 2026",
       sortDate: "2026-05-15",
-      title: "Symphonic Voices Performs Mahler's Symphony No. 8 with the DSO",
-      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler's Symphony No. 8 at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026."
+      title: "Symphonic Voices Performs Mahler’s Symphony No. 8 with the DSO",
+      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8 at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026."
     },
     {
       year: 2026,
       date: "April 19, 2026",
       sortDate: "2026-04-19",
       title: "DSCC Spring Concert Caps a Milestone Season",
-      blurb: "All three choruses closed out the 2025/26 season together at the Meyerson, marking the ensemble's fourth season of concerts since its founding."
+      blurb: "All three choruses closed out the 2025/26 season together at the Meyerson, marking the ensemble’s fourth season of concerts since its founding."
     },
     {
       year: 2026,
@@ -126,7 +126,7 @@
       }
 
       /* Optional call-to-action buttons (e.g. "Buy Tickets" linking out to
-         the DSO's site). Mirrors the external-link button markup used on
+         the DSO’s site). Mirrors the external-link button markup used on
          index.html / our-connection-to-the-dso.html -- diagonal arrow icon
          plus visually-hidden "(opens in a new tab)" text -- built with the
          DOM API since this list is rendered from plain data, not HTML. */

@@ -4,8 +4,8 @@
    To add a recording, add an object to MEDIA_ITEMS with a "videoId" (the
    part of the YouTube URL after "watch?v="). An item left without a
    "videoId" renders as a "Recording coming soon" placeholder tile instead
-   of a broken embed -- useful for a concert that's on the calendar but
-   hasn't been recorded/uploaded yet. Everything else (the grid markup) is
+   of a broken embed -- useful for a concert that’s on the calendar but
+   hasn’t been recorded/uploaded yet. Everything else (the grid markup) is
    generated from this list automatically via one shared template.
 
    Replace or add to these entries as new recordings become available.
@@ -18,13 +18,13 @@
       videoId: "7Aa4BVeEmuE",
       title: "Symphonic Voices with Foreigner",
       meta: "August 28, 2026 · Symphonic Voices",
-      desc: "Symphonic Voices joined the rock band Foreigner on stage at Fair Park's Dos Equis Pavilion, performing the band's hit “I Want to Know What Love Is.”"
+      desc: "Symphonic Voices joined the rock band Foreigner on stage at Fair Park’s Dos Equis Pavilion, performing the band’s hit “I Want to Know What Love Is.”"
     },
     {
       videoId: "wzswrw1HDOs",
       title: "United in Song",
       meta: "Combined Choruses · Victor C. Johnson",
-      desc: "The combined choruses of the Dallas Symphony Children's Chorus perform “United in Song” — young voices coming together to create something extraordinary."
+      desc: "The combined choruses of the Dallas Symphony Children’s Chorus perform “United in Song” — young voices coming together to create something extraordinary."
     },
     {
       title: "DSCC Fall Concert",
