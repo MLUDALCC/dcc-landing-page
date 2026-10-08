@@ -110,7 +110,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .eyebrow {
   display: inline-flex; align-items: center; gap: .6em;
   font-family: var(--font-sans);
-  font-size: 0.876rem;
+  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -161,7 +161,7 @@ h3, .h3 {
 }
 p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
 .small-caps-label {
-  font-size: 0.809rem; font-weight: 600; letter-spacing: .14em;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--ink-400);
 }
 
@@ -169,7 +169,7 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
 .btn {
   display: inline-flex; align-items: center; gap: .6rem;
   font-family: var(--font-sans);
-  font-size: 0.966rem; font-weight: 600; letter-spacing: .02em;
+  font-size: 1rem; font-weight: 600; letter-spacing: .02em;
   padding: .7rem 1.45rem;
   border: 1px solid transparent;
   border-radius: 1px;
@@ -338,7 +338,7 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
 .main-nav__link {
   display: flex; align-items: center; gap: .3rem;
   padding: 0 .5rem;
-  font-size: 0.756rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--graphite-800);
   position: relative;
 }
@@ -390,7 +390,7 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
 
 .secondary-links { display: flex; align-items: center; gap: .85rem; position: relative; top: .8px; } /* .8px: lines their baseline up with the tagline's and the nav labels' */
 .secondary-links a {
-  font-size: 0.662rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase;
   color: var(--stone-ink);
 }
 .secondary-links a:hover { color: var(--graphite-800); }
@@ -493,7 +493,7 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
   padding: 1.1rem 0; font-family: var(--font-sans); font-weight: 500; font-size: 1.18rem; color: var(--graphite-900); text-align: left;
 }
 .mobile-nav__sub { display: none; padding: 0 0 1rem 1rem; }
-.mobile-nav__sub a { display: block; padding: .5rem 0; color: var(--ink-600); font-size: 1.067rem; }
+.mobile-nav__sub a { display: block; padding: .5rem 0; color: var(--ink-600); font-size: 1.07rem; }
 .mobile-nav li.is-open .mobile-nav__sub { display: block; }
 .mobile-nav li.is-open .chev { transform: rotate(180deg); }
 .mobile-nav__actions { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .8rem; }
@@ -506,7 +506,7 @@ p.body, .body-text { font-size: 1.18rem; color: var(--ink-600); }
   margin-top: 1.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line-100);
   display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.1rem;
 }
-.mobile-nav__secondary a { font-size: 0.921rem; font-weight: 500; color: var(--stone-ink); }
+.mobile-nav__secondary a { font-size: 0.94rem; font-weight: 500; color: var(--stone-ink); }
 .mobile-nav__secondary a:hover { color: var(--graphite-800); }
 
 body.nav-open { overflow: hidden; }
@@ -608,7 +608,7 @@ body.nav-open { overflow: hidden; }
 .hero__scroll-cue {
   position: absolute; z-index: 4; left: var(--gutter); bottom: 1.75rem;
   display: flex; align-items: center; gap: .7rem;
-  color: rgba(255,255,255,.75); font-size: 0.809rem; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.75); font-size: 0.8rem; letter-spacing: .14em; text-transform: uppercase;
 }
 .hero__scroll-cue .line { width: 1px; height: 30px; background: rgba(255,255,255,.5); position: relative; overflow: hidden; }
 .hero__scroll-cue .line::after {
@@ -687,7 +687,7 @@ body.nav-open { overflow: hidden; }
   background: rgba(11,42,74,.18); /* graphite-800 at low opacity -- was white-on-navy, now dark-on-pale-tint */
 }
 .stat__num { font-family: var(--font-serif); font-size: clamp(2.1rem, 4vw, 3.1rem); color: var(--graphite-900); } /* only used inside .section--tint, so this follows that section's dark-on-light treatment rather than any other accent token */
-.stat__label { margin-top: .5rem; font-size: 1.05rem; letter-spacing: .04em; color: var(--stone-ink); }
+.stat__label { margin-top: .5rem; font-size: 1.07rem; letter-spacing: .04em; color: var(--stone-ink); }
 @media (max-width: 780px) {
   /* minmax(0, 1fr) lets both columns shrink to the same width instead of growing around
      a long word ("Education") and pushing the right column off-centre / off-screen. */
@@ -723,7 +723,7 @@ body.nav-open { overflow: hidden; }
 .program-card__media img, .page-banner img {
   display: block; width: 100%; aspect-ratio: 2.35 / 1; object-fit: cover;
 }
-.program-card__tag { font-size: 0.876rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
+.program-card__tag { font-size: 0.88rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
 .program-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem 2rem; margin-top: 1.5rem; padding: 1.5rem; background: var(--cream-050); border-radius: 4px; }
 .program-facts__full { grid-column: 1 / -1; }
 /* Past-performance archive sits on the cream section background, so its fact boxes go white (with a hairline border) to stay distinct from it. */
@@ -766,16 +766,16 @@ body.nav-open { overflow: hidden; }
 }
 .location-illustration img { display: block; width: 100%; height: auto; }
 .location-illustration figcaption {
-  margin-top: 1rem; font-size: 0.989rem; color: var(--ink-600); line-height: 1.55;
+  margin-top: 1rem; font-size: 1rem; color: var(--ink-600); line-height: 1.55;
 }
 .location-cta { margin-top: 1.25rem; }
 
-.program-facts dt { font-size: 0.809rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin: 0; }
-.program-facts dd { margin: .3rem 0 0; color: var(--ink-900); font-size: 1.067rem; }
-.program-note { margin-top: 1rem; font-size: 0.921rem; color: var(--ink-400); font-style: italic; }
+.program-facts dt { font-size: 0.8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin: 0; }
+.program-facts dd { margin: .3rem 0 0; color: var(--ink-900); font-size: 1.07rem; }
+.program-note { margin-top: 1rem; font-size: 0.94rem; color: var(--ink-400); font-style: italic; }
 .status-badge {
   display: inline-block;
-  font-size: 0.764rem; font-weight: 700; letter-spacing: .08em;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: .08em;
   text-transform: uppercase;
   padding: .3rem .75rem;
   margin-bottom: .9rem;
@@ -795,8 +795,8 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 560px) { .trustee-grid { grid-template-columns: 1fr; } }
 .trustee { border-top: 1px solid var(--line-100); padding-top: 1.5rem; }
 .trustee h3 { font-size: 1.4rem; margin: 0; }
-.trustee .role { font-size: 0.944rem; color: var(--stone-ink); margin-top: .2rem; font-weight: 600; letter-spacing: .02em; }
-.trustee .affiliation { margin-top: .5rem; color: var(--ink-600); font-size: 0.989rem; line-height: 1.5; }
+.trustee .role { font-size: 0.94rem; color: var(--stone-ink); margin-top: .2rem; font-weight: 600; letter-spacing: .02em; }
+.trustee .affiliation { margin-top: .5rem; color: var(--ink-600); font-size: 1rem; line-height: 1.5; }
 
 /* ---- Program / card grid --------------------------------------------------*/
 .card-grid {
@@ -817,8 +817,8 @@ body.nav-open { overflow: hidden; }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
 .card:hover .card__media img { transform: scale(1.06); }
 .card__body { padding: 1.6rem 1.6rem 1.9rem; display: flex; flex-direction: column; gap: .8rem; flex: 1; }
-.card__body p { color: var(--ink-600); font-size: 1.079rem; flex: 1; }
-.card__link { font-size: 0.954rem; font-weight: 600; color: var(--graphite-800); display: inline-flex; align-items: center; gap: .5rem; }
+.card__body p { color: var(--ink-600); font-size: 1.07rem; flex: 1; }
+.card__link { font-size: 0.94rem; font-weight: 600; color: var(--graphite-800); display: inline-flex; align-items: center; gap: .5rem; }
 .card:hover .card__link { color: var(--stone-ink); }
 
 /* ---- Two column feature ---------------------------------------------------*/
@@ -844,9 +844,9 @@ body.nav-open { overflow: hidden; }
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.25rem; }
 @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr; } }
 .news-card { border-top: 2px solid var(--graphite-800); padding-top: 1.4rem; }
-.news-card time { font-size: 0.876rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
+.news-card time { font-size: 0.88rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
 .news-card h3 { margin-top: .6rem; }
-.news-card p { margin-top: .7rem; color: var(--ink-600); font-size: 1.067rem; }
+.news-card p { margin-top: .7rem; color: var(--ink-600); font-size: 1.07rem; }
 .news-card .video-embed { margin-top: 1.4rem; margin-bottom: calc(18px + 1.2rem); max-width: 640px; } /* recordings embedded in a news entry; the offset .frame pokes 18px right and down, so the bottom margin keeps it clear of what follows */
 @media (max-width: 700px) { .news-card .video-embed { max-width: calc(100% - 18px); } } /* leaves room for the offset frame so it never extends past the page edge */
 
@@ -859,7 +859,7 @@ body.nav-open { overflow: hidden; }
 }
 .news-sidebar { position: sticky; top: 112px; } /* clears the fixed .site-header (64-83px depending on width) plus breathing room */
 .news-sidebar h2 {
-  font-size: 0.831rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   color: var(--stone-ink); margin: 0 0 1rem;
 }
 .year-list { display: flex; flex-direction: column; gap: .15rem; }
@@ -868,14 +868,14 @@ body.nav-open { overflow: hidden; }
   width: 100%; text-align: left;
   background: none; border: 0; border-left: 2px solid transparent;
   padding: .55rem .9rem;
-  font-family: var(--font-sans); font-size: 1.034rem; font-weight: 600;
+  font-family: var(--font-sans); font-size: 1rem; font-weight: 600;
   color: var(--ink-600);
   cursor: pointer;
   transition: color .2s var(--ease), border-color .2s var(--ease), background-color .2s var(--ease);
 }
 .year-list__btn:hover { color: var(--graphite-900); background: var(--cream-050); }
 .year-list__btn.is-active { color: var(--graphite-900); border-left-color: var(--stone-500); background: var(--cream-050); }
-.year-list__count { font-size: 0.831rem; font-weight: 500; color: var(--stone-ink); }
+.year-list__count { font-size: 0.8rem; font-weight: 500; color: var(--stone-ink); }
 
 .news-list { display: flex; flex-direction: column; gap: 2.4rem; }
 .news-list .news-card { border-top: 1px solid var(--line-100); padding-top: 1.6rem; }
@@ -908,13 +908,13 @@ body.nav-open { overflow: hidden; }
   background: var(--cream-050); border: 1px dashed var(--line-100);
   color: var(--stone-ink);
 }
-.media-item__placeholder span { font-size: 0.921rem; font-weight: 600; letter-spacing: .02em; }
+.media-item__placeholder span { font-size: 0.94rem; font-weight: 600; letter-spacing: .02em; }
 .media-item__meta {
-  font-size: 0.876rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  font-size: 0.88rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
   color: var(--stone-ink);
 }
 .media-item__body h3 { margin-top: .5rem; }
-.media-item__body p { margin-top: .6rem; color: var(--ink-600); font-size: 1.067rem; }
+.media-item__body p { margin-top: .6rem; color: var(--ink-600); font-size: 1.07rem; }
 
 /* ---- CTA band --------------------------------------------------------------*/
 .cta-band {
@@ -943,19 +943,19 @@ body.nav-open { overflow: hidden; }
 .subscribe-form input[type="email"] {
   flex: 1 1 240px; max-width: 360px; padding: .85rem 1.1rem;
   border: 1px solid var(--line-100); border-radius: 4px;
-  font-family: var(--font-sans); font-size: 1.067rem; color: var(--ink-900); background: var(--white);
+  font-family: var(--font-sans); font-size: 1.07rem; color: var(--ink-900); background: var(--white);
 }
 .subscribe-form input[type="email"]::placeholder { color: var(--stone-ink); }
 .subscribe-form input[type="email"]:focus { outline: 2px solid var(--stone-500); outline-offset: 2px; }
 .subscribe-form .btn { flex: 0 0 auto; }
-.subscribe-form__placeholder-note { margin-top: 1rem; font-size: 0.954rem; color: var(--stone-ink); }
+.subscribe-form__placeholder-note { margin-top: 1rem; font-size: 0.94rem; color: var(--stone-ink); }
 
 .footer-subscribe { display: flex; gap: .5rem; margin-top: 1.3rem; max-width: 320px; }
 .footer-subscribe input[type="email"] {
   flex: 1 1 auto; min-width: 0; padding: .65rem .85rem;
   border: 1px solid var(--line-100); border-radius: 4px;
   background: var(--white); color: var(--graphite-900);
-  font-family: var(--font-sans); font-size: 0.989rem;
+  font-family: var(--font-sans); font-size: 1rem;
 }
 .footer-subscribe input[type="email"]::placeholder { color: var(--stone-ink); }
 .footer-subscribe input[type="email"]:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
@@ -966,7 +966,7 @@ body.nav-open { overflow: hidden; }
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
 .footer-subscribe button:hover { background: var(--stone-500); color: var(--white); border-color: var(--stone-500); }
-.footer-brand .subscribe-form__placeholder-note { margin-top: .6rem; font-size: 0.899rem; color: var(--stone-ink); max-width: 40ch; }
+.footer-brand .subscribe-form__placeholder-note { margin-top: .6rem; font-size: 0.88rem; color: var(--stone-ink); max-width: 40ch; }
 
 /* ---- Footer ----------------------------------------------------------------*/
 .site-footer { background: var(--cream-050); color: var(--ink-600); border-top: 1px solid var(--line-100); padding-top: clamp(3.5rem, 7vw, 5rem); }
@@ -977,13 +977,13 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 980px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 .footer-brand .wordmark { color: var(--graphite-800); }
-.footer-brand p { margin-top: 1.2rem; color: var(--stone-ink); font-size: 1.034rem; max-width: 40ch; }
+.footer-brand p { margin-top: 1.2rem; color: var(--stone-ink); font-size: 1rem; max-width: 40ch; }
 .footer-col h4 {
-  font-family: var(--font-sans); font-size: 0.876rem; font-weight: 600; letter-spacing: .1em;
+  font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; color: var(--stone-ink); margin-bottom: 1.1rem;
 }
 .footer-col li { margin-bottom: .45rem; }
-.footer-col a { font-size: 1.034rem; color: var(--ink-600); }
+.footer-col a { font-size: 1rem; color: var(--ink-600); }
 .footer-col a:hover { color: var(--stone-500); }
 .footer-social { display: flex; gap: .9rem; margin-top: 1.3rem; }
 .footer-social a {
@@ -993,7 +993,7 @@ body.nav-open { overflow: hidden; }
 .footer-social a:hover { background: var(--stone-500); color: var(--white); border-color: var(--stone-500); }
 .footer-bottom {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-  padding-block: 1.6rem; font-size: 0.921rem; color: var(--stone-ink);
+  padding-block: 1.6rem; font-size: 0.94rem; color: var(--stone-ink);
 }
 .footer-bottom ul { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-bottom a:hover { color: var(--stone-500); }
@@ -1018,7 +1018,7 @@ body.nav-open { overflow: hidden; }
 .page-hero h1 { margin-top: 1rem; max-width: 20ch; }
 .page-hero p.lede { color: var(--ink-600); margin-top: 1.3rem; max-width: 56ch; }
 .page-hero .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-.breadcrumb { display: flex; gap: .5rem; align-items: center; font-size: 0.899rem; color: var(--stone-ink); margin-bottom: 1.2rem; }
+.breadcrumb { display: flex; gap: .5rem; align-items: center; font-size: 0.88rem; color: var(--stone-ink); margin-bottom: 1.2rem; }
 .breadcrumb a:hover { color: var(--stone-500); }
 
 /* ---- Artistic Director welcome (centered title, left-aligned letter) ------
@@ -1042,8 +1042,8 @@ body.nav-open { overflow: hidden; }
 }
 .welcome-byline__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 39% center; }
 .welcome-byline__text { text-align: left; line-height: 1.4; }
-.welcome-byline__text strong { display: block; font-family: var(--font-sans); font-size: 1.067rem; font-weight: 600; color: var(--ink-900); }
-.welcome-byline__text span { font-size: 0.954rem; color: var(--stone-ink); }
+.welcome-byline__text strong { display: block; font-family: var(--font-sans); font-size: 1.07rem; font-weight: 600; color: var(--ink-900); }
+.welcome-byline__text span { font-size: 0.94rem; color: var(--stone-ink); }
 
 /* ---- Pull quote -------------------------------------------------------------*/
 .pull-quote {
@@ -1052,7 +1052,7 @@ body.nav-open { overflow: hidden; }
   margin-block: clamp(2.5rem, 5vw, 3.5rem);
 }
 .pull-quote p { font-family: var(--font-serif); font-size: clamp(1.45rem, 2.3vw, 1.85rem); color: var(--graphite-900); line-height: 1.4; }
-.pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: 0.954rem; color: var(--ink-400); letter-spacing: .04em; }
+.pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: 0.94rem; color: var(--ink-400); letter-spacing: .04em; }
 
 /* ---- Quote carousel (chorister quotes) --------------------------------------
    One quote visible at a time via CSS scroll-snap -- draggable/swipeable
@@ -1093,7 +1093,7 @@ body.nav-open { overflow: hidden; }
   width: 9px; height: 9px; border-radius: 50%; background: var(--stone-500);
   transform: translateX(calc(clamp(1.5rem, 4vw, 3rem) / 2 - 4.5px));
 }
-.timeline__year { font-size: 0.921rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
+.timeline__year { font-size: 0.94rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
 .timeline__item h3 { margin-top: .5rem; }
 .timeline__item p { margin-top: .5rem; color: var(--ink-600); }
 
@@ -1105,13 +1105,13 @@ body.nav-open { overflow: hidden; }
 .person__photo img { width: 100%; height: 100%; object-fit: cover; }
 .person__info { flex: 1; min-width: 0; border-left: 2px solid var(--stone-500); padding-left: 1.25rem; }
 .person h3 { margin-top: 0; font-size: 1.4rem; }
-.person .role { font-size: 0.944rem; color: var(--stone-ink); margin-top: .2rem; }
-.person__bio { margin-top: .6rem; font-size: 1.011rem; color: var(--ink-900); line-height: 1.6; }
-.person__detail { margin-top: .85rem; font-size: 0.954rem; color: var(--ink-600); line-height: 1.6; }
-.person__detail-label { display: block; font-size: 0.764rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin-bottom: .2rem; }
+.person .role { font-size: 0.94rem; color: var(--stone-ink); margin-top: .2rem; }
+.person__bio { margin-top: .6rem; font-size: 1rem; color: var(--ink-900); line-height: 1.6; }
+.person__detail { margin-top: .85rem; font-size: 0.94rem; color: var(--ink-600); line-height: 1.6; }
+.person__detail-label { display: block; font-size: 0.8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; margin-bottom: .2rem; }
 .person__bio-toggle {
   margin-top: .9rem; display: inline-flex; align-items: center; gap: .35rem;
-  font-size: 0.921rem; font-weight: 600; color: var(--ink-600);
+  font-size: 0.94rem; font-weight: 600; color: var(--ink-600);
   background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;
 }
 .person__bio-toggle .chev { width: .85em; height: .85em; flex: none; transform: rotate(-90deg); }
@@ -1136,8 +1136,8 @@ body.nav-open { overflow: hidden; }
 .bio-modal__photo { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 50%; overflow: hidden; background: var(--graphite-100); }
 .bio-modal__photo img { width: 100%; height: 100%; object-fit: cover; }
 .bio-modal__name { font-size: 1.3rem; margin: 0; }
-.bio-modal__role { font-size: 0.966rem; color: var(--stone-ink); margin-top: .2rem; }
-.bio-modal__body { font-size: 1.034rem; color: var(--ink-900); line-height: 1.65; }
+.bio-modal__role { font-size: 1rem; color: var(--stone-ink); margin-top: .2rem; }
+.bio-modal__body { font-size: 1rem; color: var(--ink-900); line-height: 1.65; }
 .bio-modal__body p + p { margin-top: .9rem; }
 body.modal-open { overflow: hidden; }
 @media (max-width: 600px) {
@@ -1207,7 +1207,7 @@ body.modal-open { overflow: hidden; }
 }
 /* Body copy on these reference pages matches the News page's text size
    (.95rem), which reads cleaner than the site-wide body size. */
-.prose p.body-text, .prose li { font-size: 1.067rem; line-height: 1.6; }
+.prose p.body-text, .prose li { font-size: 1.07rem; line-height: 1.6; }
 .prose p.body-text { max-width: none; }
 .container--narrow.prose { max-width: 47rem; }
 .prose p.body-text + p.body-text { margin-top: 1rem; }
@@ -1237,7 +1237,7 @@ body.modal-open { overflow: hidden; }
 .donate-amount {
   padding: .9rem .5rem; text-align: center;
   border: 1px solid var(--line-100); border-radius: 4px;
-  font-family: var(--font-sans); font-size: 1.124rem; font-weight: 600; color: var(--graphite-800);
+  font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: var(--graphite-800);
   background: var(--cream-000);
   transition: border-color .2s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
 }
@@ -1252,7 +1252,7 @@ body.modal-open { overflow: hidden; }
    the hidden attribute is present -- this explicit override (higher
    specificity: class + attribute) restores that default. */
 .donate-custom-amount[hidden] { display: none; }
-.donate-custom-amount label { font-size: 0.921rem; font-weight: 600; color: var(--ink-900); }
+.donate-custom-amount label { font-size: 0.94rem; font-weight: 600; color: var(--ink-900); }
 .donate-custom-input-wrap {
   display: flex; align-items: center; gap: .4rem;
   border: 1px solid var(--line-100); border-radius: 4px; padding: .7rem .9rem;
@@ -1262,19 +1262,19 @@ body.modal-open { overflow: hidden; }
 .donate-custom-input-wrap span { color: var(--stone-ink); font-weight: 600; }
 .donate-custom-amount input {
   flex: 1; min-width: 0; border: none; padding: 0; font-family: var(--font-sans);
-  font-size: 1.124rem; color: var(--ink-900); background: none;
+  font-size: 1.18rem; color: var(--ink-900); background: none;
 }
 .donate-custom-amount input:focus { outline: none; }
 
 .donate-field { display: flex; flex-direction: column; gap: .4rem; }
-.donate-field label { font-size: 0.921rem; font-weight: 600; color: var(--ink-900); }
+.donate-field label { font-size: 0.94rem; font-weight: 600; color: var(--ink-900); }
 .donate-field input[type="text"],
 .donate-field input[type="email"],
 .donate-field input[type="password"],
 .donate-field input[type="tel"],
 .donate-field input[type="number"] {
   padding: .7rem .9rem; border: 1px solid var(--line-100); border-radius: 4px;
-  font-family: var(--font-sans); font-size: 1.067rem; color: var(--ink-900); background: var(--white);
+  font-family: var(--font-sans); font-size: 1.07rem; color: var(--ink-900); background: var(--white);
 }
 .donate-field input[type="text"]:focus,
 .donate-field input[type="email"]:focus,
@@ -1289,7 +1289,7 @@ body.modal-open { overflow: hidden; }
 
 .donate-checkbox {
   display: flex; align-items: flex-start; gap: .7rem; cursor: pointer;
-  font-size: 0.989rem; color: var(--ink-600); line-height: 1.5;
+  font-size: 1rem; color: var(--ink-600); line-height: 1.5;
 }
 .donate-checkbox input[type="checkbox"],
 .donate-checkbox input[type="radio"] {
@@ -1301,13 +1301,13 @@ body.modal-open { overflow: hidden; }
    fieldset -- semantically a group of related radios, styled the same
    as the rest of this form. */
 .pledge-cadence-fieldset { border: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .6rem; }
-.pledge-cadence-fieldset legend { font-size: 0.921rem; font-weight: 600; color: var(--ink-900); padding: 0; margin: 0 0 .4rem; }
+.pledge-cadence-fieldset legend { font-size: 0.94rem; font-weight: 600; color: var(--ink-900); padding: 0; margin: 0 0 .4rem; }
 
 /* Audition Interest form (auditions.html): reuses the .donate-field look,
    adds a select, side-by-side field pairs, and small group headings. */
 .donate-field select {
   padding: .7rem .9rem; border: 1px solid var(--line-100); border-radius: 4px;
-  font-family: var(--font-sans); font-size: 1.067rem; color: var(--ink-900); background: var(--white);
+  font-family: var(--font-sans); font-size: 1.07rem; color: var(--ink-900); background: var(--white);
 }
 .donate-field select:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
 .audition-form__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; }
@@ -1318,20 +1318,20 @@ body.modal-open { overflow: hidden; }
 .audition-form .donate-field select { width: 100%; min-width: 0; box-sizing: border-box; }
 .audition-modal__dialog { max-width: 680px; }
 @media (max-width: 460px) { .audition-form__row { grid-template-columns: 1fr; } }
-.audition-form__group { margin: .5rem 0 -.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line-100); font-family: var(--font-sans); font-size: 1.124rem; font-weight: 600; color: var(--ink-900); }
+.audition-form__group { margin: .5rem 0 -.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line-100); font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: var(--ink-900); }
 .audition-form__group:first-child { margin-top: 0; padding-top: 0; border-top: none; }
-.audition-form__hint { margin: -.75rem 0 0; font-size: 0.921rem; color: var(--stone-ink); }
+.audition-form__hint { margin: -.75rem 0 0; font-size: 0.94rem; color: var(--stone-ink); }
 
 .donate-form__error {
   padding: .85rem 1rem; border-radius: 4px;
   background: #fbeaea; border: 1px solid #e4b8b8; color: #8a2f2f;
-  font-size: 0.989rem;
+  font-size: 1rem;
 }
 
 .donate-submit { justify-content: center; width: 100%; }
 .donate-submit.is-loading { opacity: .7; pointer-events: none; }
 
-.donate-form__note { font-size: 0.921rem; color: var(--stone-ink); text-align: center; margin: 0; }
+.donate-form__note { font-size: 0.94rem; color: var(--stone-ink); text-align: center; margin: 0; }
 .donate-form__note a { text-decoration: underline; text-underline-offset: 2px; }
 .donate-form__note a:hover { color: var(--graphite-800); }
 
@@ -1345,7 +1345,7 @@ body.modal-open { overflow: hidden; }
 .donate-payment-field { display: flex; flex-direction: column; gap: .4rem; }
 .donate-payment-placeholder {
   margin: 0; padding: .9rem 1rem; border: 1px dashed var(--line-100); border-radius: 4px;
-  font-size: 0.989rem; color: var(--stone-ink); text-align: center;
+  font-size: 1rem; color: var(--stone-ink); text-align: center;
 }
 
 /* ---- Thank-you page ---------------------------------------------------------
@@ -1357,10 +1357,10 @@ body.modal-open { overflow: hidden; }
   margin: 0; font-family: var(--font-serif); font-size: clamp(3.5rem, 9vw, 5.75rem);
   line-height: 1; color: var(--stone-500); white-space: nowrap;
 }
-.gift-gap__caption { margin: .7rem 0 0; max-width: 15rem; font-size: 1.034rem; line-height: 1.45; color: var(--ink-600); }
-.gift-gap__note { margin-top: 1.1rem; font-size: 0.989rem; color: var(--ink-400); }
+.gift-gap__caption { margin: .7rem 0 0; max-width: 15rem; font-size: 1rem; line-height: 1.45; color: var(--ink-600); }
+.gift-gap__note { margin-top: 1.1rem; font-size: 1rem; color: var(--ink-400); }
 @media (max-width: 720px) { .gift-gap { grid-template-columns: 1fr; } }
-.share-status { min-height: 1.5em; margin-top: 1.1rem !important; font-size: 1.034rem; }
+.share-status { min-height: 1.5em; margin-top: 1.1rem !important; font-size: 1rem; }
 
 /* "Where your gift goes" bar: one track, grey for tuition fading into the accent
    across the 15-20% range, so the soft edge says "about", not an exact split. The
@@ -1372,9 +1372,9 @@ body.modal-open { overflow: hidden; }
 }
 .gap-bar__labels {
   display: grid; grid-template-columns: minmax(max-content, 17.5fr) 82.5fr; gap: .75rem; margin-top: .75rem;
-  font-size: 0.954rem; line-height: 1.35; color: var(--ink-600);
+  font-size: 0.94rem; line-height: 1.35; color: var(--ink-600);
 }
-.gap-bar__labels strong { display: block; white-space: nowrap; font-size: 1.124rem; color: var(--ink-900); }
+.gap-bar__labels strong { display: block; white-space: nowrap; font-size: 1.18rem; color: var(--ink-900); }
 .gap-bar__labels .gap-bar__strong--support { color: var(--stone-500); }
 
 /* ---- Phone country picker (intl-tel-input; see assets/js/phone-input.js) ----
@@ -1382,9 +1382,17 @@ body.modal-open { overflow: hidden; }
    the left. Make the wrapper fill the form field and match the site's inputs. */
 .dcc-iti { width: 100%; --iti-border-color: var(--line-100); --iti-dropdown-bg: var(--white); --iti-hover-color: var(--graphite-100); --iti-arrow-color: var(--stone-ink); }
 .dcc-iti input[type="tel"] { width: 100%; box-sizing: border-box; }
-.iti__country-list, .iti__dropdown-content { font-family: var(--font-sans); font-size: 1.011rem; }
+.iti__country-list, .iti__dropdown-content { font-family: var(--font-sans); font-size: 1rem; }
 .iti--fullscreen-popup, .iti--container, .iti__dropdown-content { z-index: 400; }
 
 /* Required-field marker on the Audition Interest form */
 .req { color: #8a2f2f; font-weight: 700; }
-.audition-form__required-note { margin-top: .75rem; font-size: 0.921rem; color: var(--stone-ink); }
+.audition-form__required-note { margin-top: .75rem; font-size: 0.94rem; color: var(--stone-ink); }
+
+/* ---- Type scale consistency pass ----
+   Text sizes were consolidated into a small set of steps (0.8 / 0.88 /
+   0.94 / 1.0 / 1.07 / 1.18rem) so that similar roles read at the same size
+   on every page. The rules below cover the few places that need a specific
+   step beyond that mapping. */
+.cta-band p { font-size: 1.18rem; }           /* matches section intro text (.body-text) */
+.donate-form__note { font-size: 1rem; }       /* fine print stays comfortably readable */
