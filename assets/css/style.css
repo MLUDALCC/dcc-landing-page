@@ -1099,7 +1099,7 @@ body.nav-open { overflow: hidden; }
 }
 .timeline__year { font-size: 0.94rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); font-weight: 600; }
 .timeline__item h3 { margin-top: .5rem; }
-.timeline__item p { margin-top: .5rem; color: var(--ink-600); }
+.timeline__item p { margin-top: .7rem; color: var(--ink-600); font-size: 1.18rem; }
 
 /* ---- People grid (leadership) ------------------------------------------------*/
 .people-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem 3.5rem; }
