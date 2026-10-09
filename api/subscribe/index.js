@@ -26,7 +26,7 @@
 const { appendRow } = require("../pledge-data/googleSheets");
 
 const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_NEWSLETTER_TAB_NAME || "Newsletter";
-const ALLOWED_SOURCES = ["home-band", "footer"];
+const ALLOWED_SOURCES = ["home-band", "footer", "side-tab"];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Neutralize anything a spreadsheet would treat as a formula (values are

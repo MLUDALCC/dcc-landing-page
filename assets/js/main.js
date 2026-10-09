@@ -516,6 +516,66 @@
     startAutoplay();
   });
 
+  /* ---- "Stay Informed" side tab -------------------------------------------
+     A slim tab fixed to the right edge of every page (except the thank-you and
+     404 pages). Clicking it slides out a small signup card; it never opens by
+     itself. The card's form is a normal data-subscribe form (source
+     "side-tab"), so the handler below wires it up. Once someone has
+     subscribed -- here, in the home band or in the footer -- the tab is
+     removed from then on. */
+  (function () {
+    var path = location.pathname.replace(/\/+$/, "");
+    if (/\/(thank-you|404)(\.html)?$/.test(path)) return;
+    if (document.querySelector(".stay-informed")) return;
+    try { if (localStorage.getItem("dccSubscribed") === "1") return; } catch (e) {}
+
+    var root = document.createElement("aside");
+    root.className = "stay-informed";
+    root.setAttribute("aria-label", "Email updates");
+    root.innerHTML =
+      '<button type="button" class="stay-informed__tab" aria-expanded="false" aria-controls="stay-informed-panel">' +
+        '<span>Stay Informed</span></button>' +
+      '<div class="stay-informed__panel" id="stay-informed-panel" role="group" aria-labelledby="stay-informed-title">' +
+        '<button type="button" class="stay-informed__close" aria-label="Close">&times;</button>' +
+        '<p class="eyebrow">Stay Informed</p>' +
+        '<h2 class="stay-informed__title" id="stay-informed-title">News, concerts and ways to help</h2>' +
+        '<form class="stay-informed__form" action="#" method="post" data-subscribe="side-tab" novalidate>' +
+          '<label class="visually-hidden" for="stay-informed-email">Email address</label>' +
+          '<input type="email" id="stay-informed-email" name="email" placeholder="Your email address" autocomplete="email" required>' +
+          '<input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<button type="submit" class="btn btn--primary">Subscribe</button>' +
+        '</form>' +
+        '<p class="subscribe-form__fineprint">Occasional emails. Unsubscribe anytime. See our <a href="' + (document.querySelector('a[href$="privacy.html"]') ? document.querySelector('a[href$="privacy.html"]').getAttribute("href") : "privacy.html") + '">Privacy Policy</a>.</p>' +
+        '<p class="subscribe-form__message" role="status" aria-live="polite"></p>' +
+      '</div>';
+    document.body.appendChild(root);
+
+    var tab = root.querySelector(".stay-informed__tab");
+    var closeBtn = root.querySelector(".stay-informed__close");
+    var input = root.querySelector('input[type="email"]');
+
+    function setOpen(open, returnFocus) {
+      root.classList.toggle("is-open", open);
+      tab.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) { setTimeout(function () { input.focus(); }, 220); }
+      else if (returnFocus) { tab.focus(); }
+    }
+    tab.addEventListener("click", function () { setOpen(!root.classList.contains("is-open"), false); });
+    closeBtn.addEventListener("click", function () { setOpen(false, true); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && root.classList.contains("is-open")) setOpen(false, true);
+    });
+    document.addEventListener("click", function (e) {
+      if (root.classList.contains("is-open") && !root.contains(e.target)) setOpen(false, false);
+    });
+    document.addEventListener("dcc:subscribed", function () {
+      setTimeout(function () {
+        root.classList.add("is-done");
+        setTimeout(function () { if (root.parentNode) root.parentNode.removeChild(root); }, 600);
+      }, 3500);
+    });
+  })();
+
   /* ---- Email list signup ---------------------------------------------------
      Both subscribe forms (the "Stay Connected" band on the home page and the
      small footer form on every page) post to /api/subscribe, which records the
@@ -561,6 +621,8 @@
           if (r.ok && r.data.success) {
             form.hidden = true;
             if (fineprint) fineprint.hidden = true;
+            try { localStorage.setItem("dccSubscribed", "1"); } catch (e) {}
+            document.dispatchEvent(new CustomEvent("dcc:subscribed"));
             show("Thank you for subscribing! We\u2019ll be in touch soon.", false);
           } else {
             show(r.data.error || "Something went wrong. Please try again, or email us at chorus@dalcc.org.", true);
