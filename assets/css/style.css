@@ -1483,13 +1483,15 @@ input:focus-visible {
 .stay-informed { position: fixed; right: 0; top: 50%; z-index: 150; transform: translateY(-50%); transition: opacity .5s var(--ease); }
 .stay-informed.is-done { opacity: 0; pointer-events: none; }
 .stay-informed__tab {
-  display: block; background: var(--stone-500); color: var(--white); border: 0; cursor: pointer;
-  font: 600 .8rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase;
-  padding: 1.15rem .7rem; writing-mode: vertical-rl; transform: rotate(180deg);
-  border-radius: 0 3px 3px 0; box-shadow: 0 2px 14px rgba(0,0,0,.18);
-  transition: background .2s var(--ease), padding .2s var(--ease);
+  display: flex; align-items: center; justify-content: center; width: 3.1rem; box-sizing: border-box;
+  background: var(--stone-500); color: var(--white); border: 0; cursor: pointer;
+  font: 600 .86rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase;
+  padding: 1.6rem 0; writing-mode: vertical-rl; transform: rotate(180deg);
+  border-radius: 0 4px 4px 0; box-shadow: 0 2px 14px rgba(0,0,0,.18);
+  transition: background .2s var(--ease), width .2s var(--ease);
 }
-.stay-informed__tab:hover { background: var(--graphite-800); padding-right: .9rem; }
+.stay-informed__tab span { display: block; padding: 0 0 .16em; } /* letter-spacing adds trailing space; balance it so the text sits centred */
+.stay-informed__tab:hover { background: var(--graphite-800); width: 3.4rem; }
 .stay-informed.is-open .stay-informed__tab { background: var(--graphite-800); }
 .stay-informed__panel {
   position: absolute; right: 100%; top: 50%; width: min(340px, calc(100vw - 64px));
@@ -1518,7 +1520,7 @@ input:focus-visible {
 .stay-informed .subscribe-form__message { font-size: .94rem; }
 @media (max-width: 640px) {
   .stay-informed { top: 62%; }
-  .stay-informed__tab { padding: .9rem .5rem; font-size: .72rem; }
+  .stay-informed__tab { width: 2.7rem; padding: 1.3rem 0; font-size: .8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .stay-informed__panel, .stay-informed__tab, .stay-informed { transition: none; }
