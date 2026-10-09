@@ -516,22 +516,63 @@
     startAutoplay();
   });
 
-  /* ---- Subscribe forms (placeholder pending email-service integration) ---
-     These forms aren't wired to a real list yet -- once the chorus has a
-     Constant Contact (or similar) account set up, swap the form's action/
-     method and fields for that service's real embed and this handler goes
-     away. Until then, submitting just swaps in a short note instead of
-     posting to nowhere. */
-  document.querySelectorAll("[data-subscribe-placeholder]").forEach(function (form) {
+  /* ---- Email list signup ---------------------------------------------------
+     Both subscribe forms (the "Stay Connected" band on the home page and the
+     small footer form on every page) post to /api/subscribe, which records the
+     address in the Newsletter tab of the Google Sheet and/or adds it to the
+     email platform (MailerLite) -- see api/subscribe/index.js. The hidden
+     "website" field is a honeypot for bots; real visitors never fill it. */
+  document.querySelectorAll("form[data-subscribe]").forEach(function (form) {
+    var emailInput = form.querySelector('input[type="email"]');
+    var button = form.querySelector("button[type=submit]");
+    var holder = form.parentNode;
+    var message = holder.querySelector(".subscribe-form__message");
+    var fineprint = holder.querySelector(".subscribe-form__fineprint");
+    var busy = false;
+
+    function show(text, isError) {
+      if (!message) return;
+      message.textContent = text;
+      message.classList.toggle("is-error", !!isError);
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (form.dataset.noted) return;
-      form.dataset.noted = "true";
-      var note = document.createElement("p");
-      note.className = "subscribe-form__placeholder-note";
-      note.textContent = "Thanks! Sign-ups open soon.";
-      form.insertAdjacentElement("afterend", note);
-      form.hidden = true;
+      if (busy) return;
+      var email = (emailInput.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        show("Please enter a valid email address.", true);
+        emailInput.focus();
+        return;
+      }
+      busy = true;
+      button.disabled = true;
+      show("Subscribing\u2026", false);
+      var honey = form.querySelector('input[name="website"]');
+      fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, source: form.getAttribute("data-subscribe"), website: honey ? honey.value : "" })
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function (r) {
+          if (r.ok && r.data.success) {
+            form.hidden = true;
+            if (fineprint) fineprint.hidden = true;
+            show("Thank you for subscribing! We\u2019ll be in touch soon.", false);
+          } else {
+            show(r.data.error || "Something went wrong. Please try again, or email us at chorus@dalcc.org.", true);
+          }
+        })
+        .catch(function () {
+          show("We couldn\u2019t reach the server. Please check your connection and try again.", true);
+        })
+        .then(function () {
+          busy = false;
+          button.disabled = false;
+        });
     });
   });
 
