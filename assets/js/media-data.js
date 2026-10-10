@@ -25,21 +25,6 @@
       title: "United in Song",
       meta: "Combined Choruses · Victor C. Johnson",
       desc: "The combined choruses of the Dallas Symphony Children’s Chorus perform “United in Song” — young voices coming together to create something extraordinary."
-    },
-    {
-      title: "DSCC Fall Concert",
-      meta: "November 1, 2026 · All Choirs",
-      desc: "All three choruses open the 2026/27 season together at the Morton H. Meyerson Symphony Center."
-    },
-    {
-      title: "Holidays with the DSO",
-      meta: "December 2026 · Symphonic Voices",
-      desc: "Symphonic Voices joins the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition."
-    },
-    {
-      title: "DSCC Spring Concert",
-      meta: "May 2, 2027 · All Choirs",
-      desc: "All three choruses close out the season together at the Meyerson Symphony Center."
     }
   ];
 
