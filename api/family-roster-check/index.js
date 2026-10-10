@@ -26,6 +26,13 @@ module.exports = async function (context, req) {
       },
       rosterReadable: loaded.ok,
       familiesFound: loaded.roster.size,
+      // Yes/no only -- never the values themselves.
+      everyRosterEntryLooksLikeAnEmail: Array.from(loaded.roster.keys()).every(function (e) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+      }),
+      seasonPasswordHasLeadingOrTrailingSpace: process.env.FAMILY_PORTAL_PASSWORD
+        ? process.env.FAMILY_PORTAL_PASSWORD !== process.env.FAMILY_PORTAL_PASSWORD.trim()
+        : null,
     },
   };
 };
