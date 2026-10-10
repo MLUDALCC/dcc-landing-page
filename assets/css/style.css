@@ -1545,3 +1545,91 @@ input:focus-visible {
 .toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
 @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
 @media print { .toast { display: none !important; } }
+
+/* ---- Family Portal season calendar --------------------------------------
+   Year-at-a-glance on wide screens (all months of the season in a grid);
+   one month at a time on phones. Day cells with events are buttons; a
+   single bubble (.cal__bubble) shows the details for the tapped day. */
+.cal { position: relative; display: flex; flex-direction: column; margin-top: clamp(1.5rem, 3vw, 2.2rem); }
+.cal__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
+.cal__choirs { display: flex; flex-wrap: wrap; gap: .6rem; }
+.cal__chip {
+  font: 600 .84rem/1 var(--font-sans); letter-spacing: .12em; text-transform: uppercase;
+  padding: .8rem 1.05rem; border: 1px solid var(--line-100); border-radius: 999px;
+  background: var(--white); color: var(--stone-ink); cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.cal__chip:hover { border-color: var(--stone-500); color: var(--stone-500); }
+.cal__chip.is-on { background: var(--stone-500); border-color: var(--stone-500); color: var(--white); }
+.cal__chip:focus-visible, .cal-day:focus-visible, .cal__arrow:focus-visible, .cal__bubble-close:focus-visible { outline: 2px solid var(--stone-500); outline-offset: 2px; }
+.cal__legend { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; list-style: none; margin: 0; padding: 0; font-size: .95rem; color: var(--ink-600); }
+.cal__legend li { display: flex; align-items: center; gap: .5rem; }
+.cal__swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.cal__swatch--rehearsal, .cal-day.cal-day--rehearsal { background: #cfe3f1; color: var(--graphite-900); }
+.cal__swatch--concert, .cal-day.cal-day--concert { background: var(--stone-500); color: var(--white); }
+.cal__swatch--other, .cal-day.cal-day--other { background: #f3e4b8; color: var(--graphite-900); }
+
+.cal__status { margin-top: 1.6rem; font-size: 1.1rem; color: var(--ink-600); }
+.cal__status[hidden], .cal__upnext[hidden], .cal__mobile-nav[hidden], .cal__bubble[hidden] { display: none; }
+
+.cal__upnext { margin-top: 2rem; padding: 1.4rem 1.6rem; background: var(--cream-050); border-left: 3px solid var(--stone-500); }
+.cal__upnext h3 { font-size: 1.15rem; margin: 0 0 .8rem; }
+.cal__upnext ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem 2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.cal-up { display: grid; gap: .15rem; }
+.cal-up__date { font-size: .84rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--stone-ink); }
+.cal-up__title { font-size: 1.08rem; color: var(--graphite-900); }
+.cal-up__row { display: grid; gap: .1rem; margin-top: .45rem; }
+.cal-up__who { font-size: .95rem; color: var(--ink-400); }
+
+.cal__mobile-nav { display: none; align-items: center; justify-content: space-between; margin-top: 2rem; }
+.cal__nav-title { font-family: var(--font-serif); font-size: 1.7rem; }
+.cal__arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-100); background: var(--white); color: var(--graphite-800); display: grid; place-items: center; cursor: pointer; }
+.cal__arrow:disabled { opacity: .35; cursor: default; }
+
+.cal__months { margin-top: 2rem; display: grid; gap: 2rem 1.8rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cal-month__title { font: 600 1rem/1.2 var(--font-sans); letter-spacing: .04em; text-align: center; margin: 0 0 .6rem; color: var(--graphite-900); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-grid__dow { text-align: center; font-size: .78rem; font-weight: 600; color: var(--ink-400); padding-bottom: .2rem; }
+.cal-day {
+  aspect-ratio: 1 / 1; display: grid; place-items: center; border-radius: 4px;
+  font: 400 1rem/1 var(--font-sans); color: var(--ink-600); border: 0; padding: 0;
+}
+.cal-day--none { background: transparent; }
+button.cal-day { cursor: pointer; font-weight: 600; transition: transform .15s ease, box-shadow .15s ease; }
+button.cal-day:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.cal-day.is-today { box-shadow: inset 0 0 0 2px var(--graphite-800); }
+
+.cal__bubble {
+  position: absolute; z-index: 30; width: min(340px, 100%); max-height: 70vh; overflow-y: auto;
+  background: var(--white); border: 1px solid var(--line-100); border-radius: 6px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.2); padding: 1.2rem 1.3rem 1.3rem;
+}
+.cal__bubble-title { font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; margin: 0 2rem .8rem 0; }
+.cal__bubble-close { position: absolute; top: .55rem; right: .6rem; width: 34px; height: 34px; border: 0; background: transparent; font-size: 1.7rem; line-height: 1; color: var(--ink-600); cursor: pointer; }
+.cal-ev { display: grid; gap: .2rem; padding: .9rem 0; border-top: 1px solid var(--line-100); }
+.cal-ev:first-child { border-top: 0; padding-top: 0; }
+.cal-ev__tag { justify-self: start; font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: .28rem .55rem; border-radius: 3px; }
+.cal-ev--rehearsal .cal-ev__tag { background: #cfe3f1; color: var(--graphite-900); }
+.cal-ev--concert .cal-ev__tag { background: var(--stone-500); color: var(--white); }
+.cal-ev--other .cal-ev__tag { background: #f3e4b8; color: var(--graphite-900); }
+.cal-ev__title { font-size: 1.12rem; margin-top: .3rem; color: var(--graphite-900); }
+.cal-ev__line { font-size: 1rem; color: var(--ink-600); }
+.cal-ev__notes { font-size: .98rem; color: var(--ink-600); margin-top: .35rem; white-space: pre-line; }
+
+@media (max-width: 1000px) { .cal__months { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .cal__upnext { order: 5; }  /* phones: calendar first, upcoming list below it */
+  .cal__mobile-nav { display: flex; padding-right: 14px; }  /* keeps the next arrow clear of the floating Stay Informed tab */
+  .cal__months { grid-template-columns: 1fr; margin-top: 1rem; }
+  .cal-month { display: none; }
+  .cal-month.is-current { display: block; }
+  .cal-month__title { display: none; }
+  .cal-grid { gap: 4px; }
+  .cal-day { font-size: 1.05rem; }
+}
+@media (max-width: 640px) {
+  .cal__chip { font-size: .74rem; letter-spacing: .08em; padding: .75rem .85rem; }
+  .cal__bubble { position: fixed; left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-height: 65vh; border-radius: 14px 14px 0 0; padding-bottom: 1.8rem; }
+}
+@media (prefers-reduced-motion: reduce) { button.cal-day { transition: none; } button.cal-day:hover { transform: none; } }
+@media print { .cal__bubble, .cal__chip:not(.is-on), .cal__arrow { display: none; } }

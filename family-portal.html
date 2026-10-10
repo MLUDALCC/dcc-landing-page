@@ -25,7 +25,7 @@
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/style.css?v=132">
+<link rel="stylesheet" href="assets/css/style.css?v=133">
 </head>
 <body>
 
@@ -207,9 +207,10 @@
   </section>
 
   <!-- ============================= PORTAL CONTENT =============================
-       Hidden until JS confirms a valid session. Replace the placeholder
-       schedule and announcement entries below each season -- everything
-       marked [Placeholder] needs real dates/details before this goes live. -->
+       Hidden until JS confirms a valid session. The season schedule comes from
+       the Google Sheet (see the Season Schedule section below). Replace the
+       placeholder announcement entries each season -- everything marked
+       [Placeholder] needs real details before this goes live. -->
   <div id="portal-content" hidden>
 
     <section class="section section--cream">
@@ -225,33 +226,55 @@
       </div>
     </section>
 
-    <!-- ============================= SEASON SCHEDULE ============================= -->
-    <section class="section">
-      <div class="container container--narrow">
+    <!-- ============================= SEASON SCHEDULE =============================
+         Filled in by assets/js/family-calendar.js from the "Schedule" tab of the
+         Google Sheet (via /api/family-schedule, which only answers logged-in
+         families). Nothing about the schedule is stored in this page. -->
+    <section class="section" id="schedule">
+      <div class="container">
         <div class="section-head" data-reveal>
           <span class="eyebrow">Season Schedule</span>
           <h2>Rehearsals &amp; Concerts</h2>
+          <p class="body-text mt-lg">Choose your chorister&rsquo;s choir to see its dates, then tap a highlighted day for the details.</p>
         </div>
-        <div class="timeline" data-reveal>
-          <div class="timeline__item">
-            <div class="timeline__year">[Placeholder] September 2026</div>
-            <h3>Fall Season Kickoff Rehearsal</h3>
-            <p>[Placeholder] Date, time, and rehearsal location to be added here each season.</p>
+
+        <div class="cal" id="family-calendar">
+          <div class="cal__controls">
+            <div class="cal__choirs" role="group" aria-label="Choirs to show">
+              <button type="button" class="cal__chip is-on" data-choir="training" aria-pressed="true">Training Choir</button>
+              <button type="button" class="cal__chip is-on" data-choir="symphonic" aria-pressed="true">Symphonic Voices</button>
+              <button type="button" class="cal__chip is-on" data-choir="mixed" aria-pressed="true">Mixed Ensemble</button>
+            </div>
+            <ul class="cal__legend" aria-label="Key">
+              <li><span class="cal__swatch cal__swatch--rehearsal"></span>Rehearsal</li>
+              <li><span class="cal__swatch cal__swatch--concert"></span>Concert</li>
+              <li><span class="cal__swatch cal__swatch--other"></span>Other event</li>
+            </ul>
           </div>
-          <div class="timeline__item">
-            <div class="timeline__year">[Placeholder] December 2026</div>
-            <h3>Winter Concert</h3>
-            <p>[Placeholder] Concert date, call time, venue, and dress-code reminders go here.</p>
+
+          <p class="cal__status" id="cal-status" role="status" aria-live="polite">Loading the season schedule&hellip;</p>
+
+          <div class="cal__upnext" id="cal-upnext" hidden>
+            <h3>Coming up</h3>
+            <ul id="cal-upnext-list"></ul>
           </div>
-          <div class="timeline__item">
-            <div class="timeline__year">[Placeholder] March 2027</div>
-            <h3>Spring Rehearsal Retreat</h3>
-            <p>[Placeholder] Retreat schedule, location, and what to bring go here.</p>
+
+          <div class="cal__mobile-nav" id="cal-nav" hidden>
+            <button type="button" class="cal__arrow" id="cal-prev" aria-label="Previous month">
+              <svg width="16" height="16" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M15 5H1M6 1L1 5l5 4" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <span class="cal__nav-title" id="cal-nav-title"></span>
+            <button type="button" class="cal__arrow" id="cal-next" aria-label="Next month">
+              <svg width="16" height="16" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
           </div>
-          <div class="timeline__item">
-            <div class="timeline__year">[Placeholder] May 2027</div>
-            <h3>Spring Concert &amp; Season Finale</h3>
-            <p>[Placeholder] Final concert date, call time, venue, and any end-of-season logistics go here.</p>
+
+          <div class="cal__months" id="cal-months"></div>
+
+          <div class="cal__bubble" id="cal-bubble" role="dialog" aria-modal="false" aria-labelledby="cal-bubble-title" hidden>
+            <button type="button" class="cal__bubble-close" id="cal-bubble-close" aria-label="Close details">&times;</button>
+            <h3 class="cal__bubble-title" id="cal-bubble-title"></h3>
+            <div class="cal__bubble-body" id="cal-bubble-body"></div>
           </div>
         </div>
       </div>
@@ -356,6 +379,7 @@
 </footer>
 
 <script src="assets/js/main.js?v=18"></script>
+<script src="assets/js/family-calendar.js?v=1"></script>
 <script>
 (function () {
   "use strict";
@@ -399,6 +423,14 @@
     portalContent.hidden = false;
     lede.textContent = ledeLoggedIn;
     greeting.textContent = familyName ? "Welcome back, " + familyName + "!" : "Welcome back!";
+    var session = getSession();
+    if (session && session.token && window.DCCFamilyCalendar) {
+      window.DCCFamilyCalendar.load(session.token, function () {
+        // The calendar's server session ended (e.g. the season password changed).
+        clearSession();
+        showLoginGate("Your session has ended \u2014 please log in again with this season\u2019s password.");
+      });
+    }
   }
 
   function showLoginGate(message) {
