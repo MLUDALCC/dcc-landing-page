@@ -1487,7 +1487,7 @@ input:focus-visible {
   display: flex; align-items: center; justify-content: center; width: 34px; box-sizing: border-box;
   background: var(--white); color: var(--stone-500); border: 2px solid var(--stone-500); border-left: 0; text-decoration: none;
   font: 600 .86rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase;
-  padding: 15.5px 0; writing-mode: vertical-rl; transform: rotate(180deg);
+  padding: 26px 0; writing-mode: vertical-rl; transform: rotate(180deg);
   border-radius: 0 4px 4px 0; box-shadow: 0 2px 14px rgba(0,0,0,.18);
   transition: background .2s var(--ease), color .2s var(--ease), width .2s var(--ease);
 }
@@ -1532,7 +1532,8 @@ input:focus-visible {
 .stay-informed .subscribe-form__message { font-size: .94rem; }
 @media (max-width: 640px) {
   .side-tabs { top: 62%; }
-  .stay-informed__tab, .side-give { width: 33px; padding: 15.5px 0; font-size: .8rem; }
+  .stay-informed__tab { width: 33px; padding: 15.5px 0; font-size: .8rem; }
+  .side-give { width: 33px; padding: 24px 0; font-size: .8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .stay-informed__panel, .stay-informed__tab, .stay-informed, .side-give { transition: none; }
