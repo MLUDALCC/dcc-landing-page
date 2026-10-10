@@ -569,10 +569,11 @@
       if (root.classList.contains("is-open") && !root.contains(e.target)) setOpen(false, false);
     });
     document.addEventListener("dcc:subscribed", function () {
+      setOpen(false, false);
       setTimeout(function () {
         root.classList.add("is-done");
         setTimeout(function () { if (root.parentNode) root.parentNode.removeChild(root); }, 600);
-      }, 3500);
+      }, 2500);
     });
   })();
 
@@ -582,6 +583,36 @@
      address in the Newsletter tab of the Google Sheet and/or adds it to the
      email platform (MailerLite) -- see api/subscribe/index.js. The hidden
      "website" field is a honeypot for bots; real visitors never fill it. */
+  /* A small blue notice that floats at the bottom of the screen and fades away
+     by itself. Used for the signup progress / thank-you messages so they are
+     seen wherever the form happens to be (home band, footer or side tab).
+     Errors are NOT shown this way -- they stay beside the form so people can
+     correct the address. */
+  var toastEl = null;
+  var toastTimer = null;
+  function showToast(text, autoHideMs) {
+    if (!toastEl) {
+      toastEl = document.createElement("div");
+      toastEl.className = "toast";
+      toastEl.setAttribute("role", "status");
+      toastEl.setAttribute("aria-live", "polite");
+      document.body.appendChild(toastEl);
+    }
+    clearTimeout(toastTimer);
+    toastEl.textContent = text;
+    // restart the entrance transition if a toast was already showing
+    toastEl.classList.remove("is-visible");
+    void toastEl.offsetWidth;
+    toastEl.classList.add("is-visible");
+    if (autoHideMs) {
+      toastTimer = setTimeout(hideToast, autoHideMs);
+    }
+  }
+  function hideToast() {
+    clearTimeout(toastTimer);
+    if (toastEl) toastEl.classList.remove("is-visible");
+  }
+
   document.querySelectorAll("form[data-subscribe]").forEach(function (form) {
     var emailInput = form.querySelector('input[type="email"]');
     var button = form.querySelector("button[type=submit]");
@@ -607,7 +638,8 @@
       }
       busy = true;
       button.disabled = true;
-      show("Subscribing\u2026", false);
+      show("", false);
+      showToast("Subscribing\u2026");
       var honey = form.querySelector('input[name="website"]');
       fetch("/api/subscribe", {
         method: "POST",
@@ -619,16 +651,18 @@
         })
         .then(function (r) {
           if (r.ok && r.data.success) {
-            form.hidden = true;
-            if (fineprint) fineprint.hidden = true;
+            form.reset();
+            show("", false);
+            showToast("Thank you for subscribing! We\u2019ll be in touch soon.", 5000);
             try { localStorage.setItem("dccSubscribed", "1"); } catch (e) {}
             document.dispatchEvent(new CustomEvent("dcc:subscribed"));
-            show("Thank you for subscribing! We\u2019ll be in touch soon.", false);
           } else {
+            hideToast();
             show(r.data.error || "Something went wrong. Please try again, or email us at chorus@dalcc.org.", true);
           }
         })
         .catch(function () {
+          hideToast();
           show("We couldn\u2019t reach the server. Please check your connection and try again.", true);
         })
         .then(function () {

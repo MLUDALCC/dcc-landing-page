@@ -1526,3 +1526,22 @@ input:focus-visible {
   .stay-informed__panel, .stay-informed__tab, .stay-informed { transition: none; }
 }
 @media print { .stay-informed { display: none !important; } }
+
+/* ---- Floating notice ("Subscribing...", "Thank you for subscribing!") --------
+   A blue box that slides up from the bottom centre of the screen and fades
+   away on its own (timing is set in main.js). Above the side tab (150) and
+   mobile menu (250), at the same level as the modals' backdrop edge. */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 320;
+  width: max-content; max-width: min(440px, calc(100vw - 32px));
+  background: var(--stone-500); color: var(--white);
+  padding: 1rem 1.5rem; border-radius: 4px;
+  font-size: 1.02rem; font-weight: 500; line-height: var(--lh-read); text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+  opacity: 0; visibility: hidden; transform: translate(-50%, 16px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s;
+  pointer-events: none;
+}
+.toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+@media print { .toast { display: none !important; } }
