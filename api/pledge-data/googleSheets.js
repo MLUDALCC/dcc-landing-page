@@ -124,10 +124,15 @@ async function appendRow(sheetId, tabName, values, clientEmail, privateKey) {
 // Reads every row of the given sheet/tab and returns them as an array of
 // arrays (each inner array is one row, left to right). Used by the Family
 // Portal to read its roster from the "Family Roster" tab.
-async function readRows(sheetId, tabName, clientEmail, privateKey) {
+// opts (optional): { range: "A:Z", unformatted: true }. With unformatted, dates
+// come back as serial numbers (days since 1899-12-30) and numbers as numbers,
+// regardless of how the cells are formatted on screen.
+async function readRows(sheetId, tabName, clientEmail, privateKey, opts) {
+  opts = opts || {};
   const accessToken = await getAccessToken(clientEmail, privateKey);
-  const range = encodeURIComponent(tabName + "!A:Z");
-  const url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/" + range;
+  const range = encodeURIComponent(tabName + "!" + (opts.range || "A:Z"));
+  let url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/" + range;
+  if (opts.unformatted) url += "?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER";
 
   const res = await fetch(url, {
     headers: { Authorization: "Bearer " + accessToken },

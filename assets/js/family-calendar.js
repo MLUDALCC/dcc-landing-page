@@ -336,7 +336,11 @@
           monthsEl.textContent = "";
           navEl.hidden = true;
           upNextEl.hidden = true;
-          setStatus("The season schedule will appear here once it has been posted. Questions? Email chorus@dalcc.org.");
+          if (data.skipped > 0) {
+            setStatus("The schedule sheet has " + data.skipped + (data.skipped === 1 ? " row" : " rows") + " this page couldn\u2019t read \u2014 please check that the Date column (A) contains valid dates.");
+          } else {
+            setStatus("The season schedule will appear here once it has been posted. Questions? Email chorus@dalcc.org.");
+          }
           return;
         }
         current = pickStartMonth();

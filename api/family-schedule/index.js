@@ -46,5 +46,5 @@ module.exports = async function (context, req) {
   }
 
   context.res.status = 200;
-  context.res.body = { events: loaded.events };
+  context.res.body = { events: loaded.events, skipped: loaded.skipped || 0 };
 };
