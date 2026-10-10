@@ -162,7 +162,7 @@
       <div class="breadcrumb"><a href="index.html">Home</a> / <span>Family Portal</span></div>
       <span class="eyebrow">For Current Families</span>
       <h1>Family Portal</h1>
-      <p class="lede">Rehearsal schedules, concert logistics, and announcements for current DCC families &mdash; all in one place. Log in below with the email address on file and this season&rsquo;s family password.</p>
+      <p class="lede" id="portal-lede">Rehearsal schedules, concert logistics, and announcements for current DCC families &mdash; all in one place. Log in below with the email address on file and this season&rsquo;s family password.</p>
     </div>
   </section>
 
@@ -369,6 +369,11 @@
   var loginSubmit = document.getElementById("family-login-submit");
   var logoutButton = document.getElementById("family-logout");
   var greeting = document.getElementById("portal-greeting");
+  var lede = document.getElementById("portal-lede");
+  // The intro under the page title invites visitors to log in; once they are
+  // in, that sentence is dropped (and restored if they log out).
+  var ledeLoggedOut = lede.textContent;
+  var ledeLoggedIn = "Rehearsal schedules, concert logistics, and announcements for current DCC families \u2014 all in one place.";
 
   function getSession() {
     try {
@@ -392,12 +397,14 @@
   function showPortal(familyName) {
     loginGate.hidden = true;
     portalContent.hidden = false;
+    lede.textContent = ledeLoggedIn;
     greeting.textContent = familyName ? "Welcome back, " + familyName + "!" : "Welcome back!";
   }
 
   function showLoginGate(message) {
     portalContent.hidden = true;
     loginGate.hidden = false;
+    lede.textContent = ledeLoggedOut;
     if (message) {
       loginError.textContent = message;
       loginError.hidden = false;
