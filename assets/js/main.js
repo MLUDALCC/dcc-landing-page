@@ -526,8 +526,28 @@
   (function () {
     var path = location.pathname.replace(/\/+$/, "");
     if (/\/(thank-you|404)(\.html)?$/.test(path)) return;
-    if (document.querySelector(".stay-informed")) return;
-    try { if (localStorage.getItem("dccSubscribed") === "1") return; } catch (e) {}
+    if (document.querySelector(".side-tabs")) return;
+
+    /* The tabs live in one group (.side-tabs) so they stay centred as a pair,
+       even after the Stay Informed tab is removed. The "Give" tab is hidden on
+       the Give page itself. */
+    var group = document.createElement("div");
+    group.className = "side-tabs";
+    document.body.appendChild(group);
+    var onGive = /\/give(\.html)?$/.test(path);
+    var subscribed = false;
+    try { subscribed = localStorage.getItem("dccSubscribed") === "1"; } catch (e) {}
+
+    if (!onGive) {
+      var giveHref = (document.querySelector('a[href$="give.html"]') ? document.querySelector('a[href$="give.html"]').getAttribute("href") : "give.html");
+      var give = document.createElement("a");
+      give.className = "side-give";
+      give.href = giveHref;
+      give.setAttribute("aria-label", "Give to the Dallas Children\u2019s Chorus");
+      give.innerHTML = "<span>Give</span>";
+      group.appendChild(give);
+    }
+    if (subscribed) return;
 
     var root = document.createElement("aside");
     root.className = "stay-informed";
@@ -548,7 +568,7 @@
         '<p class="subscribe-form__fineprint">Occasional emails. Unsubscribe anytime. See our <a href="' + (document.querySelector('a[href$="privacy.html"]') ? document.querySelector('a[href$="privacy.html"]').getAttribute("href") : "privacy.html") + '">Privacy Policy</a>.</p>' +
         '<p class="subscribe-form__message" role="status" aria-live="polite"></p>' +
       '</div>';
-    document.body.appendChild(root);
+    group.insertBefore(root, group.firstChild);
 
     var tab = root.querySelector(".stay-informed__tab");
     var closeBtn = root.querySelector(".stay-informed__close");

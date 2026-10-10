@@ -1481,7 +1481,18 @@ input:focus-visible {
    Fixed to the right edge, vertically centred. The tab is always visible; the
    card slides out to its left when opened. Sits above page content but below
    the header (200), mobile menu (250) and modals (300). */
-.stay-informed { position: fixed; right: 0; top: 50%; z-index: 150; transform: translateY(-50%); transition: opacity .5s var(--ease); }
+.side-tabs { position: fixed; right: 0; top: 50%; z-index: 150; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.stay-informed { position: relative; transition: opacity .5s var(--ease); }
+.side-give {
+  display: flex; align-items: center; justify-content: center; width: 34px; box-sizing: border-box;
+  background: var(--white); color: var(--stone-500); border: 2px solid var(--stone-500); border-right: 0; text-decoration: none;
+  font: 600 .86rem/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase;
+  padding: 15.5px 0; writing-mode: vertical-rl; transform: rotate(180deg);
+  border-radius: 0 4px 4px 0; box-shadow: 0 2px 14px rgba(0,0,0,.18);
+  transition: background .2s var(--ease), color .2s var(--ease), width .2s var(--ease);
+}
+.side-give span { display: block; padding: .16em 0 0; position: relative; left: -1.5px; }
+.side-give:hover, .side-give:focus-visible { background: var(--stone-500); color: var(--white); width: 37px; }
 .stay-informed.is-done { opacity: 0; pointer-events: none; }
 .stay-informed__tab {
   display: flex; align-items: center; justify-content: center; width: 34px; box-sizing: border-box;
@@ -1520,13 +1531,13 @@ input:focus-visible {
 .stay-informed .subscribe-form__fineprint { margin-top: .8rem; font-size: .86rem; }
 .stay-informed .subscribe-form__message { font-size: .94rem; }
 @media (max-width: 640px) {
-  .stay-informed { top: 62%; }
-  .stay-informed__tab { width: 33px; padding: 15.5px 0; font-size: .8rem; }
+  .side-tabs { top: 62%; }
+  .stay-informed__tab, .side-give { width: 33px; padding: 15.5px 0; font-size: .8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stay-informed__panel, .stay-informed__tab, .stay-informed { transition: none; }
+  .stay-informed__panel, .stay-informed__tab, .stay-informed, .side-give { transition: none; }
 }
-@media print { .stay-informed { display: none !important; } }
+@media print { .stay-informed, .side-tabs { display: none !important; } }
 
 /* ---- Floating notice ("Subscribing...", "Thank you for subscribing!") --------
    A blue box that slides up from the bottom centre of the screen and fades
