@@ -300,6 +300,19 @@
   document.querySelectorAll(".quote-carousel").forEach(function (carousel) {
     var track = carousel.querySelector(".quote-carousel__track");
     var slides = track ? Array.prototype.slice.call(track.children) : [];
+    /* Donor quotes appear in a different random order on each visit. (Runs
+       before the clones are made, and the "Quote N of M" labels are renumbered
+       to match.) */
+    if (track && track.id === "donor-quotes" && slides.length > 1) {
+      for (var s = slides.length - 1; s > 0; s--) {
+        var r = Math.floor(Math.random() * (s + 1));
+        var tmp = slides[s]; slides[s] = slides[r]; slides[r] = tmp;
+      }
+      slides.forEach(function (el, i) {
+        track.appendChild(el);
+        el.setAttribute("aria-label", "Quote " + (i + 1) + " of " + slides.length);
+      });
+    }
     var dotsWrap = carousel.querySelector(".quote-carousel__dots");
     var prevBtn = carousel.querySelector(".quote-carousel__arrow--prev");
     var nextBtn = carousel.querySelector(".quote-carousel__arrow--next");
