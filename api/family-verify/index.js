@@ -38,8 +38,16 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const roster = loadRoster();
-  const familyName = roster.get(result.email) || null;
+  const loaded = await loadRoster(context);
+  if (loaded.ok && !loaded.roster.has(result.email)) {
+    // The family has been removed from the roster since they signed in.
+    context.res.status = 200;
+    context.res.body = { valid: false };
+    return;
+  }
+  // If the roster couldn't be read right now, trust the (still valid,
+  // signed) token rather than locking everyone out during a brief outage.
+  const familyName = loaded.ok ? (loaded.roster.get(result.email) || null) : null;
 
   context.res.status = 200;
   context.res.body = { valid: true, familyName: familyName };

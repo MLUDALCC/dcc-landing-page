@@ -121,4 +121,29 @@ async function appendRow(sheetId, tabName, values, clientEmail, privateKey) {
   }
 }
 
-module.exports = { appendRow: appendRow };
+// Reads every row of the given sheet/tab and returns them as an array of
+// arrays (each inner array is one row, left to right). Used by the Family
+// Portal to read its roster from the "Family Roster" tab.
+async function readRows(sheetId, tabName, clientEmail, privateKey) {
+  const accessToken = await getAccessToken(clientEmail, privateKey);
+  const range = encodeURIComponent(tabName + "!A:Z");
+  const url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/" + range;
+
+  const res = await fetch(url, {
+    headers: { Authorization: "Bearer " + accessToken },
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(function () {
+      return "";
+    });
+    throw new Error("Google Sheets read failed (" + res.status + "): " + errText);
+  }
+
+  const data = await res.json().catch(function () {
+    return {};
+  });
+  return Array.isArray(data.values) ? data.values : [];
+}
+
+module.exports = { appendRow: appendRow, readRows: readRows };

@@ -1,2 +1,3 @@
 email,family_name
-example.family@example.com,REPLACE WITH YOUR REAL FAMILY ROSTER
+# Intentionally empty. The real roster lives in the "Family Roster" tab of the Google Sheet
+# (see roster.js) so family email addresses never sit in this repository.

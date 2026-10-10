@@ -1,5 +1,6 @@
 // Checks a Family Portal login attempt: the submitted email must be on
-// the current roster (api/family-data/roster.csv) AND the submitted
+// the current roster (the "Family Roster" tab of the Google Sheet -- see
+// api/family-data/roster.js) AND the submitted
 // password must match this season's shared password. On success, issues
 // a signed session token the front end stores and re-sends to
 // /api/family-verify on later visits, instead of asking every family to
@@ -57,7 +58,15 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const roster = loadRoster();
+  const loaded = await loadRoster(context);
+  if (!loaded.ok) {
+    // Couldn't read the roster -- say so honestly instead of telling a
+    // legitimate family their email isn't on file.
+    context.res.status = 503;
+    context.res.body = { error: "We couldn't check the family list just now. Please try again in a moment, or contact chorus@dalcc.org." };
+    return;
+  }
+  const roster = loaded.roster;
   const emailKnown = roster.has(email);
   const passwordOk = passwordsMatch(password, seasonPassword);
 
