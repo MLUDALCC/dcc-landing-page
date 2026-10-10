@@ -845,7 +845,6 @@ body.nav-open { overflow: hidden; }
   .feature--reverse .feature__media { order: 0; }
 }
 .feature--textonly { grid-template-columns: 1fr; }
-.feature--textonly .feature__body { max-width: 760px; }
 .feature__media { position: relative; }
 .feature__media img { width: 100%; aspect-ratio: 5/4; object-fit: cover; }
 .feature__media--headshot { max-width: 360px; justify-self: center; }
