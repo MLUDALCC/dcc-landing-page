@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /thank-you.html
+
+Sitemap: https://www.dalcc.org/sitemap.xml
