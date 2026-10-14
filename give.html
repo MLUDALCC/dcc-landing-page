@@ -311,6 +311,16 @@
         </div>
 
         <div class="donate-field">
+          <label for="give-online-name">Your name</label>
+          <input type="text" id="give-online-name" class="donate-name-input" name="donorName" autocomplete="name" required maxlength="100">
+        </div>
+
+        <div class="donate-field">
+          <label for="give-online-email">Email address (for your receipt)</label>
+          <input type="email" id="give-online-email" class="donate-email-input" name="donorEmail" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+        </div>
+
+        <div class="donate-field">
           <label for="give-online-tribute">In honor or memory of someone? (optional)</label>
           <input type="text" id="give-online-tribute" class="donate-tribute-input" name="tribute" maxlength="200" placeholder="Name">
         </div>
@@ -537,7 +547,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20"></script>
+<script src="assets/js/main.js?v=21"></script>
 <script src="assets/vendor/intl-tel-input/js/intlTelInput.min.js"></script>
 <script src="assets/js/phone-input.js?v=1"></script>
 <script>
