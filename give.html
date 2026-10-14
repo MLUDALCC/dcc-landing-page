@@ -28,6 +28,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
 <link rel="stylesheet" href="assets/css/style.css?v=139">
+<script src="assets/js/analytics.js?v=1" defer></script>
 </head>
 <body>
 
@@ -720,6 +721,7 @@
             return;
           }
           formWrap.hidden = true;
+          document.dispatchEvent(new CustomEvent("dcc:pledge-submitted"));
           successEl.hidden = false;
           successEl.scrollIntoView({ behavior: "smooth", block: "start" });
         })
