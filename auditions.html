@@ -27,6 +27,23 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
 <link rel="stylesheet" href="assets/css/style.css?v=139">
+<style>
+  /* Audition form: make the dropdowns (grade, state) match the text boxes in
+     height and look. Browsers (especially iPhone Safari) draw a native select
+     shorter than a text box, so the native look is switched off and a
+     matching arrow is drawn instead. */
+  .audition-form .donate-field input[type="text"],
+  .audition-form .donate-field input[type="email"],
+  .audition-form .donate-field input[type="tel"],
+  .audition-form .donate-field select { line-height: 1.4; box-sizing: border-box; }
+  .audition-form .donate-field select {
+    -webkit-appearance: none; appearance: none; width: 100%; border-radius: 4px;
+    padding-right: 2.4rem;
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23333' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right .9rem center; background-size: 12px 8px;
+  }
+</style>
 </head>
 <body>
 
@@ -336,9 +353,10 @@
             <label for="aud-p1-name">Name<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-p1-name" name="parent1Name" autocomplete="name" required placeholder="Full name">
           </div>
-          <div class="donate-field">
-            <label><input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p1"> Same address as the student</label>
-          </div>
+          <label class="donate-checkbox">
+            <input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p1">
+            <span>Same address as the student</span>
+          </label>
           <div class="donate-field">
             <label for="aud-p1-street1">Address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-p1-street1" name="parent1Street1" autocomplete="section-p1 address-line1" required maxlength="100" placeholder="123 Main St">
@@ -375,9 +393,10 @@
             <label for="aud-p2-name">Name</label>
             <input type="text" id="aud-p2-name" name="parent2Name" placeholder="Full name">
           </div>
-          <div class="donate-field">
-            <label><input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p2"> Same address as the student</label>
-          </div>
+          <label class="donate-checkbox">
+            <input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p2">
+            <span>Same address as the student</span>
+          </label>
           <div class="donate-field">
             <label for="aud-p2-street1">Address &ndash; Street 1</label>
             <input type="text" id="aud-p2-street1" name="parent2Street1" autocomplete="section-p2 address-line1" maxlength="100" placeholder="123 Main St">
