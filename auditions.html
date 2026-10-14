@@ -44,6 +44,7 @@
     background-repeat: no-repeat; background-position: right .9rem center; background-size: 12px 8px;
   }
 </style>
+<script src="assets/js/analytics.js?v=1" defer></script>
 </head>
 <body>
 
@@ -780,6 +781,7 @@
           }
           formWrap.hidden = true;
           successEl.hidden = false;
+          document.dispatchEvent(new CustomEvent("dcc:audition-submitted"));
           successEl.scrollIntoView({ behavior: "smooth", block: "start" });
         })
         .catch(function () {
