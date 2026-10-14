@@ -20,6 +20,7 @@
 // the service account.
 
 const { appendRow } = require("../pledge-data/googleSheets");
+const { checkAddress } = require("./address");
 
 const SEASON = "2027/28";
 const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_AUDITION_TAB_NAME || "Audition Interest";
@@ -69,21 +70,35 @@ module.exports = async function (context, req) {
   const grade = clean(body.grade);
   const age = clean(body.age);
   const height = clean(body.height);
-  const studentAddress = clean(body.studentAddress);
+  const studentStreet1 = clean(body.studentStreet1);
+  const studentStreet2 = clean(body.studentStreet2);
+  const studentCity = clean(body.studentCity);
+  const studentState = clean(body.studentState);
+  const studentZip = clean(body.studentZip);
   const parent1Name = clean(body.parent1Name);
-  const parent1Address = clean(body.parent1Address);
+  const parent1Street1 = clean(body.parent1Street1);
+  const parent1Street2 = clean(body.parent1Street2);
+  const parent1City = clean(body.parent1City);
+  const parent1State = clean(body.parent1State);
+  const parent1Zip = clean(body.parent1Zip);
   const parent1Email = clean(body.parent1Email);
   const parent1Phone = clean(body.parent1Phone);
   const parent2Name = clean(body.parent2Name);
-  const parent2Address = clean(body.parent2Address);
+  const parent2Street1 = clean(body.parent2Street1);
+  const parent2Street2 = clean(body.parent2Street2);
+  const parent2City = clean(body.parent2City);
+  const parent2State = clean(body.parent2State);
+  const parent2Zip = clean(body.parent2Zip);
   const parent2Email = clean(body.parent2Email);
   const parent2Phone = clean(body.parent2Phone);
   const heardAbout = clean(body.heardAbout);
+  const confirmAddress = body.confirmAddress === true || body.confirmAddress === "true";
   const wantsFutureInfo = body.wantsFutureInfo === true || body.wantsFutureInfo === "true";
 
   if (
     !studentFirstName || !studentLastName || !studentEmail || !gender || !grade || !age || !height ||
-    !studentAddress || !parent1Name || !parent1Address || !parent1Email || !parent1Phone || !heardAbout
+    !studentStreet1 || !studentCity || !studentState || !studentZip ||
+    !parent1Name || !parent1Street1 || !parent1City || !parent1State || !parent1Zip || !parent1Email || !parent1Phone || !heardAbout
   ) {
     context.res.status = 400;
     context.res.body = { error: "Please fill in all required fields." };
@@ -106,6 +121,24 @@ module.exports = async function (context, req) {
     return;
   }
 
+  // Address checks (format, ZIP/state fit, ZIP/city lookup). Parent #2's
+  // address is optional, but if any part is given, all of it must be valid.
+  const addresses = [
+    ["The student\u2019s address", { street1: studentStreet1, street2: studentStreet2, city: studentCity, state: studentState, zip: studentZip }],
+    ["Parent/Guardian #1\u2019s address", { street1: parent1Street1, street2: parent1Street2, city: parent1City, state: parent1State, zip: parent1Zip }],
+  ];
+  if (parent2Street1 || parent2Street2 || parent2City || parent2State || parent2Zip) {
+    addresses.push(["Parent/Guardian #2\u2019s address", { street1: parent2Street1, street2: parent2Street2, city: parent2City, state: parent2State, zip: parent2Zip }]);
+  }
+  for (const [label, addr] of addresses) {
+    const result = await checkAddress(addr, label);
+    if (!result.ok && !(result.soft && confirmAddress)) {
+      context.res.status = 400;
+      context.res.body = { error: result.error, addressWarning: !!result.soft };
+      return;
+    }
+  }
+
   try {
     await appendRow(
       sheetId,
@@ -120,13 +153,25 @@ module.exports = async function (context, req) {
         grade,
         age,
         height,
-        studentAddress,
+        studentStreet1,
+        studentStreet2,
+        studentCity,
+        studentState.toUpperCase(),
+        studentZip,
         parent1Name,
-        parent1Address,
+        parent1Street1,
+        parent1Street2,
+        parent1City,
+        parent1State.toUpperCase(),
+        parent1Zip,
         parent1Email,
         parent1Phone,
         parent2Name,
-        parent2Address,
+        parent2Street1,
+        parent2Street2,
+        parent2City,
+        parent2State.toUpperCase(),
+        parent2Zip,
         parent2Email,
         parent2Phone,
         heardAbout,

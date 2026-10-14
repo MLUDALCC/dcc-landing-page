@@ -309,8 +309,26 @@
           </div>
           </div>
           <div class="donate-field">
-            <label for="aud-student-address">Student&rsquo;s address<span class="req" aria-hidden="true"> *</span></label>
-            <input type="text" id="aud-student-address" name="studentAddress" autocomplete="street-address" required placeholder="Street, city, state, ZIP">
+            <label for="aud-student-street1">Student&rsquo;s address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-street1" name="studentStreet1" autocomplete="section-student address-line1" required maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-student-street2" name="studentStreet2" autocomplete="section-student address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-city">City<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-city" name="studentCity" autocomplete="section-student address-level2" required maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-student-state">State<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-student-state" name="studentState" autocomplete="section-student address-level1" required><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-zip">ZIP code<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-zip" name="studentZip" autocomplete="section-student postal-code" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
           </div>
 
           <h3 class="audition-form__group">Parent/Guardian #1</h3>
@@ -319,8 +337,29 @@
             <input type="text" id="aud-p1-name" name="parent1Name" autocomplete="name" required placeholder="Full name">
           </div>
           <div class="donate-field">
-            <label for="aud-p1-address">Address<span class="req" aria-hidden="true"> *</span></label>
-            <input type="text" id="aud-p1-address" name="parent1Address" required placeholder="Street, city, state, ZIP">
+            <label><input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p1"> Same address as the student</label>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-street1">Address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-street1" name="parent1Street1" autocomplete="section-p1 address-line1" required maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-p1-street2" name="parent1Street2" autocomplete="section-p1 address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-city">City<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-city" name="parent1City" autocomplete="section-p1 address-level2" required maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-p1-state">State<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-p1-state" name="parent1State" autocomplete="section-p1 address-level1" required><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-zip">ZIP code<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-zip" name="parent1Zip" autocomplete="section-p1 postal-code" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
           </div>
           <div class="donate-field">
             <label for="aud-p1-email">Email address<span class="req" aria-hidden="true"> *</span></label>
@@ -337,8 +376,29 @@
             <input type="text" id="aud-p2-name" name="parent2Name" placeholder="Full name">
           </div>
           <div class="donate-field">
-            <label for="aud-p2-address">Address</label>
-            <input type="text" id="aud-p2-address" name="parent2Address" placeholder="Street, city, state, ZIP">
+            <label><input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p2"> Same address as the student</label>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-street1">Address &ndash; Street 1</label>
+            <input type="text" id="aud-p2-street1" name="parent2Street1" autocomplete="section-p2 address-line1" maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-p2-street2" name="parent2Street2" autocomplete="section-p2 address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-city">City</label>
+            <input type="text" id="aud-p2-city" name="parent2City" autocomplete="section-p2 address-level2" maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-p2-state">State</label>
+            <select id="aud-p2-state" name="parent2State" autocomplete="section-p2 address-level1"><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-zip">ZIP code</label>
+            <input type="text" id="aud-p2-zip" name="parent2Zip" autocomplete="section-p2 postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
           </div>
           <div class="donate-field">
             <label for="aud-p2-email">Email address</label>
@@ -573,6 +633,48 @@
       return el ? el.value.trim() : "";
     }
 
+    // Set after the server flags a ZIP/city mismatch as "double-check this";
+    // pressing Submit again then confirms the address is correct as entered.
+    var confirmAddress = false;
+
+    // ZIP fields: digits only, never more than 5.
+    form.querySelectorAll('input[name$="Zip"]').forEach(function (z) {
+      z.addEventListener("input", function () {
+        z.value = z.value.replace(/\D/g, "").slice(0, 5);
+      });
+    });
+    // Any change to an address field cancels a pending "confirm as entered".
+    form.addEventListener("input", function (e) {
+      if (/(Street1|Street2|City|Zip)$/.test(e.target.name || "")) confirmAddress = false;
+    });
+    form.addEventListener("change", function (e) {
+      if ((e.target.name || "").slice(-5) === "State") confirmAddress = false;
+    });
+    // "Same address as the student" checkboxes copy the student's address.
+    form.querySelectorAll(".js-same-address").forEach(function (box) {
+      box.addEventListener("change", function () {
+        if (!box.checked) return;
+        ["street1", "street2", "city", "state", "zip"].forEach(function (f) {
+          document.getElementById(box.dataset.to + "-" + f).value =
+            document.getElementById(box.dataset.from + "-" + f).value;
+        });
+        confirmAddress = false;
+      });
+    });
+
+    function addressProblem(prefix, label, required) {
+      var s1 = val(prefix + "Street1"), s2 = val(prefix + "Street2"), city = val(prefix + "City"),
+          st = val(prefix + "State"), zip = val(prefix + "Zip");
+      if (!required && !(s1 || s2 || city || st || zip)) return "";
+      if (!s1 || !city || !st || !zip) return label + " needs a street, city, state and ZIP code.";
+      if (!/\d/.test(s1) && !/^\s*(p\.?\s*o\.?\s*box|post office box)/i.test(s1)) {
+        return label + " needs a street number in Street 1 (for example, 123 Main St).";
+      }
+      if (!/^[A-Za-z .'\-]+$/.test(city)) return label + " needs a valid city.";
+      if (!/^\d{5}$/.test(zip)) return label + " needs a ZIP code of exactly 5 digits.";
+      return "";
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
@@ -586,21 +688,35 @@
         grade: val("grade"),
         age: val("age"),
         height: val("height"),
-        studentAddress: val("studentAddress"),
+        studentStreet1: val("studentStreet1"),
+        studentStreet2: val("studentStreet2"),
+        studentCity: val("studentCity"),
+        studentState: val("studentState"),
+        studentZip: val("studentZip"),
         parent1Name: val("parent1Name"),
-        parent1Address: val("parent1Address"),
+        parent1Street1: val("parent1Street1"),
+        parent1Street2: val("parent1Street2"),
+        parent1City: val("parent1City"),
+        parent1State: val("parent1State"),
+        parent1Zip: val("parent1Zip"),
         parent1Email: val("parent1Email"),
         parent1Phone: phone("parent1Phone"),
         parent2Name: val("parent2Name"),
-        parent2Address: val("parent2Address"),
+        parent2Street1: val("parent2Street1"),
+        parent2Street2: val("parent2Street2"),
+        parent2City: val("parent2City"),
+        parent2State: val("parent2State"),
+        parent2Zip: val("parent2Zip"),
         parent2Email: val("parent2Email"),
         parent2Phone: phone("parent2Phone"),
         heardAbout: val("heardAbout"),
+        confirmAddress: confirmAddress,
         wantsFutureInfo: form.elements["wantsFutureInfo"].checked
       };
 
       var required = ["studentFirstName", "studentLastName", "studentEmail", "gender", "grade", "age", "height",
-        "studentAddress", "parent1Name", "parent1Address", "parent1Email", "parent1Phone", "heardAbout"];
+        "studentStreet1", "studentCity", "studentState", "studentZip", "parent1Name",
+        "parent1Street1", "parent1City", "parent1State", "parent1Zip", "parent1Email", "parent1Phone", "heardAbout"];
       for (var i = 0; i < required.length; i++) {
         if (!data[required[i]]) {
           showError("Please fill in all required fields.");
@@ -613,6 +729,11 @@
         showError("Please enter valid email addresses.");
         return;
       }
+
+      var problem = addressProblem("student", "The student\u2019s address", true) ||
+        addressProblem("parent1", "Parent/Guardian #1\u2019s address", true) ||
+        addressProblem("parent2", "Parent/Guardian #2\u2019s address", false);
+      if (problem) { showError(problem); return; }
 
       if (phoneInvalid("parent1Phone") || phoneInvalid("parent2Phone")) {
         showError("Please enter a valid phone number, or choose the correct country.");
@@ -634,6 +755,7 @@
         .then(function (result) {
           setLoading(false);
           if (!result.ok) {
+            if (result.data && result.data.addressWarning) confirmAddress = true;
             showError((result.data && result.data.error) || "Something went wrong submitting your form. Please try again, or contact us at chorus@dalcc.org.");
             return;
           }
