@@ -868,6 +868,8 @@
     var feeEstimateEl = form.querySelector(".donate-fee-estimate");
     var anonymousCheckbox = form.querySelector(".donate-anonymous");
     var tributeInput = form.querySelector(".donate-tribute-input");
+    var nameInput = form.querySelector(".donate-name-input");
+    var emailInput = form.querySelector(".donate-email-input");
     var errorEl = form.querySelector(".donate-form__error");
     var submitBtn = form.querySelector(".donate-submit");
     var paymentContainer = form.querySelector(".donate-payment-element");
@@ -993,7 +995,13 @@
 
     function mountPaymentElement(clientSecret) {
       elements = stripeClient.elements({ clientSecret: clientSecret, appearance: STRIPE_APPEARANCE });
-      var paymentElement = elements.create("payment");
+      // The donor's name and email are collected in our own fields above, so
+      // the Payment Element is told not to ask for them again; they are passed
+      // to Stripe in confirmPayment below (the email is what Stripe sends the
+      // receipt to).
+      var paymentElement = elements.create("payment", {
+        fields: { billingDetails: { name: "never", email: "never" } }
+      });
       paymentElement.mount(paymentContainer);
       paymentElement.on("ready", function () {
         if (placeholderEl) placeholderEl.hidden = true;
@@ -1110,6 +1118,19 @@
         return;
       }
 
+      var donorName = nameInput ? nameInput.value.trim() : "";
+      var donorEmail = emailInput ? emailInput.value.trim() : "";
+      if (!donorName) {
+        showError("Please enter your name.");
+        if (nameInput) nameInput.focus();
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorEmail)) {
+        showError("Please enter a valid email address so we can send your receipt.");
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.classList.add("is-loading");
@@ -1134,7 +1155,11 @@
           stripeClient
             .confirmPayment({
               elements: elements,
-              confirmParams: { return_url: returnUrl },
+              confirmParams: {
+                return_url: returnUrl,
+                receipt_email: donorEmail,
+                payment_method_data: { billing_details: { name: donorName, email: donorEmail } }
+              },
               redirect: "if_required"
             })
             .then(function (result) {

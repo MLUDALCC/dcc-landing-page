@@ -91,9 +91,12 @@ module.exports = async function (context, req) {
   try {
     const stripe = Stripe(stripeSecretKey);
 
+    // This text appears on the receipt Stripe emails to the donor, so it
+    // carries the tax-acknowledgment wording.
+    const TAX_NOTE = "The Dallas Children's Chorus is a 501(c)(3) organization (EIN 41-5362609). No goods or services were provided in exchange for this gift.";
     const description = tribute
-      ? `Donation to the Dallas Children's Chorus -- in honor/memory of: ${tribute}`
-      : "Donation to the Dallas Children's Chorus";
+      ? `Donation to the Dallas Children's Chorus -- in honor/memory of: ${tribute}. ${TAX_NOTE}`
+      : `Donation to the Dallas Children's Chorus. ${TAX_NOTE}`;
 
     const intent = await stripe.paymentIntents.create({
       amount: amountCents,

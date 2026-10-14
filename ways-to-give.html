@@ -305,6 +305,16 @@
         </div>
 
         <div class="donate-field">
+          <label for="ways-give-name">Your name</label>
+          <input type="text" id="ways-give-name" class="donate-name-input" name="donorName" autocomplete="name" required maxlength="100">
+        </div>
+
+        <div class="donate-field">
+          <label for="ways-give-email">Email address (for your receipt)</label>
+          <input type="email" id="ways-give-email" class="donate-email-input" name="donorEmail" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+        </div>
+
+        <div class="donate-field">
           <label for="ways-give-tribute">In honor or memory of someone? (optional)</label>
           <input type="text" id="ways-give-tribute" class="donate-tribute-input" name="tribute" maxlength="200" placeholder="Name">
         </div>
@@ -408,6 +418,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20"></script>
+<script src="assets/js/main.js?v=21"></script>
 </body>
 </html>
