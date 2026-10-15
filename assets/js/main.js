@@ -686,7 +686,7 @@
           if (r.ok && r.data.success) {
             form.reset();
             show("", false);
-            showToast("Thank you for subscribing! We\u2019ll be in touch soon.", 5000);
+            showToast("Almost done! Please check your email and click the confirmation link to complete your subscription.", 9000);
             try { localStorage.setItem("dccSubscribed", "1"); } catch (e) {}
             document.dispatchEvent(new CustomEvent("dcc:subscribed"));
           } else {
