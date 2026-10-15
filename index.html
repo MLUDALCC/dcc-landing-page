@@ -28,7 +28,10 @@
 <link rel="icon" href="assets/img/favicon-48.png?v=2" type="image/png" sizes="48x48">
 <link rel="icon" href="assets/img/favicon-192.png?v=2" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/style.css?v=139">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=140">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -195,8 +198,8 @@
       <!-- TEMPORARY HERO: "DCC Lin B-Roll" clip. To go back to the original hero, swap each
            hero-lin-* file name below for the matching original:
            hero-lin-poster.jpg -> hero-poster.jpg   (the original files are still in assets/) -->
-      <img width="1920" height="816" class="hero__poster" src="assets/img/hero-lin-poster.jpg" alt="Dallas Children’s Chorus choristers performing" />
-      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-lin-poster.jpg">
+      <img width="1920" height="816" class="hero__poster" src="assets/img/hero-lin-poster.jpg" fetchpriority="high" alt="Dallas Children’s Chorus choristers performing" />
+      <video class="hero__video" muted loop playsinline preload="none">
         <source src="assets/video/hero-lin-mobile.webm" media="(max-width: 767px)" type="video/webm">
         <source src="assets/video/hero-lin-mobile.mp4" media="(max-width: 767px)" type="video/mp4">
         <source src="assets/video/hero-lin-1080p.webm" type="video/webm">
@@ -436,6 +439,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=22"></script>
+<script src="assets/js/main.js?v=23"></script>
 </body>
 </html>
