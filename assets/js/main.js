@@ -658,6 +658,10 @@
     if (toastEl) toastEl.classList.remove("is-visible");
   }
 
+  /* When the page opened -- sent with each signup so the server can tell a person (who needs a few
+     seconds to type an address) from a script that submits instantly. */
+  var pageOpenedAt = Date.now();
+
   document.querySelectorAll("form[data-subscribe]").forEach(function (form) {
     var emailInput = form.querySelector('input[type="email"]');
     var button = form.querySelector("button[type=submit]");
@@ -689,7 +693,7 @@
       fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, source: form.getAttribute("data-subscribe"), website: honey ? honey.value : "" })
+        body: JSON.stringify({ email: email, source: form.getAttribute("data-subscribe"), website: honey ? honey.value : "", elapsedMs: Date.now() - pageOpenedAt })
       })
         .then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });

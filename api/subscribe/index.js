@@ -29,6 +29,35 @@ const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_NEWSLETTER_TAB_NAME || "Newslet
 const ALLOWED_SOURCES = ["home-band", "footer", "side-tab"];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const MIN_FILL_MS = 2000;
+const RATE_LIMIT_MAX = 8;               // signups allowed per visitor...
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // ...in this window
+const recentByVisitor = new Map();      // per running instance; resets when it restarts
+
+function visitorKey(req) {
+  const headers = (req && req.headers) || {};
+  const raw = headers["x-azure-clientip"] || (headers["x-forwarded-for"] || "").split(",")[0] || "unknown";
+  return String(raw).trim().replace(/:\d+$/, "") || "unknown";
+}
+
+function tooManyFromThisVisitor(req) {
+  const now = Date.now();
+  const key = visitorKey(req);
+  const recent = (recentByVisitor.get(key) || []).filter(function (t) { return now - t < RATE_LIMIT_WINDOW_MS; });
+  if (recent.length >= RATE_LIMIT_MAX) {
+    recentByVisitor.set(key, recent);
+    return true;
+  }
+  recent.push(now);
+  recentByVisitor.set(key, recent);
+  if (recentByVisitor.size > 5000) { // keep memory bounded
+    recentByVisitor.forEach(function (list, k) {
+      if (!list.length || now - list[list.length - 1] >= RATE_LIMIT_WINDOW_MS) recentByVisitor.delete(k);
+    });
+  }
+  return false;
+}
+
 // Neutralize anything a spreadsheet would treat as a formula (values are
 // written with USER_ENTERED).
 function clean(value, max) {
@@ -95,6 +124,26 @@ module.exports = async function (context, req) {
   if (typeof body.website === "string" && body.website.trim() !== "") {
     context.res.status = 200;
     context.res.body = { success: true };
+    return;
+  }
+
+  // Timing check: a person needs a few seconds to load the page, type an
+  // address and press the button; a script can submit instantly (or post to
+  // this endpoint directly without ever loading the page). The page sends how
+  // long it had been open (elapsedMs). Anything faster than MIN_FILL_MS, or
+  // with no usable value, gets the same quiet fake success as the honeypot.
+  if (typeof body.elapsedMs !== "number" || !isFinite(body.elapsedMs) || body.elapsedMs < MIN_FILL_MS) {
+    context.log.warn("Newsletter signup ignored (too fast or missing timing).");
+    context.res.status = 200;
+    context.res.body = { success: true };
+    return;
+  }
+
+  // Rate limit: cap signups per visitor address in a short window, so the form
+  // can't be used to fire off confirmation emails at strangers.
+  if (tooManyFromThisVisitor(req)) {
+    context.res.status = 429;
+    context.res.body = { error: "Too many sign-up attempts from your connection. Please try again in a few minutes, or email us at chorus@dalcc.org." };
     return;
   }
 
