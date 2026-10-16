@@ -79,20 +79,8 @@
       heroVideo.pause();
     } else {
       heroVideo.addEventListener("playing", function () { heroVideo.classList.add("is-ready"); });
-      /* Start the video only after the page (and its poster image) has finished loading, and skip it
-         entirely on Data Saver or slow connections, so it never competes with the first view. */
-      var conn = navigator.connection || {};
-      var slowLink = conn.saveData || /(^|-)2g$|^3g$/.test(conn.effectiveType || "");
-      if (!slowLink) {
-        var startHero = function () {
-          setTimeout(function () {
-            var playPromise = heroVideo.play();
-            if (playPromise && playPromise.catch) playPromise.catch(function () { /* autoplay blocked; poster remains */ });
-          }, 300);
-        };
-        if (document.readyState === "complete") startHero();
-        else window.addEventListener("load", startHero);
-      }
+      var playPromise = heroVideo.play();
+      if (playPromise && playPromise.catch) playPromise.catch(function () { /* autoplay blocked; poster remains */ });
     }
   }
 
