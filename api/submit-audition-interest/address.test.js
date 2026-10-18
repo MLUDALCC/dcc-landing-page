@@ -54,3 +54,33 @@ test("lookup outage never blocks", async () => {
   assert.ok((await run({}, async () => { throw new Error("down"); })).ok);
   assert.ok((await run({}, async () => ({ status: 500, ok: false }))).ok);
 });
+
+const census = (matches, status) => async (url) => {
+  census.lastUrl = url;
+  return { status: status || 200, ok: (status || 200) < 400, json: async () => ({ result: { addressMatches: matches } }) };
+};
+const withStreet = (matches, over) => run(over || {}, dallas, { streetFetchImpl: census(matches) });
+test("street found by the Census Geocoder passes", async () => assert.ok((await withStreet([{ matchedAddress: "2501 FLORA ST" }])).ok));
+test("street not found is a soft warning", async () => {
+  const r = await withStreet([]);
+  assert.ok(!r.ok && r.soft);
+  assert.match(r.error, /2501 Flora St/);
+});
+test("street lookup sends street, city, state and ZIP", async () => {
+  await withStreet([{ x: 1 }]);
+  assert.match(census.lastUrl, /street=2501\+Flora\+St/);
+  assert.match(census.lastUrl, /zip=75201/);
+});
+test("street lookup outage or odd answer never blocks", async () => {
+  assert.ok((await run({}, dallas, { streetFetchImpl: async () => { throw new Error("down"); } })).ok);
+  assert.ok((await run({}, dallas, { streetFetchImpl: census([], 500) })).ok);
+  assert.ok((await run({}, dallas, { streetFetchImpl: async () => ({ status: 200, ok: true, json: async () => ({}) }) })).ok);
+});
+test("PO Box skips the street lookup", async () => {
+  const r = await run({ street1: "PO Box 123" }, dallas, { streetFetchImpl: census([]) });
+  assert.ok(r.ok);
+});
+test("city mismatch is reported before the street lookup", async () => {
+  const r = await run({ city: "Plano" }, dallas, { streetFetchImpl: census([]) });
+  assert.ok(!r.ok && r.soft && /ZIP code 75201/.test(r.error));
+});
