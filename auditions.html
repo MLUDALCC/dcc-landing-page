@@ -765,6 +765,29 @@
       });
     });
 
+    // Warn right away (before Submit) when the two Parent/Guardian #1 emails differ.
+    (function () {
+      var p1 = form.elements["parent1Email"], p1c = form.elements["parent1EmailConfirm"], mmHint = null;
+      if (!p1 || !p1c) return;
+      function checkMatch() {
+        var v1 = p1.value.trim().toLowerCase(), v2 = p1c.value.trim().toLowerCase();
+        var mismatch = v2 !== "" && v1 !== v2;
+        if (mismatch && !mmHint) {
+          mmHint = document.createElement("div");
+          mmHint.setAttribute("role", "alert");
+          mmHint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:#8a2f2f;";
+          p1c.parentNode.appendChild(mmHint);
+        }
+        if (mmHint) mmHint.textContent = mismatch ? "The two email addresses don\u2019t match. Please check them so we can reach you." : "";
+        if (!mismatch && mmHint) { mmHint.remove(); mmHint = null; }
+        p1c.setAttribute("aria-invalid", mismatch ? "true" : "false");
+      }
+      p1c.addEventListener("blur", checkMatch);
+      p1c.addEventListener("input", function () { if (mmHint) checkMatch(); });
+      p1.addEventListener("blur", function () { if (p1c.value) checkMatch(); });
+      p1.addEventListener("input", function () { if (mmHint) checkMatch(); });
+    })();
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
