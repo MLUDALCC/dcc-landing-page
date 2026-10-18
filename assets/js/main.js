@@ -875,6 +875,30 @@
     var nameInput = form.querySelector(".donate-name-input");
     var emailInput = form.querySelector(".donate-email-input");
     var emailConfirmInput = form.querySelector(".donate-email-confirm-input");
+
+    // Warn right away (before "Give Now") when the two email boxes differ.
+    var emailMatchHint = null;
+    function checkEmailMatch() {
+      if (!emailInput || !emailConfirmInput) return;
+      var a1 = emailInput.value.trim().toLowerCase(), a2 = emailConfirmInput.value.trim().toLowerCase();
+      var mismatch = a2 !== "" && a1 !== a2;
+      if (mismatch && !emailMatchHint) {
+        emailMatchHint = document.createElement("div");
+        emailMatchHint.setAttribute("role", "alert");
+        emailMatchHint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:#8a2f2f;";
+        emailConfirmInput.parentNode.appendChild(emailMatchHint);
+      }
+      if (emailMatchHint) emailMatchHint.textContent = mismatch ? "The two email addresses don\u2019t match. Please check them so your receipt reaches you." : "";
+      if (!mismatch && emailMatchHint) { emailMatchHint.remove(); emailMatchHint = null; }
+      emailConfirmInput.setAttribute("aria-invalid", mismatch ? "true" : "false");
+    }
+    if (emailInput && emailConfirmInput) {
+      emailConfirmInput.addEventListener("blur", checkEmailMatch);
+      // Once a warning is showing, update it as the donor fixes either box.
+      emailConfirmInput.addEventListener("input", function () { if (emailMatchHint) checkEmailMatch(); });
+      emailInput.addEventListener("blur", function () { if (emailConfirmInput.value) checkEmailMatch(); });
+      emailInput.addEventListener("input", function () { if (emailMatchHint) checkEmailMatch(); });
+    }
     var errorEl = form.querySelector(".donate-form__error");
     var submitBtn = form.querySelector(".donate-submit");
     var paymentContainer = form.querySelector(".donate-payment-element");
