@@ -39,6 +39,8 @@
   .audition-form .donate-field input[type="email"],
   .audition-form .donate-field input[type="tel"],
   .audition-form .donate-field select { line-height: 1.4; box-sizing: border-box; }
+  .email-hint { margin-top: .4rem; font-size: .95rem; color: var(--ink-600); }
+  .email-hint button { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: inherit; text-decoration: underline; cursor: pointer; }
   .audition-form .donate-field select {
     -webkit-appearance: none; appearance: none; width: 100%; border-radius: 4px;
     padding-right: 2.4rem;
@@ -388,6 +390,10 @@
             <input type="email" id="aud-p1-email" name="parent1Email" autocomplete="email" required placeholder="you@example.com">
           </div>
           <div class="donate-field">
+            <label for="aud-p1-email-confirm">Confirm email address<span class="req" aria-hidden="true"> *</span></label>
+            <input type="email" id="aud-p1-email-confirm" name="parent1EmailConfirm" autocomplete="off" required placeholder="Re-enter your email address">
+          </div>
+          <div class="donate-field">
             <label for="aud-p1-phone">Phone number<span class="req" aria-hidden="true"> *</span></label>
             <input type="tel" id="aud-p1-phone" name="parent1Phone" autocomplete="tel" required placeholder="(214) 555-0100">
           </div>
@@ -698,6 +704,67 @@
       return "";
     }
 
+    // ---- Email typo warnings (student, Parent/Guardian #1 and #2) ----------
+    // Spots common slips like "gmial.com" or ".con" and offers the likely fix.
+    // Nothing is blocked outright: the family can keep what they typed.
+    var DOMAIN_FIXES = {
+      "gmial.com": "gmail.com", "gmai.com": "gmail.com", "gmal.com": "gmail.com", "gamil.com": "gmail.com",
+      "gnail.com": "gmail.com", "gmaill.com": "gmail.com", "gmail.co": "gmail.com", "gmail.cm": "gmail.com",
+      "gmail.om": "gmail.com", "gmail.vom": "gmail.com", "gmail.comm": "gmail.com", "gmail.con": "gmail.com",
+      "hotmial.com": "hotmail.com", "hotmal.com": "hotmail.com", "hotnail.com": "hotmail.com",
+      "yaho.com": "yahoo.com", "yahooo.com": "yahoo.com", "yhoo.com": "yahoo.com", "yahoo.co": "yahoo.com",
+      "outlok.com": "outlook.com", "outloook.com": "outlook.com",
+      "iclod.com": "icloud.com", "icoud.com": "icloud.com", "icloud.co": "icloud.com",
+      "comcast.nt": "comcast.net", "sbcglobal.nt": "sbcglobal.net", "att.nt": "att.net"
+    };
+    var TLD_FIXES = { "con": "com", "cmo": "com", "ocm": "com", "vom": "com", "comm": "com", "cm": "com", "nett": "net", "ney": "net", "orgg": "org", "ogr": "org" };
+    function emailSuggestion(value) {
+      var m = /^([^\s@]+)@([^\s@]+)$/.exec(value);
+      if (!m) return "";
+      var domain = m[2].toLowerCase(), fixed = DOMAIN_FIXES[domain];
+      if (!fixed) {
+        var dot = domain.lastIndexOf(".");
+        if (dot > 0 && TLD_FIXES[domain.slice(dot + 1)]) fixed = domain.slice(0, dot + 1) + TLD_FIXES[domain.slice(dot + 1)];
+      }
+      return fixed && fixed !== domain ? m[1] + "@" + fixed : "";
+    }
+    var EMAIL_FIELDS = ["studentEmail", "parent1Email", "parent2Email"];
+    var acknowledgedEmails = {};
+    function renderHint(name) {
+      var input = form.elements[name];
+      if (!input) return "";
+      var hint = input.parentNode.querySelector(".email-hint");
+      var suggestion = emailSuggestion(input.value.trim());
+      if (!suggestion) { if (hint) hint.remove(); return ""; }
+      if (!hint) {
+        hint = document.createElement("div");
+        hint.className = "email-hint";
+        hint.setAttribute("role", "status");
+        input.parentNode.appendChild(hint);
+      }
+      hint.textContent = "Did you mean ";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = suggestion;
+      btn.addEventListener("click", function () {
+        input.value = suggestion;
+        hint.remove();
+        input.focus();
+      });
+      hint.appendChild(btn);
+      hint.appendChild(document.createTextNode("? Click to use it, or keep what you typed if it\u2019s correct."));
+      return suggestion;
+    }
+    EMAIL_FIELDS.forEach(function (name) {
+      var input = form.elements[name];
+      if (!input) return;
+      input.addEventListener("blur", function () { renderHint(name); });
+      input.addEventListener("input", function () {
+        var hint = input.parentNode.querySelector(".email-hint");
+        if (hint) hint.remove();
+      });
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
@@ -750,6 +817,25 @@
       if (!emailPattern.test(data.studentEmail) || !emailPattern.test(data.parent1Email) ||
           (data.parent2Email && !emailPattern.test(data.parent2Email))) {
         showError("Please enter valid email addresses.");
+        return;
+      }
+      if (val("parent1EmailConfirm").toLowerCase() !== data.parent1Email.toLowerCase()) {
+        showError("The two Parent/Guardian #1 email addresses don\u2019t match. Please check them so we can reach you.");
+        form.elements["parent1EmailConfirm"].focus();
+        return;
+      }
+      // Likely typos: warn once per address, then let it through on the next Submit.
+      var typoFound = false;
+      EMAIL_FIELDS.forEach(function (name) {
+        var v = data[name];
+        if (v && emailSuggestion(v) && !acknowledgedEmails[v.toLowerCase()]) {
+          typoFound = true;
+          acknowledgedEmails[v.toLowerCase()] = true;
+          renderHint(name);
+        }
+      });
+      if (typoFound) {
+        showError("Please double-check the email address(es) marked \u201cDid you mean\u2026\u201d. If they\u2019re correct as typed, press Submit again.");
         return;
       }
 
