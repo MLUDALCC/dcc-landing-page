@@ -8,9 +8,14 @@
 //   3. ZIP vs. city/state -- looked up in a free public ZIP directory
 //                 (api.zippopotam.us). If the lookup is down or slow, this
 //                 layer is skipped so a lookup outage never blocks a family.
+//   4. Street -- the street number and name are looked up in the US Census
+//                 Bureau's free Geocoder. Its coverage is good but not perfect
+//                 (new construction, some rural roads), so "not found" is only
+//                 a soft warning the family can override. Skipped for PO Boxes
+//                 and whenever the service is down or slow.
 //
-// A street address can't be proven to exist without a paid/keyed service
-// (USPS or Google Address Validation); this checks that the pieces fit together.
+// The Census Geocoder is not a postal (USPS) validator; this checks that the
+// pieces fit together and that the street is known, not that mail is deliverable.
 
 const STATES = {
   AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado",
@@ -87,6 +92,31 @@ async function lookupZip(zip, fetchImpl) {
   }
 }
 
+// Looks the street up in the US Census Geocoder (free, no key). Returns
+//   { found: true } | { found: false } | null (service unavailable or unclear)
+async function lookupStreet(a, fetchImpl) {
+  const f = fetchImpl || (typeof fetch === "function" ? fetch : null);
+  if (!f) return null;
+  const ctrl = typeof AbortController === "function" ? new AbortController() : null;
+  const timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 4000) : null;
+  try {
+    const qs = new URLSearchParams({
+      street: a.street1, city: a.city, state: a.state, zip: a.zip,
+      benchmark: "Public_AR_Current", format: "json",
+    });
+    const res = await f("https://geocoding.geo.census.gov/geocoder/locations/address?" + qs.toString(), ctrl ? { signal: ctrl.signal } : undefined);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const matches = data && data.result && data.result.addressMatches;
+    if (!Array.isArray(matches)) return null;
+    return { found: matches.length > 0 };
+  } catch (e) {
+    return null;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 // Checks one address. `a` = { street1, street2, city, state, zip } (already
 // trimmed). `label` is how the address is named in messages ("The student's
 // address"). Returns { ok: true } | { ok: false, error, soft }.
@@ -130,7 +160,17 @@ async function checkAddress(a, label, opts) {
         ". Please double-check, or press Submit again if the address is correct as entered.",
     };
   }
+
+  if (opts.skipStreetLookup || isPoBox) return { ok: true };
+  const street = await lookupStreet(a, opts.streetFetchImpl || opts.fetchImpl);
+  if (street && !street.found) {
+    return {
+      ok: false, soft: true,
+      error: "We couldn’t find “" + a.street1 + "” in " + a.city + ", " + state + " " + a.zip +
+        ". Please double-check the street number and name, or press Submit again if the address is correct as entered.",
+    };
+  }
   return { ok: true };
 }
 
-module.exports = { STATES, zipMatchesState, normCity, lookupZip, checkAddress };
+module.exports = { STATES, zipMatchesState, normCity, lookupZip, lookupStreet, checkAddress };
