@@ -874,6 +874,7 @@
     var tributeInput = form.querySelector(".donate-tribute-input");
     var nameInput = form.querySelector(".donate-name-input");
     var emailInput = form.querySelector(".donate-email-input");
+    var emailConfirmInput = form.querySelector(".donate-email-confirm-input");
     var errorEl = form.querySelector(".donate-form__error");
     var submitBtn = form.querySelector(".donate-submit");
     var paymentContainer = form.querySelector(".donate-payment-element");
@@ -1132,6 +1133,11 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorEmail)) {
         showError("Please enter a valid email address so we can send your receipt.");
         if (emailInput) emailInput.focus();
+        return;
+      }
+      if (emailConfirmInput && emailConfirmInput.value.trim().toLowerCase() !== donorEmail.toLowerCase()) {
+        showError("The two email addresses don\u2019t match. Please check them so your receipt reaches you.");
+        emailConfirmInput.focus();
         return;
       }
 
