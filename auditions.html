@@ -788,6 +788,71 @@
       p1.addEventListener("input", function () { if (mmHint) checkMatch(); });
     })();
 
+
+    // ---- Live address check ----------------------------------------------
+    // As soon as street, city, state and ZIP are all filled in, ask the server
+    // (/api/check-address) whether the pieces fit together and show any
+    // problem right under the address, before the form is submitted.
+    function liveAddressCheck(ids, anchorFor) {
+      var el = {
+        street1: document.getElementById(ids.street1), city: document.getElementById(ids.city),
+        state: document.getElementById(ids.state), zip: document.getElementById(ids.zip)
+      };
+      if (!el.street1 || !el.city || !el.state || !el.zip) return;
+      var hint = null, timer = null, lastKey = "", seq = 0;
+      function setHint(text, tone) {
+        if (!text) { if (hint) { hint.remove(); hint = null; } return; }
+        if (!hint) {
+          hint = document.createElement("div");
+          hint.setAttribute("role", "status");
+          anchorFor(el.zip).insertAdjacentElement("afterend", hint);
+        }
+        hint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:" + (tone === "soft" ? "#7a5200" : "#8a2f2f") + ";";
+        hint.textContent = text;
+      }
+      function run() {
+        var a = { street1: el.street1.value.trim(), city: el.city.value.trim(), state: el.state.value.trim(), zip: el.zip.value.trim() };
+        if (!a.street1 || !a.city || !a.state || !/^\d{5}(-\d{4})?$/.test(a.zip)) { lastKey = ""; setHint(""); return; }
+        var key = [a.street1, a.city, a.state, a.zip].join("|").toLowerCase();
+        if (key === lastKey) return;
+        lastKey = key;
+        var mine = ++seq;
+        fetch("/api/check-address", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(a)
+        })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (r) {
+            if (mine !== seq || !r) return; // stale answer, or the check was unavailable
+            if (r.ok) { setHint(""); return; }
+            var msg = r.error || "";
+            if (r.soft) msg = msg.replace(/\s*Please double-check.*$/, "") + " Please double-check it.";
+            setHint(msg, r.soft ? "soft" : "hard");
+          })
+          .catch(function () {});
+      }
+      function schedule() { clearTimeout(timer); timer = setTimeout(run, 400); }
+      [el.street1, el.city, el.state, el.zip].forEach(function (f) {
+        f.addEventListener("blur", schedule);
+        f.addEventListener("change", schedule);
+      });
+      el.zip.addEventListener("input", function () { if (el.zip.value.trim().length >= 5) schedule(); });
+      return schedule;
+    }
+
+    var audChecks = [
+      liveAddressCheck({ street1: "aud-student-street1", city: "aud-student-city", state: "aud-student-state", zip: "aud-student-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; }),
+      liveAddressCheck({ street1: "aud-p1-street1", city: "aud-p1-city", state: "aud-p1-state", zip: "aud-p1-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; }),
+      liveAddressCheck({ street1: "aud-p2-street1", city: "aud-p2-city", state: "aud-p2-state", zip: "aud-p2-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; })
+    ];
+    // "Same address as the student" fills the fields by script, so re-check after it.
+    form.querySelectorAll(".js-same-address").forEach(function (box) {
+      box.addEventListener("change", function () {
+        if (box.checked) audChecks.forEach(function (c) { if (c) c(); });
+      });
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
