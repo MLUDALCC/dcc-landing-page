@@ -406,6 +406,11 @@
           </div>
 
           <div class="donate-field">
+            <label for="pledge-email-confirm">Confirm email address</label>
+            <input type="email" id="pledge-email-confirm" name="emailConfirm" autocomplete="off" required placeholder="Re-enter your email address">
+          </div>
+
+          <div class="donate-field">
             <label for="pledge-phone">Phone number (optional)</label>
             <input type="tel" id="pledge-phone" name="phone" autocomplete="tel" placeholder="(214) 555-0100">
           </div>
@@ -669,6 +674,41 @@
       submitBtn.classList.toggle("is-loading", isLoading);
     }
 
+    // Warn right away (before "Make My Pledge") when the two email boxes differ.
+    var pEmail = document.getElementById("pledge-email");
+    var pEmailConfirm = document.getElementById("pledge-email-confirm");
+    var mismatchHint = null;
+    function checkEmailMatch() {
+      var v1 = pEmail.value.trim().toLowerCase(), v2 = pEmailConfirm.value.trim().toLowerCase();
+      var mismatch = v2 !== "" && v1 !== v2;
+      if (mismatch && !mismatchHint) {
+        mismatchHint = document.createElement("div");
+        mismatchHint.setAttribute("role", "alert");
+        mismatchHint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:#8a2f2f;";
+        pEmailConfirm.parentNode.appendChild(mismatchHint);
+      }
+      if (mismatchHint) mismatchHint.textContent = mismatch ? "The two email addresses don\u2019t match. Please check them so we can reach you." : "";
+      if (!mismatch && mismatchHint) { mismatchHint.remove(); mismatchHint = null; }
+      pEmailConfirm.setAttribute("aria-invalid", mismatch ? "true" : "false");
+    }
+    pEmailConfirm.addEventListener("blur", checkEmailMatch);
+    pEmailConfirm.addEventListener("input", function () { if (mismatchHint) checkEmailMatch(); });
+    pEmail.addEventListener("blur", function () { if (pEmailConfirm.value) checkEmailMatch(); });
+    pEmail.addEventListener("input", function () { if (mismatchHint) checkEmailMatch(); });
+
+    // Address: state is upper-cased and ZIP is limited to digits (and a ZIP+4
+    // hyphen) as the donor types. The full check happens on the server.
+    var stateField = document.getElementById("pledge-state");
+    var zipField = document.getElementById("pledge-zip");
+    stateField.addEventListener("input", function () { stateField.value = stateField.value.replace(/[^A-Za-z]/g, "").toUpperCase(); });
+    zipField.addEventListener("input", function () { zipField.value = zipField.value.replace(/[^0-9-]/g, ""); });
+    // Set after the server flags a ZIP/city mismatch as "double-check this";
+    // pressing the button again then confirms the address is correct as entered.
+    var confirmAddress = false;
+    ["pledge-address-line1", "pledge-address-line2", "pledge-city", "pledge-state", "pledge-zip"].forEach(function (id) {
+      document.getElementById(id).addEventListener("input", function () { confirmAddress = false; });
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
@@ -693,9 +733,29 @@
         return;
       }
 
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError("Please enter a valid email address.");
+        pEmail.focus();
+        return;
+      }
+      if (pEmailConfirm.value.trim().toLowerCase() !== email.toLowerCase()) {
+        showError("The two email addresses don\u2019t match. Please check them so we can reach you.");
+        pEmailConfirm.focus();
+        return;
+      }
+
       if (!phoneResult.valid) {
         showError("Please enter a valid phone number, or choose the correct country.");
         return;
+      }
+
+      // The mailing address is optional, but if any part is filled in, all of
+      // it needs to be there (the server then checks the pieces fit together).
+      if (addressLine1 || addressLine2 || city || state || zip) {
+        if (!addressLine1 || !city || !state || !zip) {
+          showError("Please complete your mailing address (street, city, state and ZIP), or clear it if you\u2019d rather not include one.");
+          return;
+        }
       }
 
       setLoading(true);
@@ -714,7 +774,8 @@
           zip: zip,
           choristerName: choristerName,
           pledgeAmount: pledgeAmount,
-          cadence: cadence
+          cadence: cadence,
+          confirmAddress: confirmAddress
         })
       })
         .then(function (res) {
@@ -725,6 +786,7 @@
         .then(function (result) {
           setLoading(false);
           if (!result.ok) {
+            if (result.data && result.data.addressWarning) confirmAddress = true;
             showError((result.data && result.data.error) || "Something went wrong submitting your pledge. Please try again, or contact us at chorus@dalcc.org.");
             return;
           }

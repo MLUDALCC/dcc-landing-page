@@ -17,6 +17,8 @@
 // See api/pledge-data/googleSheets.js for how these are used.
 
 const { appendRow } = require("../pledge-data/googleSheets");
+// The same address checks the Audition Interest form uses.
+const { checkAddress } = require("../submit-audition-interest/address");
 
 const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_PLEDGE_TAB_NAME || "Pledges";
 const ALLOWED_CADENCES = ["One-time gift", "Monthly installments", "Quarterly installments"];
@@ -63,13 +65,14 @@ module.exports = async function (context, req) {
   const addressLine1 = typeof body.addressLine1 === "string" ? body.addressLine1.trim() : "";
   const addressLine2 = typeof body.addressLine2 === "string" ? body.addressLine2.trim() : "";
   const city = typeof body.city === "string" ? body.city.trim() : "";
-  const state = typeof body.state === "string" ? body.state.trim() : "";
+  const state = typeof body.state === "string" ? body.state.trim().toUpperCase() : "";
   const zip = typeof body.zip === "string" ? body.zip.trim() : "";
   // Optional: not every donor is a chorister's family -- some are relatives
   // or general supporters with no specific chorister to name.
   const choristerName = typeof body.choristerName === "string" ? body.choristerName.trim() : "";
   const cadence = typeof body.cadence === "string" ? body.cadence.trim() : "";
   const pledgeAmount = parseFloat(body.pledgeAmount);
+  const confirmAddress = body.confirmAddress === true || body.confirmAddress === "true";
 
   if (!parentName || !email || !cadence) {
     context.res.status = 400;
@@ -85,6 +88,28 @@ module.exports = async function (context, req) {
     context.res.status = 400;
     context.res.body = { error: "Please choose how you'd like to fulfill this pledge." };
     return;
+  }
+
+  // The address is optional, but if any part was entered, check that the
+  // pieces fit together (street, city, state, ZIP; ZIP+4 is checked on its
+  // first five digits). A city/ZIP mismatch is only a "double-check" warning
+  // the donor can confirm; everything else must be fixed.
+  if (addressLine1 || addressLine2 || city || state || zip) {
+    const zip5 = /^\d{5}(-\d{4})?$/.test(zip) ? zip.slice(0, 5) : zip;
+    const result = await checkAddress(
+      { street1: addressLine1, street2: addressLine2, city: city, state: state, zip: zip5 },
+      "Your mailing address"
+    );
+    if (!result.ok && !(result.soft && confirmAddress)) {
+      context.res.status = 400;
+      context.res.body = {
+        error: result.soft
+          ? result.error.replace("press Submit again", "press Make My Pledge again")
+          : result.error,
+        addressWarning: !!result.soft,
+      };
+      return;
+    }
   }
 
   const submittedAt = new Date().toISOString();
