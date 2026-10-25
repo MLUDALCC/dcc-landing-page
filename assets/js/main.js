@@ -304,10 +304,22 @@
        before the clones are made, and the "Quote N of M" labels are renumbered
        to match.) */
     if (track && track.id === "donor-quotes" && slides.length > 1) {
-      for (var s = slides.length - 1; s > 0; s--) {
+      /* Slides sharing a data-group (a quote split across two slides) are
+         shuffled as one unit and always stay together, in their written
+         order. */
+      var units = [], byGroup = {};
+      slides.forEach(function (el) {
+        var g = el.getAttribute("data-group");
+        if (g && byGroup[g]) { byGroup[g].push(el); return; }
+        var unit = [el];
+        if (g) byGroup[g] = unit;
+        units.push(unit);
+      });
+      for (var s = units.length - 1; s > 0; s--) {
         var r = Math.floor(Math.random() * (s + 1));
-        var tmp = slides[s]; slides[s] = slides[r]; slides[r] = tmp;
+        var tmp = units[s]; units[s] = units[r]; units[r] = tmp;
       }
+      slides = [].concat.apply([], units);
       slides.forEach(function (el, i) {
         track.appendChild(el);
         el.setAttribute("aria-label", "Quote " + (i + 1) + " of " + slides.length);
