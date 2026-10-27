@@ -93,8 +93,9 @@
       yearListEl.appendChild(btn);
     });
 
-    /* Optional flyers/images ("images" = [{ src, alt }, ...]). Each opens at
-       full size in a new tab. */
+    /* Optional flyers/images ("images" = [{ src, alt }, ...]). Each opens in
+       the page-wide flyer viewer in main.js; without JavaScript the link
+       simply opens the image file. */
     function addImages(card, item) {
       if (!item.images || !item.images.length) return;
       var wrap = document.createElement("div");
@@ -103,8 +104,7 @@
         var a = document.createElement("a");
         a.className = "flyer-row__link";
         a.href = img.src;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
+        a.setAttribute("aria-haspopup", "dialog");
         var im = document.createElement("img");
         im.src = img.src;
         im.alt = img.alt;
@@ -114,7 +114,7 @@
         a.appendChild(im);
         var vh = document.createElement("span");
         vh.className = "visually-hidden";
-        vh.textContent = " (opens the full-size flyer in a new tab)";
+        vh.textContent = " (opens a larger view)";
         a.appendChild(vh);
         wrap.appendChild(a);
       });
