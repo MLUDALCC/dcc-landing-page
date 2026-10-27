@@ -270,8 +270,7 @@
       item.images.forEach(function (img) {
         var fa = el("a", "flyer-row__link");
         fa.href = img.src;
-        fa.target = "_blank";
-        fa.rel = "noopener noreferrer";
+        fa.setAttribute("aria-haspopup", "dialog");
         var im = document.createElement("img");
         im.src = img.src;
         im.alt = img.alt;
@@ -279,7 +278,7 @@
         im.width = 601;
         im.height = 801;
         fa.appendChild(im);
-        fa.appendChild(el("span", "visually-hidden", " (opens the full-size flyer in a new tab)"));
+        fa.appendChild(el("span", "visually-hidden", " (opens a larger view)"));
         fr.appendChild(fa);
       });
       card.appendChild(fr);

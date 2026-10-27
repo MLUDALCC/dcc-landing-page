@@ -256,6 +256,103 @@
     backdrop.addEventListener("click", closeModal);
   })();
 
+  /* ---- Flyer viewer --------------------------------------------------------
+     Clicking a flyer (an <a class="flyer-row__link"> built by news-data.js or
+     performances-data.js) opens the full-size image in a dialog on the same
+     page, with previous/next buttons when the row has more than one flyer.
+     Same accessible pattern as the bio modal above: Escape or a click on the
+     backdrop closes it, focus is trapped, and focus returns to the flyer that
+     was clicked. The dialog is built on first use. Without JavaScript the
+     link just opens the image file. */
+  (function () {
+    var modal = null, img, counter, prevBtn, nextBtn, closeBtn, nav;
+    var links = [], index = 0, lastTrigger = null;
+
+    function build() {
+      modal = document.createElement("div");
+      modal.className = "flyer-modal";
+      modal.setAttribute("aria-hidden", "true");
+      modal.innerHTML =
+        '<div class="flyer-modal__backdrop"></div>' +
+        '<div class="flyer-modal__dialog" role="dialog" aria-modal="true" aria-label="Flyer">' +
+          '<button class="flyer-modal__close" type="button" aria-label="Close">&times;</button>' +
+          '<img class="flyer-modal__img" src="" alt="">' +
+          '<div class="flyer-modal__nav">' +
+            '<button class="flyer-modal__arrow" type="button" data-dir="-1" aria-label="Previous flyer">&#8592;</button>' +
+            '<span class="flyer-modal__count" aria-live="polite"></span>' +
+            '<button class="flyer-modal__arrow" type="button" data-dir="1" aria-label="Next flyer">&#8594;</button>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(modal);
+      img = modal.querySelector(".flyer-modal__img");
+      counter = modal.querySelector(".flyer-modal__count");
+      nav = modal.querySelector(".flyer-modal__nav");
+      closeBtn = modal.querySelector(".flyer-modal__close");
+      prevBtn = modal.querySelector('[data-dir="-1"]');
+      nextBtn = modal.querySelector('[data-dir="1"]');
+      closeBtn.addEventListener("click", close);
+      modal.querySelector(".flyer-modal__backdrop").addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
+    }
+
+    function show(i) {
+      index = (i + links.length) % links.length;
+      var link = links[index];
+      var thumb = link.querySelector("img");
+      img.src = link.getAttribute("href");
+      img.alt = thumb ? thumb.alt : "";
+      nav.style.display = links.length > 1 ? "" : "none";
+      counter.textContent = (index + 1) + " of " + links.length;
+    }
+
+    function open(link) {
+      if (!modal) build();
+      var row = link.closest(".flyer-row");
+      links = Array.prototype.slice.call(row ? row.querySelectorAll(".flyer-row__link") : [link]);
+      lastTrigger = link;
+      show(links.indexOf(link));
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeBtn.focus();
+      document.addEventListener("keydown", onKeydown);
+    }
+
+    function close() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      document.removeEventListener("keydown", onKeydown);
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    function onKeydown(e) {
+      if (e.key === "Escape") { close(); return; }
+      if (links.length > 1 && e.key === "ArrowLeft") { show(index - 1); return; }
+      if (links.length > 1 && e.key === "ArrowRight") { show(index + 1); return; }
+      if (e.key === "Tab") {
+        var focusable = Array.prototype.slice
+          .call(modal.querySelectorAll("button"))
+          .filter(function (el) { return el.offsetParent !== null; });
+        if (!focusable.length) return;
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+
+    // One listener on the document, because the flyers are added to the page
+    // by the news/performances scripts after it loads.
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var link = e.target.closest ? e.target.closest(".flyer-row__link") : null;
+      if (!link) return;
+      e.preventDefault();
+      open(link);
+    });
+  })();
+
   /* ---- Contact page: match logo height to the facts column --------------- */
   (function () {
     var boxes = document.querySelectorAll(".contact-details.has-image");
