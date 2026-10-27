@@ -868,7 +868,14 @@ body.nav-open { overflow: hidden; }
 .news-card h3 { margin-top: .6rem; }
 .news-card p { margin-top: .7rem; color: var(--ink-600); font-size: 1.07rem; }
 .news-card .video-embed { margin-top: 1.4rem; margin-bottom: calc(18px + 1.2rem); max-width: 640px; } /* recordings embedded in a news entry; the offset .frame pokes 18px right and down, so the bottom margin keeps it clear of what follows */
-@media (max-width: 700px) { .news-card .video-embed { max-width: calc(100% - 18px); } } /* leaves room for the offset frame so it never extends past the page edge */
+@media (max-width: 700px) { .news-card .video-embed { max-width: calc(100% - 18px); } }
+/* Flyers under a news entry or an upcoming performance: two portrait images side by side, each opening full size in a new tab. */
+.flyer-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.6rem; }
+.flyer-row__link { display: block; flex: 0 1 280px; min-width: 0; border: 1px solid var(--line-100); line-height: 0; }
+.flyer-row__link img { display: block; width: 100%; height: auto; }
+.flyer-row__link:hover, .flyer-row__link:focus-visible { border-color: var(--stone-500); }
+@media (max-width: 560px) { .flyer-row { gap: .75rem; } .flyer-row__link { flex: 1 1 calc(50% - .75rem); } }
+ /* leaves room for the offset frame so it never extends past the page edge */
 
 /* ---- News page (year sidebar + list) ---------------------------------------*/
 .news-layout {

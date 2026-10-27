@@ -19,6 +19,10 @@
       sortDate: "2026-10-01",
       title: "Fall and Spring Concert Tickets Now on Sale",
       blurb: "Tickets are now on sale for both of the Dallas Symphony Children’s Chorus’s Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra’s website using the links below.",
+      images: [
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+      ],
       ctas: [
         { label: "Buy Fall Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" },
         { label: "Buy Spring Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-spring-concert-2027/" }
@@ -88,6 +92,34 @@
       btn.addEventListener("click", function () { selectYear(year); });
       yearListEl.appendChild(btn);
     });
+
+    /* Optional flyers/images ("images" = [{ src, alt }, ...]). Each opens at
+       full size in a new tab. */
+    function addImages(card, item) {
+      if (!item.images || !item.images.length) return;
+      var wrap = document.createElement("div");
+      wrap.className = "flyer-row";
+      item.images.forEach(function (img) {
+        var a = document.createElement("a");
+        a.className = "flyer-row__link";
+        a.href = img.src;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        var im = document.createElement("img");
+        im.src = img.src;
+        im.alt = img.alt;
+        im.loading = "lazy";
+        im.width = 601;
+        im.height = 801;
+        a.appendChild(im);
+        var vh = document.createElement("span");
+        vh.className = "visually-hidden";
+        vh.textContent = " (opens the full-size flyer in a new tab)";
+        a.appendChild(vh);
+        wrap.appendChild(a);
+      });
+      card.appendChild(wrap);
+    }
 
     function cardTemplate(item) {
       var card = document.createElement("article");
@@ -171,6 +203,8 @@
         });
         card.appendChild(row);
       }
+
+      addImages(card, item);
 
       return card;
     }

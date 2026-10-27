@@ -28,6 +28,8 @@
      badge       optional label shown above an upcoming card (e.g. "Tickets
                  On Sale Now")
      note        optional line under an upcoming card’s facts
+     images      optional [{ src, alt }, ...] -- flyers shown under an upcoming
+                 card (hidden once the performance is past)
      noteLink    optional { label, href } link under an upcoming card’s facts
      ctas        optional buttons while upcoming: { label, href }  (open in a
                  new tab -- for ticket links)
@@ -92,6 +94,10 @@
         ["Address", "2301 Flora Street\nDallas, TX 75201"]
       ],
       note: "Tickets are $30 per seat.",
+      images: [
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+      ],
       ctas: [{ label: "Buy Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" }]
     },
     {
@@ -256,6 +262,27 @@
         row2.appendChild(a);
       });
       card.appendChild(row2);
+    }
+    // Flyers only show while the performance is upcoming (they carry ticket
+    // information that is out of date afterwards).
+    if (!isPast && item.images && item.images.length) {
+      var fr = el("div", "flyer-row");
+      item.images.forEach(function (img) {
+        var fa = el("a", "flyer-row__link");
+        fa.href = img.src;
+        fa.target = "_blank";
+        fa.rel = "noopener noreferrer";
+        var im = document.createElement("img");
+        im.src = img.src;
+        im.alt = img.alt;
+        im.loading = "lazy";
+        im.width = 601;
+        im.height = 801;
+        fa.appendChild(im);
+        fa.appendChild(el("span", "visually-hidden", " (opens the full-size flyer in a new tab)"));
+        fr.appendChild(fa);
+      });
+      card.appendChild(fr);
     }
     return card;
   }
