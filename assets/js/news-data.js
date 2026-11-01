@@ -119,6 +119,26 @@
         wrap.appendChild(a);
       });
       card.appendChild(wrap);
+
+      /* When the entry has buttons, make the flyers exactly as wide as the
+         buttons above them (side by side or stacked, whichever the screen
+         gives), re-measured whenever the window is resized. */
+      var btnRow = card.querySelector(".btn-row");
+      if (btnRow) {
+        wrap.classList.add("flyer-row--match");
+        var sync = function () {
+          if (!wrap.isConnected) return;
+          var left = btnRow.getBoundingClientRect().left;
+          var right = 0;
+          Array.prototype.forEach.call(btnRow.children, function (b) {
+            right = Math.max(right, b.getBoundingClientRect().right);
+          });
+          if (right > left) wrap.style.width = Math.round(right - left) + "px";
+        };
+        window.addEventListener("resize", sync);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+        window.requestAnimationFrame(function () { window.requestAnimationFrame(sync); });
+      }
     }
 
     function cardTemplate(item) {
