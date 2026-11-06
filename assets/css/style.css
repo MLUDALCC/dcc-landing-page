@@ -1176,6 +1176,42 @@ body.nav-open { overflow: hidden; }
 .bio-modal__body { font-size: 1rem; color: var(--ink-900); line-height: var(--lh-read); }
 .bio-modal__body p + p { margin-top: .9rem; }
 body.modal-open { overflow: hidden; }
+/* ---- Name window for the footer sign-up (markup built in main.js) ---- */
+.name-modal { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 1.25rem; }
+.name-modal.is-open { display: flex; }
+.name-modal__backdrop { position: absolute; inset: 0; background: rgba(12, 33, 54, .55); }
+.name-modal__dialog {
+  position: relative; z-index: 1; background: var(--cream-000); width: 100%; max-width: 420px;
+  max-height: calc(100vh - 2.5rem); overflow-y: auto; border-top: 3px solid var(--stone-500);
+  padding: 1.8rem 1.6rem 1.5rem; box-shadow: 0 24px 64px rgba(9, 34, 61, .28); color: var(--graphite-800);
+}
+.name-modal__close {
+  position: absolute; top: .45rem; right: .6rem; background: none; border: 0; cursor: pointer;
+  font-size: 1.6rem; line-height: 1; color: var(--graphite-800); padding: .2rem .4rem;
+}
+.name-modal .eyebrow { margin: 0; }
+.name-modal__title { font-size: 1.5rem; line-height: var(--lh-h2); margin: .9rem 0 .6rem; padding-right: 1.5rem; }
+.name-modal__lead { font-size: .96rem; color: var(--ink-600); margin: 0 0 1.1rem; }
+.name-modal__form { display: flex; flex-direction: column; gap: .6rem; }
+.name-modal__row { display: flex; gap: .6rem; }
+.name-modal__form input[type="text"], .name-modal__form select {
+  width: 100%; padding: .8rem .9rem; border: 1px solid #c9ced3; background: var(--white);
+  font: inherit; font-size: 1rem; color: var(--graphite-800); border-radius: 0;
+}
+.name-modal__form input[type="text"]::placeholder { color: var(--stone-ink); }
+.name-modal__form input[type="text"]:focus, .name-modal__form select:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
+.name-modal__row select { flex: 0 0 5.6rem; width: 5.6rem; min-width: 0; }
+.name-modal__row input { flex: 1 1 auto; min-width: 0; }
+.name-modal__error { margin: 0; font-size: .94rem; color: #a13a2a; }
+.name-modal__error:empty { display: none; }
+.name-modal__form .btn { width: 100%; justify-content: center; }
+.name-modal__skip {
+  align-self: center; background: none; border: 0; cursor: pointer; padding: .4rem .5rem; margin-top: .1rem;
+  font: inherit; font-size: .92rem; color: var(--stone-ink); text-decoration: underline; text-underline-offset: 2px;
+}
+.name-modal__skip:hover { color: var(--graphite-800); }
+@media print { .name-modal { display: none !important; } }
+
 /* ---- Flyer viewer (opened from .flyer-row__link; markup built in main.js) ---- */
 .flyer-modal { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 1.25rem; }
 .flyer-modal.is-open { display: flex; }
@@ -1558,12 +1594,21 @@ input:focus-visible {
 .stay-informed__title { font-size: 1.55rem; line-height: var(--lh-h2); margin: .9rem 0 1.1rem; }
 .stay-informed .eyebrow { margin: 0; }
 .stay-informed__form { display: flex; flex-direction: column; gap: .6rem; }
-.stay-informed__form input[type="email"] {
+.stay-informed__form input[type="email"],
+.stay-informed__form input[type="text"],
+.stay-informed__form select {
   width: 100%; padding: .8rem .9rem; border: 1px solid #c9ced3; background: var(--white);
   font: inherit; font-size: 1rem; color: var(--graphite-800); border-radius: 0;
 }
-.stay-informed__form input[type="email"]::placeholder { color: var(--stone-ink); }
-.stay-informed__form input[type="email"]:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
+.stay-informed__form input[type="email"]::placeholder,
+.stay-informed__form input[type="text"]::placeholder { color: var(--stone-ink); }
+.stay-informed__form input[type="email"]:focus,
+.stay-informed__form input[type="text"]:focus,
+.stay-informed__form select:focus { outline: 2px solid var(--stone-500); outline-offset: 1px; }
+.stay-informed__name-row { display: flex; gap: .6rem; }
+.stay-informed__name-row select { flex: 0 0 5.6rem; width: 5.6rem; min-width: 0; }
+.stay-informed__name-row input { flex: 1 1 auto; min-width: 0; }
+.stay-informed__panel { max-height: calc(100vh - 2rem); overflow-y: auto; }
 .stay-informed__form .btn { width: 100%; justify-content: center; }
 .stay-informed__form[hidden] { display: none; }
 .stay-informed .subscribe-form__fineprint { margin-top: .8rem; font-size: .86rem; }
