@@ -21,7 +21,7 @@
       desc: "Symphonic Voices joined the rock band Foreigner on stage at Fair Park’s Dos Equis Pavilion, performing the band’s hit “I Want to Know What Love Is.”"
     },
     {
-      videoId: "wzswrw1HDOs",
+      videoId: "6vTrdFYh2fc",
       title: "United in Song",
       meta: "Combined Choruses · Victor C. Johnson",
       desc: "The combined choruses of the Dallas Symphony Children’s Chorus perform “United in Song” — young voices coming together to create something extraordinary."
