@@ -109,6 +109,7 @@
       pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center.",
       facts: [
         ["Dates", "December 12, 13, 19 & 20, 2026"],
+        ["Time", "2:00 PM"],
         ["Choir", "Symphonic Voices"],
         ["With", "Dallas Symphony Orchestra & Dallas Symphony Chorus"],
         ["Location", "Morton H. Meyerson Symphony Center"],
