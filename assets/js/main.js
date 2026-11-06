@@ -682,19 +682,29 @@
         '<p class="eyebrow">Stay Informed</p>' +
         '<h2 class="stay-informed__title" id="stay-informed-title">News, concerts and ways to help</h2>' +
         '<form class="stay-informed__form" action="#" method="post" data-subscribe="side-tab" novalidate>' +
+          '<div class="stay-informed__name-row">' +
+            '<label class="visually-hidden" for="stay-informed-salutation">Title (optional)</label>' +
+            '<select id="stay-informed-salutation" name="salutation" autocomplete="honorific-prefix">' +
+              '<option value="">Title</option><option>Mr.</option><option>Ms.</option><option>Mrs.</option><option>Mx.</option><option>Dr.</option>' +
+            '</select>' +
+            '<label class="visually-hidden" for="stay-informed-first">First name</label>' +
+            '<input type="text" id="stay-informed-first" name="firstName" placeholder="First name" autocomplete="given-name" maxlength="60" required>' +
+          '</div>' +
+          '<label class="visually-hidden" for="stay-informed-last">Last name (optional)</label>' +
+          '<input type="text" id="stay-informed-last" name="lastName" placeholder="Last name (optional)" autocomplete="family-name" maxlength="60">' +
           '<label class="visually-hidden" for="stay-informed-email">Email address</label>' +
           '<input type="email" id="stay-informed-email" name="email" placeholder="Your email address" autocomplete="email" required>' +
           '<input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">' +
           '<button type="submit" class="btn btn--primary">Subscribe</button>' +
         '</form>' +
-        '<p class="subscribe-form__fineprint">Occasional emails. Unsubscribe anytime. See our <a href="' + (document.querySelector('a[href$="privacy.html"]') ? document.querySelector('a[href$="privacy.html"]').getAttribute("href") : "privacy.html") + '">Privacy Policy</a>.</p>' +
+        '<p class="subscribe-form__fineprint">Occasional emails. Unsubscribe anytime. Title and last name are optional. See our <a href="' + (document.querySelector('a[href$="privacy.html"]') ? document.querySelector('a[href$="privacy.html"]').getAttribute("href") : "privacy.html") + '">Privacy Policy</a>.</p>' +
         '<p class="subscribe-form__message" role="status" aria-live="polite"></p>' +
       '</div>';
     group.insertBefore(root, group.firstChild);
 
     var tab = root.querySelector(".stay-informed__tab");
     var closeBtn = root.querySelector(".stay-informed__close");
-    var input = root.querySelector('input[type="email"]');
+    var input = root.querySelector('input[name="firstName"]'); // first field; focused when the panel opens
 
     function setOpen(open, returnFocus) {
       root.classList.toggle("is-open", open);
@@ -755,6 +765,112 @@
     if (toastEl) toastEl.classList.remove("is-visible");
   }
 
+  /* ---- Name window for the footer sign-up ----------------------------------
+     The footer form is a single small email box, so instead of squeezing more
+     fields in, pressing its arrow (with a valid address) opens this window to
+     ask for a title, first name and last name. "Subscribe" needs a first name;
+     "Skip" subscribes with the email alone; closing the window (x, Escape or a
+     click outside) cancels without subscribing. Built on first use, with the
+     same accessible pattern as the other windows on the site (focus trap,
+     Escape closes, focus returns to the form). The callback receives the name
+     details ({ salutation, firstName, lastName }), an empty object for Skip,
+     or null when cancelled. */
+  var nameModal = null;
+  function openNameDialog(callback) {
+    var returnFocus = document.activeElement;
+    var done = false;
+    if (!nameModal) {
+      nameModal = document.createElement("div");
+      nameModal.className = "name-modal";
+      nameModal.setAttribute("aria-hidden", "true");
+      nameModal.innerHTML =
+        '<div class="name-modal__backdrop"></div>' +
+        '<div class="name-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="name-modal-title">' +
+          '<button class="name-modal__close" type="button" aria-label="Close">&times;</button>' +
+          '<p class="eyebrow">Almost there</p>' +
+          '<h2 class="name-modal__title" id="name-modal-title">How should we address you?</h2>' +
+          '<p class="name-modal__lead">Tell us your name so our emails can greet you properly. Title and last name are optional.</p>' +
+          '<form class="name-modal__form" novalidate>' +
+            '<div class="name-modal__row">' +
+              '<label class="visually-hidden" for="name-modal-salutation">Title (optional)</label>' +
+              '<select id="name-modal-salutation" name="salutation" autocomplete="honorific-prefix">' +
+                '<option value="">Title</option><option>Mr.</option><option>Ms.</option><option>Mrs.</option><option>Mx.</option><option>Dr.</option>' +
+              '</select>' +
+              '<label class="visually-hidden" for="name-modal-first">First name</label>' +
+              '<input type="text" id="name-modal-first" name="firstName" placeholder="First name" autocomplete="given-name" maxlength="60" required>' +
+            '</div>' +
+            '<label class="visually-hidden" for="name-modal-last">Last name (optional)</label>' +
+            '<input type="text" id="name-modal-last" name="lastName" placeholder="Last name (optional)" autocomplete="family-name" maxlength="60">' +
+            '<p class="name-modal__error" role="alert"></p>' +
+            '<button type="submit" class="btn btn--primary">Subscribe</button>' +
+            '<button type="button" class="name-modal__skip">Skip &mdash; just subscribe my email</button>' +
+          '</form>' +
+        '</div>';
+      document.body.appendChild(nameModal);
+    }
+    // A fresh, empty form each time; one set of listeners per opening.
+    var modal = nameModal;
+    var backdrop = modal.querySelector(".name-modal__backdrop");
+    var closeBtn = modal.querySelector(".name-modal__close");
+    var form = modal.querySelector("form");
+    var first = form.querySelector('input[name="firstName"]');
+    var last = form.querySelector('input[name="lastName"]');
+    var sal = form.querySelector('select[name="salutation"]');
+    var err = modal.querySelector(".name-modal__error");
+    var skip = modal.querySelector(".name-modal__skip");
+    form.reset();
+    err.textContent = "";
+
+    function finish(result) {
+      if (done) return;
+      done = true;
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      document.removeEventListener("keydown", onKeydown);
+      form.removeEventListener("submit", onSubmit);
+      skip.removeEventListener("click", onSkip);
+      closeBtn.removeEventListener("click", onCancel);
+      backdrop.removeEventListener("click", onCancel);
+      if (returnFocus && returnFocus.focus) returnFocus.focus();
+      callback(result);
+    }
+    function onSubmit(e) {
+      e.preventDefault();
+      var name = (first.value || "").trim();
+      if (!name) {
+        err.textContent = "Please enter your first name, or choose Skip.";
+        first.focus();
+        return;
+      }
+      finish({ salutation: sal.value, firstName: name, lastName: (last.value || "").trim() });
+    }
+    function onSkip() { finish({}); }
+    function onCancel() { finish(null); }
+    function onKeydown(e) {
+      if (e.key === "Escape") { onCancel(); return; }
+      if (e.key === "Tab") {
+        var focusable = Array.prototype.slice
+          .call(modal.querySelectorAll("button, input, select"))
+          .filter(function (el) { return el.offsetParent !== null; });
+        if (!focusable.length) return;
+        var firstEl = focusable[0], lastEl = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === firstEl) { e.preventDefault(); lastEl.focus(); }
+        else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); firstEl.focus(); }
+      }
+    }
+    form.addEventListener("submit", onSubmit);
+    skip.addEventListener("click", onSkip);
+    closeBtn.addEventListener("click", onCancel);
+    backdrop.addEventListener("click", onCancel);
+    document.addEventListener("keydown", onKeydown);
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    first.focus();
+  }
+
   /* When the page opened -- sent with each signup so the server can tell a person (who needs a few
      seconds to type an address) from a script that submits instantly. */
   var pageOpenedAt = Date.now();
@@ -766,6 +882,7 @@
     var message = holder.querySelector(".subscribe-form__message");
     var fineprint = holder.querySelector(".subscribe-form__fineprint");
     var busy = false;
+    var askName = form.getAttribute("data-subscribe") === "footer"; // footer: name details come from a pop-up window
 
     function show(text, isError) {
       if (!message) return;
@@ -776,12 +893,41 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (busy) return;
+      // The side-tab form also asks for a name (first name required; title
+      // and last name optional). The other subscribe forms are email-only.
+      var firstInput = form.querySelector('input[name="firstName"]');
+      var lastInput = form.querySelector('input[name="lastName"]');
+      var salutationInput = form.querySelector('select[name="salutation"]');
+      var firstName = firstInput ? (firstInput.value || "").trim() : "";
+      if (firstInput && !firstName) {
+        show("Please enter your first name.", true);
+        firstInput.focus();
+        return;
+      }
       var email = (emailInput.value || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         show("Please enter a valid email address.", true);
         emailInput.focus();
         return;
       }
+      if (askName) {
+        // Footer form: ask for the name details first, in a small window.
+        busy = true; // blocks a second submit while the window is open
+        openNameDialog(function (person) {
+          busy = false;
+          if (person) send(email, person);
+          else emailInput.focus(); // closed without choosing: nothing is submitted
+        });
+        return;
+      }
+      send(email, {
+        firstName: firstName,
+        lastName: lastInput ? (lastInput.value || "").trim() : "",
+        salutation: salutationInput ? salutationInput.value : ""
+      });
+    });
+
+    function send(email, person) {
       busy = true;
       button.disabled = true;
       show("", false);
@@ -790,7 +936,15 @@
       fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, source: form.getAttribute("data-subscribe"), website: honey ? honey.value : "", elapsedMs: Date.now() - pageOpenedAt })
+        body: JSON.stringify({
+          email: email,
+          firstName: person.firstName || "",
+          lastName: person.lastName || "",
+          salutation: person.salutation || "",
+          source: form.getAttribute("data-subscribe"),
+          website: honey ? honey.value : "",
+          elapsedMs: Date.now() - pageOpenedAt
+        })
       })
         .then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
@@ -815,7 +969,7 @@
           busy = false;
           button.disabled = false;
         });
-    });
+    }
   });
 
   /* ---- Safari resize-layout workaround ------------------------------------

@@ -12,13 +12,19 @@
 //                                              GOOGLE_SHEETS_PLEDGE_SHEET_ID
 //        GOOGLE_SHEETS_NEWSLETTER_TAB_NAME  -- optional; defaults to "Newsletter"
 //      The tab must already exist (header row suggestion: Timestamp, Email,
-//      Source) and the sheet must be shared (Editor) with the service account.
+//      Source, Salutation, First name, Last name) and the sheet must be
+//      shared (Editor) with the service account.
 //
 //   2. MailerLite (sends, unsubscribe links, reporting).
 //        MAILERLITE_API_KEY   -- an API token from MailerLite (Integrations > API)
 //        MAILERLITE_GROUP_ID  -- optional; the group new signups are added to
 //      Whether new subscribers must confirm by email (double opt-in) is a
 //      setting in the MailerLite account, not here.
+//      Names go into MailerLite's built-in "name" (first name) and
+//      "last_name" fields. The title (Mr./Ms./...) goes into a custom text
+//      field with the key "salutation", which has to be created in MailerLite
+//      (Subscribers > Fields). Until it exists, MailerLite rejects that one
+//      field, so the signup is retried without it and still succeeds.
 //
 // If neither is configured the form tells the visitor to email the chorus.
 // If only one of the two fails, the signup still counts as received.
@@ -28,6 +34,8 @@ const { appendRow } = require("../pledge-data/googleSheets");
 const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_NEWSLETTER_TAB_NAME || "Newsletter";
 const ALLOWED_SOURCES = ["home-band", "footer", "side-tab"];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALLOWED_SALUTATIONS = ["Mr.", "Ms.", "Mrs.", "Mx.", "Dr."];
+const NAME_MAX = 60;
 
 const MIN_FILL_MS = 2000;
 const RATE_LIMIT_MAX = 8;               // signups allowed per visitor...
@@ -67,13 +75,28 @@ function clean(value, max) {
   return s;
 }
 
-async function addToMailerLite(context, email, source) {
+// A name is plain text, one line, at most NAME_MAX characters. Anything that
+// looks like a link or an email address (what spam bots put in name fields,
+// which would then show up in emails addressed to that name) is dropped.
+function cleanName(value) {
+  let s = typeof value === "string" ? value.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim() : "";
+  if (s.length > NAME_MAX) s = s.slice(0, NAME_MAX).trim();
+  if (/:\/\/|www\.|@|[<>]/i.test(s)) return "";
+  return s;
+}
+
+async function addToMailerLite(context, email, source, person) {
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return null; // not configured
-  const payload = { email: email, fields: { source: source } };
-  if (process.env.MAILERLITE_GROUP_ID) payload.groups = [process.env.MAILERLITE_GROUP_ID];
-  try {
-    const resp = await fetch("https://connect.mailerlite.com/api/subscribers", {
+  const fields = { source: source };
+  if (person.firstName) fields.name = person.firstName;
+  if (person.lastName) fields.last_name = person.lastName;
+  if (person.salutation) fields.salutation = person.salutation;
+
+  async function post(sendFields) {
+    const payload = { email: email, fields: sendFields };
+    if (process.env.MAILERLITE_GROUP_ID) payload.groups = [process.env.MAILERLITE_GROUP_ID];
+    return fetch("https://connect.mailerlite.com/api/subscribers", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + apiKey,
@@ -82,6 +105,19 @@ async function addToMailerLite(context, email, source) {
       },
       body: JSON.stringify(payload),
     });
+  }
+
+  try {
+    let resp = await post(fields);
+    // If the "salutation" custom field hasn't been created in MailerLite yet,
+    // MailerLite answers 422 for the whole request. Retry without that one
+    // field so the signup (and the name) still goes through.
+    if (resp.status === 422 && fields.salutation) {
+      context.log.warn("MailerLite rejected the request (422); retrying without the salutation field. Create a text field with the key 'salutation' in MailerLite (Subscribers > Fields).");
+      const withoutSalutation = Object.assign({}, fields);
+      delete withoutSalutation.salutation;
+      resp = await post(withoutSalutation);
+    }
     if (resp.ok) return true;
     const text = await resp.text();
     context.log.error("MailerLite responded " + resp.status + ": " + text.slice(0, 300));
@@ -92,13 +128,13 @@ async function addToMailerLite(context, email, source) {
   }
 }
 
-async function addToSheet(context, email, source) {
+async function addToSheet(context, email, source, person) {
   const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
   const sheetId = process.env.GOOGLE_SHEETS_NEWSLETTER_SHEET_ID || process.env.GOOGLE_SHEETS_PLEDGE_SHEET_ID;
   if (!clientEmail || !privateKey || !sheetId) return null; // not configured
   try {
-    await appendRow(sheetId, SHEET_TAB_NAME, [new Date().toISOString(), email, source], clientEmail, privateKey);
+    await appendRow(sheetId, SHEET_TAB_NAME, [new Date().toISOString(), email, source, clean(person.salutation), clean(person.firstName), clean(person.lastName)], clientEmail, privateKey);
     return true;
   } catch (e) {
     context.log.error("Failed to append newsletter signup to Google Sheet: " + e.message);
@@ -155,7 +191,15 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const results = await Promise.all([addToMailerLite(context, email, source), addToSheet(context, email, source)]);
+  // Optional name details (sent by the "Stay Informed" side tab; the other
+  // subscribe forms are email-only). Anything unexpected is simply left out.
+  const person = {
+    salutation: ALLOWED_SALUTATIONS.indexOf(body.salutation) === -1 ? "" : body.salutation,
+    firstName: cleanName(body.firstName),
+    lastName: cleanName(body.lastName),
+  };
+
+  const results = await Promise.all([addToMailerLite(context, email, source, person), addToSheet(context, email, source, person)]);
   const configured = results.filter(function (r) { return r !== null; });
   const succeeded = configured.filter(function (r) { return r === true; });
 
