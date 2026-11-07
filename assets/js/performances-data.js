@@ -115,7 +115,7 @@
         ["Location", "Morton H. Meyerson Symphony Center"],
         ["Address", "2301 Flora Street\nDallas, TX 75201"]
       ],
-      noteLink: { label: "Reserve Tickets", href: "https://www.dallassymphony.org/productions/holidays-with-the-dso-subs-2026/" }
+      ctas: [{ label: "Buy Tickets", href: "https://www.dallassymphony.org/productions/holidays-with-the-dso-subs-2026/" }]
     },
     {
       startDate: "2026-12-12",
