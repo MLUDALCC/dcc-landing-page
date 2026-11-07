@@ -717,6 +717,15 @@ body.nav-open { overflow: hidden; }
   .stat__num { font-size: clamp(1.4rem, 7.6vw, 2.1rem); }
 }
 
+/* ---- Stat grid variants (Our Impact page) ---------------------------------- */
+.stat-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; margin-inline: auto; }
+.stat-grid--3 .stat__num, .stat-grid--2 .stat__num { max-width: none; }
+@media (max-width: 780px) {
+  .stat-grid--3 { grid-template-columns: minmax(0, 1fr); row-gap: 2.2rem; }
+  .stat-grid--3 .stat::before { display: none; }
+}
+
 /* ---- Pillars section (What Guides Us) overrides ---------------------------- */
 .pillars .section-head { max-width: 1000px; }
 .pillars .stat__num { font-size: clamp(1.5rem, 2.6vw, 2.5rem); line-height: 1.2; }
