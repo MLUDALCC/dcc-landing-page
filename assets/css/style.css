@@ -1768,3 +1768,7 @@ button.cal-day:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0
   .pathway { grid-template-columns: 1fr; gap: 2.25rem; }
   .pathway__step:not(:last-child)::after { top: auto; right: auto; bottom: -1.6rem; left: 50%; transform: translateX(-50%) rotate(135deg); }
 }
+
+/* ---- FAQ category groups ---- */
+.faq-group + .faq-group { margin-top: clamp(2.5rem, 5vw, 3.75rem); }
+.faq-group__title { font-size: clamp(1.5rem, 2.6vw, 1.9rem); margin: 0 0 .25rem; padding-bottom: .6rem; border-bottom: 2px solid var(--stone-500); }
