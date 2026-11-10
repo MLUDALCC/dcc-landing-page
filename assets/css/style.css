@@ -900,6 +900,8 @@ body.nav-open { overflow: hidden; }
 .flyer-row--match .flyer-row__link { flex: 1 1 0; }
 /* A landscape photo shown larger than a portrait flyer (e.g. a performance photo). */
 .flyer-row__link--wide { flex: 1 1 360px; max-width: 560px; }
+/* Photo mat: white border around the wide event photos so they read as finished prints against the tinted section */
+.flyer-row__link--wide { background: var(--white); padding: 12px; box-shadow: 0 1px 3px rgba(28,30,33,.10); }
 @media (max-width: 560px) { .flyer-row { gap: .75rem; } .flyer-row__link { flex: 1 1 calc(50% - .75rem); } }
 @media (max-width: 560px) { .flyer-row__link--wide { flex-basis: 100%; } }
  /* leaves room for the offset frame so it never extends past the page edge */
