@@ -28,8 +28,10 @@
      badge       optional label shown above an upcoming card (e.g. "Tickets
                  On Sale Now")
      note        optional line under an upcoming card’s facts
-     images      optional [{ src, alt }, ...] -- flyers shown under the card,
-                 both while the performance is upcoming and once it is past
+     images      optional [{ src, alt }, ...] -- flyers or photos shown under the
+                 card, both while the performance is upcoming and once it is
+                 past. A landscape photo can add wide: true, width: W, height: H
+                 to show larger (default is a portrait flyer, 601 x 801)
      noteLink    optional { label, href } link under an upcoming card’s facts
      ctas        optional buttons while upcoming: { label, href }  (open in a
                  new tab -- for ticket links)
@@ -76,6 +78,10 @@
         ["Time", "6:30 PM"],
         ["Choir", "Symphonic Voices"],
         ["Location", "Dos Equis Pavilion, Fair Park"]
+      ],
+      images: [
+        { src: "assets/img/symphonic-voices-foreigner-stage.jpg", alt: "Symphonic Voices choristers in blue DCC T-shirts standing on a raised stage platform beside the members of Foreigner during the August 28 performance at Fair Park’s Dos Equis Pavilion.", wide: true, width: 1800, height: 1011 },
+        { src: "assets/img/symphonic-voices-foreigner.jpg", alt: "Symphonic Voices choristers in blue DCC T-shirts singing on stage at Fair Park’s Dos Equis Pavilion during the August 28 performance with Foreigner.", wide: true, width: 1800, height: 993 }
       ],
       pastCtas: [{ label: "Watch the Video", href: "media.html" }]
     },
@@ -268,15 +274,15 @@
     if (item.images && item.images.length) {
       var fr = el("div", "flyer-row");
       item.images.forEach(function (img) {
-        var fa = el("a", "flyer-row__link");
+        var fa = el("a", img.wide ? "flyer-row__link flyer-row__link--wide" : "flyer-row__link");
         fa.href = img.src;
         fa.setAttribute("aria-haspopup", "dialog");
         var im = document.createElement("img");
         im.src = img.src;
         im.alt = img.alt;
         im.loading = "lazy";
-        im.width = 601;
-        im.height = 801;
+        im.width = img.width || 601;
+        im.height = img.height || 801;
         fa.appendChild(im);
         fa.appendChild(el("span", "visually-hidden", " (opens a larger view)"));
         fr.appendChild(fa);
