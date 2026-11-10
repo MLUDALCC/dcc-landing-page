@@ -28,8 +28,8 @@
      badge       optional label shown above an upcoming card (e.g. "Tickets
                  On Sale Now")
      note        optional line under an upcoming card’s facts
-     images      optional [{ src, alt }, ...] -- flyers shown under an upcoming
-                 card (hidden once the performance is past)
+     images      optional [{ src, alt }, ...] -- flyers shown under the card,
+                 both while the performance is upcoming and once it is past
      noteLink    optional { label, href } link under an upcoming card’s facts
      ctas        optional buttons while upcoming: { label, href }  (open in a
                  new tab -- for ticket links)
@@ -264,9 +264,8 @@
       });
       card.appendChild(row2);
     }
-    // Flyers only show while the performance is upcoming (they carry ticket
-    // information that is out of date afterwards).
-    if (!isPast && item.images && item.images.length) {
+    // Flyers stay on the card after the performance, as a record of the event.
+    if (item.images && item.images.length) {
       var fr = el("div", "flyer-row");
       item.images.forEach(function (img) {
         var fa = el("a", "flyer-row__link");
