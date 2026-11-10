@@ -81,7 +81,7 @@
       ],
       images: [
         { src: "assets/img/symphonic-voices-foreigner-stage.jpg", alt: "Symphonic Voices choristers in blue DCC T-shirts standing on a raised stage platform beside the members of Foreigner during the August 28 performance at Fair Park’s Dos Equis Pavilion.", wide: true, width: 1800, height: 1011 },
-        { src: "assets/img/symphonic-voices-foreigner.jpg", alt: "Symphonic Voices choristers in blue DCC T-shirts singing on stage at Fair Park’s Dos Equis Pavilion during the August 28 performance with Foreigner.", wide: true, width: 1800, height: 993 }
+        { src: "assets/img/symphonic-voices-foreigner.jpg", alt: "Symphonic Voices choristers in blue DCC T-shirts singing on stage at Fair Park’s Dos Equis Pavilion during the August 28 performance with Foreigner.", wide: true, width: 2000, height: 1125 }
       ],
       pastCtas: [{ label: "Watch the Video", href: "media.html" }]
     },
