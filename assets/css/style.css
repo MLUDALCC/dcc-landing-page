@@ -726,6 +726,18 @@ body.nav-open { overflow: hidden; }
   .stat-grid--3 .stat::before { display: none; }
 }
 
+/* ---- County map (Our Impact page) ------------------------------------------
+   Inline SVG of North Texas: the seven represented counties in the accent blue,
+   neighbouring counties in a pale neutral for context. Outlines are from the
+   US Census (via us-atlas), simplified. */
+.county-map { margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; max-width: 560px; }
+.county-map svg { display: block; width: 100%; height: auto; }
+.county-map__county { fill: var(--line-100); stroke: var(--cream-000); stroke-width: 1.2; stroke-linejoin: round; }
+.county-map__county--on { fill: var(--stone-500); }
+.county-map__label { fill: var(--white); font-family: var(--font-sans); font-size: 19px; font-weight: 600; letter-spacing: .02em; paint-order: stroke; stroke: var(--stone-600); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+.county-map__label--sm { font-size: 16px; }
+.county-map figcaption { margin-top: .9rem; text-align: center; font-size: 1rem; letter-spacing: .04em; color: var(--stone-ink); }
+
 /* ---- Pillars section (What Guides Us) overrides ---------------------------- */
 .pillars .section-head { max-width: 1000px; }
 .pillars .stat__num { font-size: clamp(1.5rem, 2.6vw, 2.5rem); line-height: 1.2; }
