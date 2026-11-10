@@ -1755,3 +1755,16 @@ button.cal-day:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0
 }
 @media (prefers-reduced-motion: reduce) { button.cal-day { transition: none; } button.cal-day:hover { transform: none; } }
 @media print { .cal__bubble, .cal__chip:not(.is-on), .cal__arrow { display: none; } }
+
+/* ---- Pathway (Our Impact): three-step choir progression with connecting chevrons ---- */
+.pathway { list-style: none; margin: 2.2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; counter-reset: none; }
+.pathway__step { position: relative; background: var(--white); border: 1px solid var(--line-100); border-top: 3px solid var(--stone-500); padding: 1.6rem 1.5rem 1.5rem; }
+.pathway__step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: -1.75rem; width: .9rem; height: .9rem; border-top: 3px solid var(--stone-500); border-right: 3px solid var(--stone-500); transform: translateY(-50%) rotate(45deg); }
+.pathway__num { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--graphite-800); color: var(--white); font-family: var(--font-sans); font-weight: 600; font-size: .95rem; margin-bottom: .8rem; }
+.pathway__step h3 { margin: 0 0 .3rem; }
+.pathway__meta { font-family: var(--font-sans); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-600); margin: 0 0 .8rem; }
+.pathway__step p:last-child { margin: 0; }
+@media (max-width: 760px) {
+  .pathway { grid-template-columns: 1fr; gap: 2.25rem; }
+  .pathway__step:not(:last-child)::after { top: auto; right: auto; bottom: -1.6rem; left: 50%; transform: translateX(-50%) rotate(135deg); }
+}
