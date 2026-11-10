@@ -898,7 +898,10 @@ body.nav-open { overflow: hidden; }
 /* News entries: the flyers are sized by script to the width of the buttons above them (see addImages in news-data.js). */
 .flyer-row--match { flex-wrap: nowrap; max-width: 100%; }
 .flyer-row--match .flyer-row__link { flex: 1 1 0; }
+/* A landscape photo shown larger than a portrait flyer (e.g. a performance photo). */
+.flyer-row__link--wide { flex: 1 1 360px; max-width: 560px; }
 @media (max-width: 560px) { .flyer-row { gap: .75rem; } .flyer-row__link { flex: 1 1 calc(50% - .75rem); } }
+@media (max-width: 560px) { .flyer-row__link--wide { flex-basis: 100%; } }
  /* leaves room for the offset frame so it never extends past the page edge */
 
 /* ---- News page (year sidebar + list) ---------------------------------------*/
