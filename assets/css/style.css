@@ -688,9 +688,9 @@ body.nav-open { overflow: hidden; }
 .mission-strip cite { display: block; margin-bottom: 1.2rem; font-style: normal; }
 
 /* ---- Video embed ----------------------------------------------------------*/
-.video-embed { position: relative; aspect-ratio: 16/9; background: var(--cream-050); }
+.video-embed { position: relative; aspect-ratio: 16/9; background: var(--cream-050); box-shadow: 0 0 0 1px rgba(26, 112, 163, .16), 0 0 22px 2px rgba(26, 112, 163, .22); } /* thin, soft accent-blue glow in place of the old offset outline box */
 .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
-.video-embed .frame { position: absolute; inset: 18px -18px -18px 18px; border: 1px solid var(--stone-500); z-index: -1; }
+.video-embed .frame { display: none; } /* legacy offset-box element, still in some pages' markup; replaced by the glow above */
 /* ---- Stats ---------------------------------------------------------------*/
 .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
 .stat { position: relative; text-align: center; padding-inline: .5rem; }
@@ -888,8 +888,8 @@ body.nav-open { overflow: hidden; }
 .news-card time { font-size: 0.88rem; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-ink); }
 .news-card h3 { margin-top: .6rem; }
 .news-card p { margin-top: .7rem; color: var(--ink-600); font-size: 1.07rem; }
-.news-card .video-embed { margin-top: 1.4rem; margin-bottom: calc(18px + 1.2rem); max-width: 640px; } /* recordings embedded in a news entry; the offset .frame pokes 18px right and down, so the bottom margin keeps it clear of what follows */
-@media (max-width: 700px) { .news-card .video-embed { max-width: calc(100% - 18px); } }
+.news-card .video-embed { margin-top: 1.4rem; margin-bottom: 1.6rem; max-width: 640px; } /* recordings embedded in a news entry; the offset .frame pokes 18px right and down, so the bottom margin keeps it clear of what follows */
+@media (max-width: 700px) { .news-card .video-embed { max-width: 100%; } }
 /* Flyers under a news entry or an upcoming performance: two portrait images side by side, each opening full size in a new tab. */
 .flyer-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.6rem; }
 .flyer-row__link { display: block; flex: 0 1 280px; min-width: 0; border: 1px solid var(--line-100); line-height: 0; cursor: zoom-in; }
