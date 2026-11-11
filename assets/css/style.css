@@ -1040,9 +1040,9 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 .footer-brand .wordmark { color: var(--graphite-800); }
 .footer-brand p { margin-top: 1.2rem; color: var(--stone-ink); font-size: 1rem; max-width: 40ch; }
-.footer-col h4 {
+.footer-col h3 {
   font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--stone-ink); margin-bottom: 1.1rem;
+  text-transform: uppercase; color: var(--stone-ink); margin-bottom: 1.1rem; line-height: 1.6;
 }
 .footer-col li { margin-bottom: .45rem; }
 .footer-col a { font-size: 1rem; color: var(--ink-600); }
