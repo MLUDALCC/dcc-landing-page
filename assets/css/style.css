@@ -688,7 +688,7 @@ body.nav-open { overflow: hidden; }
 .mission-strip cite { display: block; margin-bottom: 1.2rem; font-style: normal; }
 
 /* ---- Video embed ----------------------------------------------------------*/
-.video-embed { position: relative; aspect-ratio: 16/9; background: var(--cream-050); box-shadow: 0 0 0 1px rgba(26, 112, 163, .16), 0 0 22px 2px rgba(26, 112, 163, .22); } /* thin, soft accent-blue glow in place of the old offset outline box */
+.video-embed { position: relative; aspect-ratio: 16/9; background: var(--cream-050); box-shadow: 0 0 0 1px rgba(0, 0, 0, .06), 0 2px 14px rgba(0, 0, 0, .18); } /* soft neutral-grey glow (same as the side tabs) in place of the old offset outline box */
 .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
 .video-embed .frame { display: none; } /* legacy offset-box element, still in some pages' markup; replaced by the glow above */
 /* ---- Stats ---------------------------------------------------------------*/
