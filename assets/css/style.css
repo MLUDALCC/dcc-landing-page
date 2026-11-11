@@ -1776,3 +1776,15 @@ button.cal-day:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0
 /* FAQ answers: links get a quiet underline so they read as links */
 .accordion__panel-inner a { color: var(--graphite-900); text-decoration: underline; text-decoration-color: var(--stone-500); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-color .2s; }
 .accordion__panel-inner a:hover, .accordion__panel-inner a:focus-visible { text-decoration-color: var(--graphite-900); }
+
+/* ---- Concert program (collapsed "View the program" on News and Performances cards) ---- */
+.concert-program { margin-top: 1.4rem; border-top: 1px solid var(--line-100); }
+.concert-program > summary { cursor: pointer; padding: 1rem 0; font-family: var(--font-sans); font-weight: 500; font-size: 1.05rem; color: var(--graphite-900); }
+.concert-program > summary:hover { color: var(--stone-500); }
+.concert-program__body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem 2.5rem; padding: .4rem 0 1.4rem; }
+.concert-program__set h4 { font-family: var(--font-sans); font-size: .88rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--stone-ink); margin: 0 0 .5rem; }
+.concert-program__leads { font-size: .98rem; color: var(--ink-600); margin: 0 0 .7rem; }
+.concert-program__set ul { list-style: none; margin: 0; padding: 0; }
+.concert-program__set li { margin-bottom: .55rem; font-size: 1.02rem; color: var(--graphite-900); }
+.concert-program__credit { display: block; font-size: .92rem; color: var(--ink-600); }
+@media (max-width: 700px) { .concert-program__body { grid-template-columns: 1fr; } }

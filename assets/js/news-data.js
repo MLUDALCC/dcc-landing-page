@@ -15,6 +15,55 @@
   var NEWS_ITEMS = [
     {
       year: 2026,
+      date: "November 1, 2026",
+      sortDate: "2026-11-01",
+      title: "DSCC Fall Concert Opens the 2026/27 Season at the Meyerson",
+      blurb: "All three choruses \u2014 Training Choir, Symphonic Voices, and Mixed Ensemble \u2014 opened the 2026/27 season together at the Morton H. Meyerson Symphony Center on Sunday, November 1, marking the ensemble\u2019s fifth season of concerts. Each chorus performed its own set, and all three choirs joined together to sing Barry Manilow\u2019s \u201cOne Voice.\u201d",
+      program: [
+        {
+          choir: "Training Choir",
+          leads: "Brittany Haywood, conductor \u00b7 Ellie Lin, piano",
+          pieces: [
+            ["We Can Dream", "PinkZebra"],
+            ["Little Bird", "Traditional, arr. Leo Wanenchak"],
+            ["Elijah Rock", "Traditional, arr. Roger Emerson"]
+          ]
+        },
+        {
+          choir: "Symphonic Voices",
+          leads: "Ellie Lin, conductor \u00b7 Brittany Haywood, piano \u00b7 Hyorim Han, violin \u00b7 Nan Zhang, cello \u00b7 Rob O\u2019Brien, percussion",
+          pieces: [
+            ["By Night", "Elaine Hagenberg"],
+            ["Walking in the Air (from The Snowman)", "Howard Blake"],
+            ["Take Me Home, Country Roads", "John Denver, Bill Danoff, and Taffy Nivert, arr. Hans Grim"],
+            ["America the Beautiful", "Samuel Ward, arr. Jack Nobel White"]
+          ]
+        },
+        {
+          choir: "Mixed Ensemble",
+          leads: "Victor C. Johnson, conductor \u00b7 Cory Curvin, piano",
+          pieces: [
+            ["Plaudite", "Victor C. Johnson"],
+            ["Viva!", "Wolfgang Amadeus Mozart, arr. Patrick M. Liebergen"],
+            ["Music of Life", "B.E. Boykin"],
+            ["Fire Dance", "Daniel Brinsmead"]
+          ]
+        },
+        {
+          choir: "Combined Choirs",
+          leads: "Ellie Lin, conductor \u00b7 Cory Curvin, piano \u00b7 Hyorim Han, violin \u00b7 Nan Zhang, cello \u00b7 Rob O\u2019Brien, percussion",
+          pieces: [
+            ["One Voice", "Barry Manilow, arr. Mark Brymer"]
+          ]
+        }
+      ],
+      images: [
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+      ]
+    },
+    {
+      year: 2026,
       date: "October 2026",
       sortDate: "2026-10-01",
       title: "Fall and Spring Concert Tickets Now on Sale",
@@ -141,6 +190,48 @@
       }
     }
 
+  /* Optional concert program ("program" = [{ choir, leads, pieces: [[title, credit], ...] }, ...]).
+     Shown as a collapsed "View the program" section so the card stays short. */
+  function programBlock(program) {
+    if (!program || !program.length) return null;
+    var details = document.createElement("details");
+    details.className = "concert-program";
+    var summary = document.createElement("summary");
+    summary.textContent = "View the program";
+    details.appendChild(summary);
+    var body = document.createElement("div");
+    body.className = "concert-program__body";
+    program.forEach(function (set) {
+      var sec = document.createElement("section");
+      sec.className = "concert-program__set";
+      var h = document.createElement("h4");
+      h.textContent = set.choir;
+      sec.appendChild(h);
+      if (set.leads) {
+        var lp = document.createElement("p");
+        lp.className = "concert-program__leads";
+        lp.textContent = set.leads;
+        sec.appendChild(lp);
+      }
+      var ul = document.createElement("ul");
+      (set.pieces || []).forEach(function (pc) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(pc[0]));
+        if (pc[1]) {
+          var cr = document.createElement("span");
+          cr.className = "concert-program__credit";
+          cr.textContent = pc[1];
+          li.appendChild(cr);
+        }
+        ul.appendChild(li);
+      });
+      sec.appendChild(ul);
+      body.appendChild(sec);
+    });
+    details.appendChild(body);
+    return details;
+  }
+
     function cardTemplate(item) {
       var card = document.createElement("article");
       card.className = "news-card";
@@ -153,6 +244,9 @@
       card.appendChild(time);
       card.appendChild(h3);
       card.appendChild(p);
+
+      var prog = programBlock(item.program);
+      if (prog) card.appendChild(prog);
 
       /* Optional YouTube recording ("videoId" = the part after /embed/ or
          "watch?v="). Uses the same privacy-enhanced youtube-nocookie embed as
