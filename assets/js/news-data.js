@@ -93,7 +93,11 @@
       date: "May 15, 16 & 17, 2026",
       sortDate: "2026-05-15",
       title: "Symphonic Voices Performs Mahler’s Symphony No. 8 with the DSO",
-      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026. Led by Music Director Fabio Luisi, the performances also featured the Dallas Symphony Chorus (chorus director Anthony Blake Clark), and eight vocal soloists (see the program below). Performed without intermission in about an hour, the symphony’s first part sets the hymn “Come, Creative Spirit,” while its second part is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. Performances of the work are rare because of its enormous scale.",
+      blurb: [
+        "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026. Music Director Fabio Luisi conducted, with Anthony Blake Clark as chorus director of the Dallas Symphony Chorus and eight vocal soloists (listed in the program below).",
+        "Performed without intermission in about an hour, the symphony falls into two parts. The first sets the hymn “Come, Creative Spirit,” whose message of inspiration foreshadows what follows. The second is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. The Dallas Symphony Orchestra calls it one of the greatest works in the concert repertoire.",
+        "It is also one of the rarest, because of its enormous scale. Mahler asked for far more than a typical concert uses: a very large orchestra with an organ and extra brass players placed apart from the main stage, two full adult choruses, a children’s chorus, and eight vocal soloists. At its premiere in Munich in 1910, with Mahler himself conducting, roughly a thousand performers took part, which is how the nickname came about. Putting that many musicians on one stage takes a hall with enough room, several choruses prepared separately and brought together, extra rehearsal time, and a considerable budget, so few orchestras attempt it. Singing in it was a rare opportunity for our choristers to take part in a landmark of the repertoire alongside professional musicians."
+      ],
       program: [
         {
           choir: "Part One",
@@ -282,10 +286,17 @@
       var h3 = document.createElement("h3");
       h3.textContent = item.title;
       var p = document.createElement("p");
-      p.textContent = item.blurb;
+      /* blurb is one string, or an array of strings for a multi-paragraph entry */
+      var blurbs = Array.isArray(item.blurb) ? item.blurb : [item.blurb];
+      p.textContent = blurbs[0];
       card.appendChild(time);
       card.appendChild(h3);
       card.appendChild(p);
+      blurbs.slice(1).forEach(function (text) {
+        var more = document.createElement("p");
+        more.textContent = text;
+        card.appendChild(more);
+      });
 
       var prog = programBlock(item.program);
       if (prog) card.appendChild(prog);
