@@ -107,7 +107,10 @@
       date: "February 2026",
       sortDate: "2026-02-01",
       title: "Auditions Open for the 2026/27 Season",
-      blurb: "Auditions for Training Choir, Symphonic Voices, and Mixed Ensemble opened for singers in grades 4–12, with no prior experience required for our entry-level choruses."
+      blurb: "Auditions for Training Choir, Symphonic Voices, and Mixed Ensemble opened for singers in grades 4–12, with no prior experience required for our entry-level choruses.",
+      images: [
+        { src: "assets/img/dscc-audition-flyer-2026-27.jpg", alt: "Flyer reading “Join the Dallas Symphony Children’s Chorus: Make music and memories together. 2026–27 season auditions,” with a photo of the chorus and orchestra on the Meyerson stage and a portrait of artistic director Ellie Lin conducting. Auditions at Lovers Lane United Methodist Church, 9200 Inwood Road, Dallas. Students entering grades 4–8: April 20, 5–7 PM; April 25, 9 AM–6 PM; April 27, 5–7 PM; May 4, 5–7 PM. Students entering grades 9–12: April 20, 27, and May 4, 5–8 PM. Scan the QR code to schedule an audition. Questions: Emma Jensen, 214-393-2898." }
+      ]
     }
   ];
 
