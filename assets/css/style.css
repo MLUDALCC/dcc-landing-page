@@ -80,6 +80,8 @@ html {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
 html, body { overflow-x: hidden; }
+/* "clip" hides horizontal overflow like "hidden" does, but without turning <body> into a scroll container, which would stop position: sticky (the News/Performances year list) from working. */
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
 body {
   margin: 0;
   font-size: 1.07rem;
@@ -940,12 +942,14 @@ body.nav-open { overflow: hidden; }
 
 @media (max-width: 780px) {
   .news-layout { grid-template-columns: 1fr; }
-  .news-sidebar { position: static; }
+  /* On phones the year row stays pinned just below the header as the page scrolls */
+  .news-sidebar { position: sticky; top: 64px; z-index: 20; background: var(--white); margin: 0 calc(var(--gutter, 16px) * -1); padding: .6rem var(--gutter, 16px); border-bottom: 1px solid var(--line-100); }
   .year-list { flex-direction: row; flex-wrap: wrap; column-gap: 1.25rem; row-gap: .5rem; }
   .year-list__btn { width: auto; border-left: 0; border-bottom: 2px solid transparent; padding: .3rem .1rem; background: none !important; }
   .year-list__btn.is-active { border-bottom-color: var(--stone-500); }
   .news-list .news-card:first-child { border-top: 1px solid var(--line-100); padding-top: 1.6rem; }
 }
+@media (min-width: 641px) and (max-width: 780px) { .news-sidebar { top: 83px; } } /* the header is taller in this width range */
 
 /* ---- Media page (recording grid) --------------------------------------------*/
 .media-grid {
