@@ -61,7 +61,8 @@
       endDate: "2026-05-17",
       title: "Mahler’s Symphony No. 8",
       tag: "May 15, 16 & 17, 2026 · Symphonic Voices",
-      desc: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8 at the Morton H. Meyerson Symphony Center.",
+      desc: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center.",
+      pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center, led by Music Director Fabio Luisi with eight vocal soloists. Performed without intermission in about an hour, the symphony’s first part sets the hymn “Come, Creative Spirit,” and its second part is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. Performances of the work are rare because of its enormous scale.",
       facts: [
         ["Dates", "May 15, 16 & 17, 2026"],
         ["Choir", "Symphonic Voices"],
