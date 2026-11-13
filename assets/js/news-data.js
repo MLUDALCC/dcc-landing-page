@@ -93,7 +93,7 @@
       date: "May 15, 16 & 17, 2026",
       sortDate: "2026-05-15",
       title: "Symphonic Voices Performs Mahler’s Symphony No. 8 with the DSO",
-      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8 at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026."
+      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026. Led by Music Director Fabio Luisi, the performances also featured the Dallas Symphony Chorus (chorus director Anthony Blake Clark), and eight vocal soloists: sopranos Rachel Willis Sørensen, Meghan Kasanders, and Deanna Breiwick; mezzo-sopranos Olesya Petrova and Renée Tatum; tenor Limmie Pulliam; baritone Luke Sutliff; and bass Insung Sim. Performed without intermission in about an hour, the symphony’s first part sets the hymn “Come, Creative Spirit,” while its second part is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. Performances of the work are rare because of its enormous scale."
     },
     {
       year: 2026,
