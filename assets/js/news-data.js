@@ -2,8 +2,11 @@
    News page data + rendering (news.html)
 
    To add a new announcement, add one object to NEWS_ITEMS below -- everything
-   else (the year sidebar, counts, and card markup) is generated from this
-   list automatically. Newest-first within a year isn’t required; items are
+   else (the season sidebar, counts, and card markup) is generated from this
+   list automatically. Announcements are grouped by concert season (Aug 1 -
+   Jul 31, the same as the Performances page) using their "sortDate"; add an
+   optional season: "2026/27" to an item to place it in a different season.
+   The old "year" field is no longer used. Newest-first isn’t required; items are
    sorted by date automatically as long as the "date" string is written so it
    sorts correctly, which is why each one also carries a plain ISO "sortDate".
 
@@ -161,29 +164,41 @@
     var listEl = document.querySelector(".news-list");
     if (!yearListEl || !listEl) return;
 
-    var years = [];
-    NEWS_ITEMS.forEach(function (item) {
-      if (years.indexOf(item.year) === -1) years.push(item.year);
-    });
-    years.sort(function (a, b) { return b - a; });
+    /* Season label for a date: Aug 1 starts a new season ("2026/27"). */
+    function pad(x) { return (x < 10 ? "0" : "") + x; }
+    function seasonOfDate(dateStr) {
+      var y = Number(dateStr.slice(0, 4));
+      var m = Number(dateStr.slice(5, 7));
+      var start = m >= 8 ? y : y - 1;
+      return start + "/" + pad((start + 1) % 100);
+    }
+    function seasonOf(item) { return item.season || seasonOfDate(item.sortDate); }
 
-    if (!years.length) {
+    var seasons = [];
+    NEWS_ITEMS.forEach(function (item) {
+      var s = seasonOf(item);
+      if (seasons.indexOf(s) === -1) seasons.push(s);
+    });
+    seasons.sort(function (a, b) { return a < b ? 1 : -1; });
+
+    if (!seasons.length) {
       listEl.innerHTML = '<p class="news-empty">No announcements have been posted yet.</p>';
       return;
     }
 
-    var currentYear = new Date().getFullYear();
-    var defaultYear = years.indexOf(currentYear) !== -1 ? currentYear : years[0];
+    var today = new Date();
+    var currentSeason = seasonOfDate(today.getFullYear() + "-" + pad(today.getMonth() + 1) + "-" + pad(today.getDate()));
+    var defaultSeason = seasons.indexOf(currentSeason) !== -1 ? currentSeason : seasons[0];
 
-    years.forEach(function (year) {
-      var count = NEWS_ITEMS.filter(function (i) { return i.year === year; }).length;
+    seasons.forEach(function (season) {
+      var count = NEWS_ITEMS.filter(function (i) { return seasonOf(i) === season; }).length;
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "year-list__btn";
-      btn.setAttribute("data-year", year);
+      btn.setAttribute("data-season", season);
       btn.setAttribute("aria-pressed", "false");
-      btn.innerHTML = "<span>" + year + "</span><span class=\"year-list__count\">" + count + "</span>";
-      btn.addEventListener("click", function () { selectYear(year); });
+      btn.innerHTML = "<span>" + season + "</span><span class=\"year-list__count\">" + count + "</span>";
+      btn.addEventListener("click", function () { selectSeason(season); });
       yearListEl.appendChild(btn);
     });
 
@@ -376,26 +391,26 @@
       return card;
     }
 
-    function selectYear(year) {
+    function selectSeason(season) {
       var buttons = yearListEl.querySelectorAll(".year-list__btn");
       for (var i = 0; i < buttons.length; i++) {
-        var isActive = Number(buttons[i].getAttribute("data-year")) === year;
+        var isActive = buttons[i].getAttribute("data-season") === season;
         buttons[i].classList.toggle("is-active", isActive);
         buttons[i].setAttribute("aria-pressed", isActive ? "true" : "false");
       }
 
       var items = NEWS_ITEMS
-        .filter(function (i) { return i.year === year; })
+        .filter(function (i) { return seasonOf(i) === season; })
         .sort(function (a, b) { return a.sortDate < b.sortDate ? 1 : -1; });
 
       listEl.innerHTML = "";
       if (!items.length) {
-        listEl.innerHTML = '<p class="news-empty">No announcements posted for ' + year + ' yet.</p>';
+        listEl.innerHTML = '<p class="news-empty">No announcements posted for the ' + season + ' season yet.</p>';
         return;
       }
       items.forEach(function (item) { listEl.appendChild(cardTemplate(item)); });
     }
 
-    selectYear(defaultYear);
+    selectSeason(defaultSeason);
   });
 })();
