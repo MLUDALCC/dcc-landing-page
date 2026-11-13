@@ -69,6 +69,44 @@
         ["With", "Dallas Symphony Orchestra, Dallas Symphony Chorus & Baltimore Choral Arts Society"],
         ["Location", "Morton H. Meyerson Symphony Center"],
         ["Address", "2301 Flora Street\nDallas, TX 75201"]
+      ],
+      program: [
+        {
+          choir: "Part One",
+          leads: "Fabio Luisi, conductor",
+          pieces: [
+            ["Hymn: \u201cCome, Creative Spirit\u201d", "Gustav Mahler, Symphony No. 8"]
+          ]
+        },
+        {
+          choir: "Part Two",
+          leads: "Fabio Luisi, conductor",
+          pieces: [
+            ["Final scene of Goethe\u2019s Faust", "Gustav Mahler, Symphony No. 8"]
+          ]
+        },
+        {
+          choir: "Choruses",
+          leads: "Performed without intermission, about 60 minutes",
+          pieces: [
+            ["Dallas Symphony Chorus", "Anthony Blake Clark, chorus director"],
+            ["Symphonic Voices, Dallas Symphony Children\u2019s Chorus", "Ellie Lin, artistic director"],
+            ["Baltimore Choral Arts Society"]
+          ]
+        },
+        {
+          choir: "Soloists",
+          pieces: [
+            ["Rachel Willis S\u00f8rensen", "soprano"],
+            ["Meghan Kasanders", "soprano"],
+            ["Deanna Breiwick", "soprano"],
+            ["Olesya Petrova", "mezzo-soprano"],
+            ["Ren\u00e9e Tatum", "mezzo-soprano"],
+            ["Limmie Pulliam", "tenor"],
+            ["Luke Sutliff", "baritone"],
+            ["Insung Sim", "bass"]
+          ]
+        }
       ]
     },
     {

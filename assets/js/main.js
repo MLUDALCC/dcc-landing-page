@@ -265,7 +265,7 @@
      was clicked. The dialog is built on first use. Without JavaScript the
      link just opens the image file. */
   (function () {
-    var modal = null, img, counter, prevBtn, nextBtn, closeBtn, nav;
+    var modal = null, img, counter, prevBtn, nextBtn, closeBtn, nav, dlLink;
     var links = [], index = 0, lastTrigger = null;
 
     function build() {
@@ -277,6 +277,7 @@
         '<div class="flyer-modal__dialog" role="dialog" aria-modal="true" aria-label="Flyer">' +
           '<button class="flyer-modal__close" type="button" aria-label="Close">&times;</button>' +
           '<img class="flyer-modal__img" src="" alt="">' +
+          '<a class="flyer-modal__download" href="#" download hidden>Download full-size flyer</a>' +
           '<div class="flyer-modal__nav">' +
             '<button class="flyer-modal__arrow" type="button" data-dir="-1" aria-label="Previous flyer">&#8592;</button>' +
             '<span class="flyer-modal__count" aria-live="polite"></span>' +
@@ -287,6 +288,7 @@
       img = modal.querySelector(".flyer-modal__img");
       counter = modal.querySelector(".flyer-modal__count");
       nav = modal.querySelector(".flyer-modal__nav");
+      dlLink = modal.querySelector(".flyer-modal__download");
       closeBtn = modal.querySelector(".flyer-modal__close");
       prevBtn = modal.querySelector('[data-dir="-1"]');
       nextBtn = modal.querySelector('[data-dir="1"]');
@@ -303,6 +305,15 @@
       img.src = link.getAttribute("href");
       img.alt = thumb ? thumb.alt : "";
       nav.style.display = links.length > 1 ? "" : "none";
+      /* A flyer can offer a download (data-download = the saved file name). */
+      var dl = link.getAttribute("data-download");
+      if (dl) {
+        dlLink.href = link.getAttribute("href");
+        dlLink.setAttribute("download", dl);
+        dlLink.hidden = false;
+      } else {
+        dlLink.hidden = true;
+      }
       counter.textContent = (index + 1) + " of " + links.length;
     }
 
@@ -333,7 +344,7 @@
       if (links.length > 1 && e.key === "ArrowRight") { show(index + 1); return; }
       if (e.key === "Tab") {
         var focusable = Array.prototype.slice
-          .call(modal.querySelectorAll("button"))
+          .call(modal.querySelectorAll("button, a.flyer-modal__download"))
           .filter(function (el) { return el.offsetParent !== null; });
         if (!focusable.length) return;
         var first = focusable[0], last = focusable[focusable.length - 1];
