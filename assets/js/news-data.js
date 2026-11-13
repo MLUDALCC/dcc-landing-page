@@ -93,7 +93,45 @@
       date: "May 15, 16 & 17, 2026",
       sortDate: "2026-05-15",
       title: "Symphonic Voices Performs Mahler’s Symphony No. 8 with the DSO",
-      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026. Led by Music Director Fabio Luisi, the performances also featured the Dallas Symphony Chorus (chorus director Anthony Blake Clark), and eight vocal soloists: sopranos Rachel Willis Sørensen, Meghan Kasanders, and Deanna Breiwick; mezzo-sopranos Olesya Petrova and Renée Tatum; tenor Limmie Pulliam; baritone Luke Sutliff; and bass Insung Sim. Performed without intermission in about an hour, the symphony’s first part sets the hymn “Come, Creative Spirit,” while its second part is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. Performances of the work are rare because of its enormous scale."
+      blurb: "Symphonic Voices joined the Dallas Symphony Orchestra, the Dallas Symphony Chorus, and the Baltimore Choral Arts Society for three performances of Mahler’s Symphony No. 8, the “Symphony of a Thousand,” at the Morton H. Meyerson Symphony Center on May 15, 16, and 17, 2026. Led by Music Director Fabio Luisi, the performances also featured the Dallas Symphony Chorus (chorus director Anthony Blake Clark), and eight vocal soloists (see the program below). Performed without intermission in about an hour, the symphony’s first part sets the hymn “Come, Creative Spirit,” while its second part is based on the final scene of Goethe’s Faust, in which Faust’s soul is carried to heaven and redeemed through love. Performances of the work are rare because of its enormous scale.",
+      program: [
+        {
+          choir: "Part One",
+          leads: "Fabio Luisi, conductor",
+          pieces: [
+            ["Hymn: \u201cCome, Creative Spirit\u201d", "Gustav Mahler, Symphony No. 8"]
+          ]
+        },
+        {
+          choir: "Part Two",
+          leads: "Fabio Luisi, conductor",
+          pieces: [
+            ["Final scene of Goethe\u2019s Faust", "Gustav Mahler, Symphony No. 8"]
+          ]
+        },
+        {
+          choir: "Choruses",
+          leads: "Performed without intermission, about 60 minutes",
+          pieces: [
+            ["Dallas Symphony Chorus", "Anthony Blake Clark, chorus director"],
+            ["Symphonic Voices, Dallas Symphony Children\u2019s Chorus", "Ellie Lin, artistic director"],
+            ["Baltimore Choral Arts Society"]
+          ]
+        },
+        {
+          choir: "Soloists",
+          pieces: [
+            ["Rachel Willis S\u00f8rensen", "soprano"],
+            ["Meghan Kasanders", "soprano"],
+            ["Deanna Breiwick", "soprano"],
+            ["Olesya Petrova", "mezzo-soprano"],
+            ["Ren\u00e9e Tatum", "mezzo-soprano"],
+            ["Limmie Pulliam", "tenor"],
+            ["Luke Sutliff", "baritone"],
+            ["Insung Sim", "bass"]
+          ]
+        }
+      ]
     },
     {
       year: 2026,
@@ -109,7 +147,7 @@
       title: "Auditions Open for the 2026/27 Season",
       blurb: "Auditions for Training Choir, Symphonic Voices, and Mixed Ensemble opened for singers in grades 4–12, with no prior experience required for our entry-level choruses.",
       images: [
-        { src: "assets/img/dscc-audition-flyer-2026-27.jpg", alt: "Flyer reading “Join the Dallas Symphony Children’s Chorus: Make music and memories together. 2026–27 season auditions,” with a photo of the chorus and orchestra on the Meyerson stage and a portrait of artistic director Ellie Lin conducting. Auditions at Lovers Lane United Methodist Church, 9200 Inwood Road, Dallas. Students entering grades 4–8: April 20, 5–7 PM; April 25, 9 AM–6 PM; April 27, 5–7 PM; May 4, 5–7 PM. Students entering grades 9–12: April 20, 27, and May 4, 5–8 PM. Scan the QR code to schedule an audition. Questions: Emma Jensen, 214-393-2898." }
+        { src: "assets/img/dscc-audition-flyer-2026-27.jpg", full: "assets/img/dscc-audition-flyer-2026-27-full.jpg", download: "DCC-2026-27-Audition-Flyer.jpg", alt: "Flyer reading “Join the Dallas Symphony Children’s Chorus: Make music and memories together. 2026–27 season auditions,” with a photo of the chorus and orchestra on the Meyerson stage and a portrait of artistic director Ellie Lin conducting. Auditions at Lovers Lane United Methodist Church, 9200 Inwood Road, Dallas. Students entering grades 4–8: April 20, 5–7 PM; April 25, 9 AM–6 PM; April 27, 5–7 PM; May 4, 5–7 PM. Students entering grades 9–12: April 20, 27, and May 4, 5–8 PM. Scan the QR code to schedule an audition. Questions: Emma Jensen, 214-393-2898." }
       ]
     }
   ];
@@ -155,7 +193,8 @@
       item.images.forEach(function (img) {
         var a = document.createElement("a");
         a.className = "flyer-row__link";
-        a.href = img.src;
+        a.href = img.full || img.src;
+        if (img.download) a.setAttribute("data-download", img.download);
         a.setAttribute("aria-haspopup", "dialog");
         var im = document.createElement("img");
         im.src = img.src;
