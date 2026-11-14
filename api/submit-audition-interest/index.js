@@ -27,6 +27,8 @@ const SHEET_TAB_NAME = process.env.GOOGLE_SHEETS_AUDITION_TAB_NAME || "Audition 
 const ALLOWED_GENDERS = ["Female", "Male", "Other"];
 const ALLOWED_GRADES = ["4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
 const MAX_LEN = 500;
+const ALLOWED_SCHOOL_TYPES = ["Public", "Independent", "Homeschool", "Prefer not to say"];
+const ALLOWED_CURRENT_GRADES = ["3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
 
 // Trim, cap length, and neutralize anything a spreadsheet would treat as a
 // formula (values are written with USER_ENTERED, so a submission beginning
@@ -92,6 +94,14 @@ module.exports = async function (context, req) {
   const parent2Email = clean(body.parent2Email);
   const parent2Phone = clean(body.parent2Phone);
   const heardAbout = clean(body.heardAbout);
+  // Current school (all optional). Pulldown choices, plus free text if the school isn't listed.
+  const schoolType = clean(body.schoolType);
+  const schoolCounty = clean(body.schoolCounty);
+  const schoolDistrict = clean(body.schoolDistrict);
+  const schoolName = clean(body.schoolName);
+  const schoolOther = clean(body.schoolOther);
+  let currentGrade = clean(body.currentGrade);
+  if (ALLOWED_CURRENT_GRADES.indexOf(currentGrade) === -1) currentGrade = "";
   const confirmAddress = body.confirmAddress === true || body.confirmAddress === "true";
   const wantsFutureInfo = body.wantsFutureInfo === true || body.wantsFutureInfo === "true";
 
@@ -109,6 +119,28 @@ module.exports = async function (context, req) {
     context.res.status = 400;
     context.res.body = { error: "Please enter valid email addresses." };
     return;
+  }
+  if (ALLOWED_SCHOOL_TYPES.indexOf(schoolType) === -1) {
+    context.res.status = 400;
+    context.res.body = { error: "Please choose a type of school (or \u201cPrefer not to say\u201d)." };
+    return;
+  }
+  // Public or Independent: the rest of the school section is required too
+  // (a school typed into "isn't listed" counts in place of a pulldown choice).
+  if (schoolType === "Public" || schoolType === "Independent") {
+    const NOT_LISTED = "(not listed)";
+    let schoolProblem = "";
+    if (!schoolCounty) schoolProblem = "Please choose the county where your student's school is located.";
+    else if (schoolCounty === NOT_LISTED || schoolDistrict === NOT_LISTED || schoolName === NOT_LISTED) {
+      if (!schoolOther) schoolProblem = "Please tell us the name of your student's school.";
+    } else if (schoolType === "Public" && !schoolDistrict) schoolProblem = "Please choose your student's school district.";
+    else if (!schoolName) schoolProblem = "Please choose your student's school.";
+    if (!schoolProblem && !currentGrade) schoolProblem = "Please choose your student's current grade.";
+    if (schoolProblem) {
+      context.res.status = 400;
+      context.res.body = { error: schoolProblem };
+      return;
+    }
   }
   if (ALLOWED_GENDERS.indexOf(gender) === -1) {
     context.res.status = 400;
@@ -176,6 +208,13 @@ module.exports = async function (context, req) {
         parent2Phone,
         heardAbout,
         wantsFutureInfo ? "Yes" : "No",
+        // Added after the original columns so existing columns keep their positions.
+        schoolType,
+        schoolCounty,
+        schoolDistrict,
+        schoolName,
+        schoolOther,
+        currentGrade,
       ],
       clientEmail,
       privateKey
