@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=162">
+<link rel="stylesheet" href="assets/css/style.css?v=155">
 <style>
   /* Audition form: make the dropdowns (grade, state) match the text boxes in
      height and look. Browsers (especially iPhone Safari) draw a native select
@@ -39,6 +39,9 @@
   .audition-form .donate-field input[type="email"],
   .audition-form .donate-field input[type="tel"],
   .audition-form .donate-field select { line-height: 1.4; box-sizing: border-box; }
+  .audition-form .donate-field[hidden] { display: none; }
+  .audition-form .req[hidden] { display: none; }
+  .audition-form__note { margin: -.25rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--ink-600); }
   .email-hint { margin-top: .4rem; font-size: .95rem; color: var(--ink-600); }
   .email-hint button { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: inherit; text-decoration: underline; cursor: pointer; }
   .audition-form .donate-field select {
@@ -335,6 +338,45 @@
             <input type="text" id="aud-height" name="height" required placeholder="e.g. 5&prime;2&Prime;">
           </div>
           </div>
+          <h3 class="audition-form__group">Current school</h3>
+          <p class="audition-form__note">Knowing where our choristers go to school helps us show donors and community partners how many schools and neighborhoods the DCC serves, and the difference the program makes. Your answers are used only for this purpose and are never shared with other families or publicly.</p>
+          <div class="donate-field">
+            <label for="aud-school-type">Type of school<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-school-type" name="schoolType" required>
+              <option value="">Select a type</option>
+              <option value="Public">Public</option>
+              <option value="Independent">Independent (private)</option>
+              <option value="Homeschool">Homeschool</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="donate-field" id="aud-row-county" hidden>
+            <label for="aud-school-county">County where the school is located<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-county" name="schoolCounty"><option value="">Select a county</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-district" hidden>
+            <label for="aud-school-district">School district<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-district" name="schoolDistrict"><option value="">Select a school district</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-school" hidden>
+            <label for="aud-school-name">School<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-name" name="schoolName"><option value="">Select a school</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-other" hidden>
+            <label for="aud-school-other">Please tell us your school (and district, if applicable)<span class="req" aria-hidden="true" hidden> *</span></label>
+            <input type="text" id="aud-school-other" name="schoolOther" maxlength="150">
+          </div>
+          <div class="donate-field">
+            <label for="aud-current-grade">Current grade (or homeschool equivalent)<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-current-grade" name="currentGrade">
+              <option value="">Select a grade</option>
+              <option value="3rd">3rd grade</option><option value="4th">4th grade</option><option value="5th">5th grade</option>
+              <option value="6th">6th grade</option><option value="7th">7th grade</option><option value="8th">8th grade</option>
+              <option value="9th">9th grade</option><option value="10th">10th grade</option><option value="11th">11th grade</option>
+            </select>
+          </div>
+
+          <h3 class="audition-form__group">Student&rsquo;s address</h3>
           <div class="donate-field">
             <label for="aud-student-street1">Student&rsquo;s address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
             <input type="text" id="aud-student-street1" name="studentStreet1" autocomplete="section-student address-line1" required maxlength="100" placeholder="123 Main St">
@@ -630,6 +672,8 @@
     backdrop.addEventListener("click", closeModal);
   })();
 </script>
+<script src="assets/js/school-data.js?v=1"></script>
+<script src="assets/js/school-picker.js?v=1"></script>
 <script>
   // Audition Interest form: a plain fetch to /api/submit-audition-interest.
   (function () {
@@ -663,6 +707,8 @@
       var input = form.elements[name];
       return !!(window.dccPhone && input && input.value.trim() && !window.dccPhone.read(input).valid);
     }
+    // The school pickers use a placeholder value for "isn't listed"; send readable text instead.
+    function notListed(v) { return v === "__not_listed__" ? "(not listed)" : v; }
     function val(name) {
       var el = form.elements[name];
       return el ? el.value.trim() : "";
@@ -894,18 +940,36 @@
         parent2Email: val("parent2Email"),
         parent2Phone: phone("parent2Phone"),
         heardAbout: val("heardAbout"),
+        schoolType: val("schoolType"),
+        schoolCounty: notListed(val("schoolCounty")),
+        schoolDistrict: notListed(val("schoolDistrict")),
+        schoolName: notListed(val("schoolName")),
+        schoolOther: val("schoolOther"),
+        currentGrade: val("currentGrade"),
         confirmAddress: confirmAddress,
         wantsFutureInfo: form.elements["wantsFutureInfo"].checked
       };
 
       var required = ["studentFirstName", "studentLastName", "studentEmail", "gender", "grade", "age", "height",
         "studentStreet1", "studentCity", "studentState", "studentZip", "parent1Name",
-        "parent1Street1", "parent1City", "parent1State", "parent1Zip", "parent1Email", "parent1Phone", "heardAbout"];
+        "parent1Street1", "parent1City", "parent1State", "parent1Zip", "parent1Email", "parent1Phone", "heardAbout", "schoolType"];
       for (var i = 0; i < required.length; i++) {
         if (!data[required[i]]) {
           showError("Please fill in all required fields.");
           return;
         }
+      }
+      // Current school: once the family says Public or Independent, the rest of the section is required.
+      if (data.schoolType === "Public" || data.schoolType === "Independent") {
+        var NL = "(not listed)";
+        var schoolMsg = "";
+        if (!data.schoolCounty) schoolMsg = "Please choose the county where your student\u2019s school is located.";
+        else if (data.schoolCounty === NL || data.schoolDistrict === NL || data.schoolName === NL) {
+          if (!data.schoolOther) schoolMsg = "Please tell us the name of your student\u2019s school.";
+        } else if (data.schoolType === "Public" && !data.schoolDistrict) schoolMsg = "Please choose your student\u2019s school district.";
+        else if (!data.schoolName) schoolMsg = "Please choose your student\u2019s school.";
+        if (!schoolMsg && !data.currentGrade) schoolMsg = "Please choose your student\u2019s current grade.";
+        if (schoolMsg) { showError(schoolMsg); return; }
       }
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(data.studentEmail) || !emailPattern.test(data.parent1Email) ||
