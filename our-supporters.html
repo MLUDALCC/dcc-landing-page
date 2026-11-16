@@ -317,10 +317,22 @@
 <script>
 (function () {
   var data = window.DCC_SUPPORTERS || {};
+  function label(e) { return typeof e === "string" ? e : e.name; }
+  function isAnon(e) { return /^anonymous/i.test(label(e)); }
+  function key(e) {
+    var k = typeof e === "string" ? e : (e.sort || e.name);
+    return k.replace(/^the\s+/i, "").toLowerCase();
+  }
+  // Anonymous entries first, then everyone else alphabetically (ignoring a leading "The").
+  function ordered(list) {
+    var anon = list.filter(isAnon), named = list.filter(function (e) { return !isAnon(e); });
+    named.sort(function (x, y) { return key(x).localeCompare(key(y), "en", { sensitivity: "base" }); });
+    return anon.concat(named);
+  }
   function render(listId, emptyId, names) {
     var ul = document.getElementById(listId), empty = document.getElementById(emptyId);
     if (!ul || !names || !names.length) return;
-    names.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+    ordered(names).forEach(function (n) { var li = document.createElement("li"); li.textContent = label(n); ul.appendChild(li); });
     if (empty) empty.hidden = true;
   }
   render("founding-supporters", "founding-empty", data.founding);
