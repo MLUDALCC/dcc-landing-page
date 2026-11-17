@@ -36,6 +36,7 @@
 .supporter-list li { break-inside: avoid; padding: .45rem 0; font-size: 1.1rem; color: var(--ink-800, #222); border-bottom: 1px solid rgba(0,0,0,.08); }
 .supporter-empty { margin-top: 1.4rem; font-style: italic; color: var(--ink-600, #555); }
 .supporter-empty[hidden] { display: none; }
+#inaugural-section[hidden] { display: none; }
 .partner-block { margin-top: 2.6rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,.1); text-align: center; }
 .partner-block__label { display: block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-600, #555); }
 .partner-logos { list-style: none; margin: 1.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem 3rem; }
@@ -209,7 +210,7 @@
   </section>
 
   <!-- ============================= INAUGURAL SEASON SUPPORTERS ============================= -->
-  <section class="section section--cream">
+  <section class="section section--cream" id="inaugural-section" hidden>
     <div class="container container--narrow">
       <div class="feature feature--textonly">
         <div class="feature__body" data-reveal>
@@ -224,7 +225,7 @@
   </section>
 
   <!-- ============================= RECOGNITION NOTE ============================= -->
-  <section class="section">
+  <section class="section section--cream" id="recognition-note">
     <div class="container container--narrow">
       <div class="section-head" data-reveal>
         <span class="eyebrow">A Note on Recognition</span>
@@ -347,6 +348,11 @@
   }
   render("founding-supporters", "founding-empty", data.founding);
   render("inaugural-supporters", "inaugural-empty", data.inaugural);
+  /* The Inaugural Season section stays hidden until it has names. */
+  if (data.inaugural && data.inaugural.length) {
+    document.getElementById("inaugural-section").hidden = false;
+    document.getElementById("recognition-note").classList.remove("section--cream");
+  }
 })();
 </script>
 <script src="assets/js/main.js?v=34"></script>
