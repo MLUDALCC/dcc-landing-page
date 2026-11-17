@@ -7,7 +7,7 @@
    inaugural -- gifts received March 1, 2027 through the end of the 2027/28 season. */
 window.DCC_SUPPORTERS = {
   founding: [
-    "Anonymous (2)",
+    "Anonymous (3)",
     "Central Market"
   ],
   inaugural: []
