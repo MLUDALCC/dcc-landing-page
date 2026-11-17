@@ -79,59 +79,8 @@
       heroVideo.pause();
     } else {
       heroVideo.addEventListener("playing", function () { heroVideo.classList.add("is-ready"); });
-      var tryPlay = function () {
-        if (document.hidden || !heroVideo.paused) return;
-        var p = heroVideo.play();
-        if (p && p.catch) p.catch(function () { /* autoplay blocked; poster remains */ });
-      };
-      tryPlay();
-
-      /* Browsers (Safari especially) sometimes pause or stall a looping video
-         and never resume it. Restart it whenever that happens, and fall back
-         to the poster picture if it still cannot play. */
-      heroVideo.addEventListener("pause", function () { setTimeout(tryPlay, 150); });
-      heroVideo.addEventListener("ended", function () { heroVideo.currentTime = 0; tryPlay(); });
-      document.addEventListener("visibilitychange", tryPlay);
-      window.addEventListener("pageshow", tryPlay);
-      window.addEventListener("focus", tryPlay);
-
-      var lastTime = -1, stuck = 0, slowStart = 0;
-      setInterval(function () {
-        if (document.hidden) return;
-        if (heroVideo.paused) { tryPlay(); return; }
-        if (heroVideo.currentTime === lastTime) {
-          stuck++;
-          if (stuck >= 2) {                      /* frozen for ~6 s: nudge it */
-            stuck = 0;
-            heroVideo.currentTime = Math.max(0, heroVideo.currentTime - 0.1);
-            tryPlay();
-          }
-        } else { stuck = 0; }
-        lastTime = heroVideo.currentTime;
-      }, 3000);
-
-      /* Safari accepts a play() that follows a real gesture, so retry on the
-         visitor's first scroll, tap or key press if autoplay was refused. */
-      var onGesture = function () {
-        tryPlay();
-        ["scroll", "touchstart", "click", "keydown"].forEach(function (ev) {
-          window.removeEventListener(ev, onGesture);
-        });
-      };
-      ["scroll", "touchstart", "click", "keydown"].forEach(function (ev) {
-        window.addEventListener(ev, onGesture, { passive: true });
-      });
-
-      /* Nothing loaded after 5 s (source never started): reload it once. */
-      setTimeout(function () {
-        if (heroVideo.readyState === 0) { heroVideo.load(); tryPlay(); }
-      }, 5000);
-
-      /* Never started within 8 s: show the poster instead of a dark box. */
-      setTimeout(function () {
-        if (heroVideo.paused || heroVideo.readyState < 3) heroVideo.classList.remove("is-ready");
-      }, 8000);
-      heroVideo.addEventListener("error", function () { heroVideo.classList.remove("is-ready"); }, true);
+      var playPromise = heroVideo.play();
+      if (playPromise && playPromise.catch) playPromise.catch(function () { /* autoplay blocked; poster remains */ });
     }
   }
 
