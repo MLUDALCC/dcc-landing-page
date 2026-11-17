@@ -36,6 +36,10 @@
 .supporter-list li { break-inside: avoid; padding: .45rem 0; font-size: 1.1rem; color: var(--ink-800, #222); border-bottom: 1px solid rgba(0,0,0,.08); }
 .supporter-empty { margin-top: 1.4rem; font-style: italic; color: var(--ink-600, #555); }
 .supporter-empty[hidden] { display: none; }
+.partner-block { margin-top: 2.6rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,.1); text-align: center; }
+.partner-block__label { display: block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-600, #555); }
+.partner-logos { list-style: none; margin: 1.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem 3rem; }
+.partner-logos img { display: block; width: auto; height: auto; max-width: min(300px, 70vw); max-height: 56px; }
 </style>
 </head>
 <body>
@@ -193,6 +197,12 @@
           <p class="body-text">As the Dallas Symphony Children&rsquo;s Chorus becomes the independent Dallas Children&rsquo;s Chorus, these supporters stepped forward at the very beginning. Founding Supporters are those whose gifts were received through February 28, 2027, as we prepare to launch our first independent season. Their generosity will always be part of our story.</p>
           <ul class="supporter-list" id="founding-supporters" aria-label="Founding Supporters"></ul>
           <p class="body-text supporter-empty" id="founding-empty">Our Founding Supporters will be recognized here.</p>
+          <div class="partner-block">
+            <span class="partner-block__label">With thanks to our corporate partners</span>
+            <ul class="partner-logos" aria-label="Corporate partners">
+              <li><img src="assets/img/central-market-logo.png" width="1119" height="134" alt="Central Market, H-E-B" loading="lazy"></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
