@@ -8,7 +8,8 @@
 window.DCC_SUPPORTERS = {
   founding: [
     "Anonymous (3)",
-    "Central Market"
+    "Central Market",
+    "Chew, Cindy Lin"
   ],
   inaugural: []
 };
