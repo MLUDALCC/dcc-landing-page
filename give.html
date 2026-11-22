@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=164">
+<link rel="stylesheet" href="assets/css/style.css?v=165">
 <script src="assets/js/analytics.js?v=1" defer></script>
 </head>
 <body>
@@ -490,7 +490,7 @@
             <span class="donate-submit__label">Make My Pledge</span>
           </button>
 
-          <p class="donate-form__note">A pledge is a statement of intent, not an immediate charge &mdash; nothing is billed when you submit this form. Questions? Contact us at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+          <p class="donate-form__note">A pledge is a statement of intent, not an immediate charge &mdash; nothing is billed when you submit this form. Questions? Contact us at <a href="mailto:giving@dalcc.org">giving@dalcc.org</a>.</p>
         </form>
       </div>
 
@@ -498,7 +498,7 @@
         <div class="section-head section-head--center">
           <span class="eyebrow eyebrow--center">Thank You</span>
           <h2>Your pledge has been recorded</h2>
-          <p class="body-text mt-lg">Thank you for committing to support the DCC this season. A member of our team will follow up about how to fulfill your pledge. If you have questions in the meantime, reach out at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+          <p class="body-text mt-lg">Thank you for committing to support the DCC this season. A member of our team will follow up about how to fulfill your pledge. If you have questions in the meantime, reach out at <a href="mailto:giving@dalcc.org">giving@dalcc.org</a>.</p>
         </div>
       </div>
     </div>
@@ -864,7 +864,7 @@
           setLoading(false);
           if (!result.ok) {
             if (result.data && result.data.addressWarning) confirmAddress = true;
-            showError((result.data && result.data.error) || "Something went wrong submitting your pledge. Please try again, or contact us at chorus@dalcc.org.");
+            showError((result.data && result.data.error) || "Something went wrong submitting your pledge. Please try again, or contact us at giving@dalcc.org.");
             return;
           }
           formWrap.hidden = true;
@@ -874,7 +874,7 @@
         })
         .catch(function () {
           setLoading(false);
-          showError("We couldn’t reach our server. Please check your connection and try again, or contact us at chorus@dalcc.org.");
+          showError("We couldn’t reach our server. Please check your connection and try again, or contact us at giving@dalcc.org.");
         });
     });
   })();
