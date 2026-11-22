@@ -1053,7 +1053,7 @@ body.nav-open { overflow: hidden; }
 .footer-col a:hover { color: var(--stone-500); }
 .footer-contact { margin-top: 1.4rem; font-size: 1rem; line-height: 1.5; }
 .footer-contact span { display: block; margin-bottom: .45rem; }
-.footer-contact .footer-contact__label { display: inline; font-weight: 600; letter-spacing: .06em; color: var(--stone-ink); margin-right: .45rem; }
+.footer-contact .footer-contact__label { display: inline; font-weight: 400; letter-spacing: .06em; color: var(--stone-500); margin-right: .45rem; }
 .footer-contact a { color: var(--ink-600); overflow-wrap: anywhere; }
 .footer-contact a:hover { color: var(--stone-500); }
 .footer-social { display: flex; gap: .9rem; margin-top: 1.3rem; }
