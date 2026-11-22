@@ -13,8 +13,8 @@
 //                  commas, e.g. "SV, ME". Full names also work.
 //     C  Type      Rehearsal, Concert, or Other
 //     D  Title     e.g. "Monday Rehearsal" or "Fall Concert"
-//     E  Start     e.g. 5:30 PM   (shown exactly as typed)
-//     F  End       e.g. 7:00 PM   (optional)
+//     E  Start     e.g. 5:30pm   (shown exactly as typed)
+//     F  End       e.g. 7pm   (optional)
 //     G  Location  (optional)
 //     H  Notes     (optional; call time, dress code, what to bring...)
 //
@@ -66,7 +66,7 @@ function serialToYmd(n) {
   return validYmd(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
 }
 
-// "18:00" or "18:00:00" -> "6:00 PM". Anything else (e.g. "5:30 PM", "TBD")
+// "18:00" or "18:00:00" -> "6pm". Anything else (e.g. "5:30pm", "TBD")
 // is shown exactly as typed.
 function niceTime(raw) {
   const s = String(raw || "").trim();
@@ -74,7 +74,7 @@ function niceTime(raw) {
   if (!m) return s;
   const h = +m[1], min = m[2];
   if (h > 23) return s;
-  return (h % 12 === 0 ? 12 : h % 12) + ":" + min + " " + (h < 12 ? "AM" : "PM");
+  return (h % 12 === 0 ? 12 : h % 12) + (min === "00" ? "" : ":" + min) + (h < 12 ? "am" : "pm");
 }
 
 function parseChoirs(raw) {
