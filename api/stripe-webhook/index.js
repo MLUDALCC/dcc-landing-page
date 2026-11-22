@@ -7,8 +7,8 @@
 //                          created in Stripe Dashboard > Developers > Webhooks
 //   RESEND_API_KEY         Resend API key with sending permission
 // Optional:
-//   THANKYOU_FROM          default: Dallas Children's Chorus <chorus@mail.dalcc.org>
-//   THANKYOU_REPLY_TO      default: chorus@dalcc.org
+//   THANKYOU_FROM          default: Dallas Children's Chorus <giving@mail.dalcc.org>
+//   THANKYOU_REPLY_TO      default: giving@dalcc.org
 // Never commit any of these values to the repo.
 //
 // Stripe retries a webhook until it gets a 2xx, so the Resend call carries an
@@ -17,8 +17,8 @@
 const Stripe = require("stripe");
 const { buildThankYou } = require("./thankyou");
 
-const DEFAULT_FROM = "Dallas Children's Chorus <chorus@mail.dalcc.org>";
-const DEFAULT_REPLY_TO = "chorus@dalcc.org";
+const DEFAULT_FROM = "Dallas Children's Chorus <giving@mail.dalcc.org>";
+const DEFAULT_REPLY_TO = "giving@dalcc.org";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 module.exports = async function (context, req) {
