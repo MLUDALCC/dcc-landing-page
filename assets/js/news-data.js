@@ -61,8 +61,8 @@
         }
       ],
       images: [
-        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
-        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children\u2019s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
       ]
     },
     {
@@ -70,10 +70,10 @@
       date: "October 2026",
       sortDate: "2026-10-01",
       title: "Fall and Spring Concert Tickets Now on Sale",
-      blurb: "Tickets are now on sale for both of the Dallas Symphony Children’s Chorus’s Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30 PM at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra’s website using the links below.",
+      blurb: "Tickets are now on sale for both of the Dallas Symphony Children’s Chorus’s Meyerson Symphony Center concerts this season. The DSCC Fall Concert takes place November 1, 2026, with all three choruses — Training Choir, Symphonic Voices, and Mixed Ensemble — opening the 2026/27 season together. The DSCC Spring Concert follows on May 2, 2027, when the same three choruses return to close out the season. Both concerts begin at 7:30pm at the Morton H. Meyerson Symphony Center. Tickets are $30 per seat and can be purchased directly through the Dallas Symphony Orchestra’s website using the links below.",
       images: [
-        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
-        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
       ],
       ctas: [
         { label: "Buy Fall Concert Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" },
@@ -154,7 +154,7 @@
       title: "Auditions Open for the 2026/27 Season",
       blurb: "Auditions for Training Choir, Symphonic Voices, and Mixed Ensemble opened for singers in grades 4–12, with no prior experience required for our entry-level choruses.",
       images: [
-        { src: "assets/img/dscc-audition-flyer-2026-27.jpg", full: "assets/img/dscc-audition-flyer-2026-27-full.jpg", download: "DCC-2026-27-Audition-Flyer.jpg", alt: "Flyer reading “Join the Dallas Symphony Children’s Chorus: Make music and memories together. 2026–27 season auditions,” with a photo of the chorus and orchestra on the Meyerson stage and a portrait of artistic director Ellie Lin conducting. Auditions at Lovers Lane United Methodist Church, 9200 Inwood Road, Dallas. Students entering grades 4–8: April 20, 5–7 PM; April 25, 9 AM–6 PM; April 27, 5–7 PM; May 4, 5–7 PM. Students entering grades 9–12: April 20, 27, and May 4, 5–8 PM. Scan the QR code to schedule an audition. Questions: Emma Jensen, 214-393-2898." }
+        { src: "assets/img/dscc-audition-flyer-2026-27.jpg", full: "assets/img/dscc-audition-flyer-2026-27-full.jpg", download: "DCC-2026-27-Audition-Flyer.jpg", alt: "Flyer reading “Join the Dallas Symphony Children’s Chorus: Make music and memories together. 2026–27 season auditions,” with a photo of the chorus and orchestra on the Meyerson stage and a portrait of artistic director Ellie Lin conducting. Auditions at Lovers Lane United Methodist Church, 9200 Inwood Road, Dallas. Students entering grades 4–8: April 20, 5–7pm; April 25, 9am–6pm; April 27, 5–7pm; May 4, 5–7pm. Students entering grades 9–12: April 20, 27, and May 4, 5–8pm. Scan the QR code to schedule an audition. Questions: Emma Jensen, 214-393-2898." }
       ]
     }
   ];

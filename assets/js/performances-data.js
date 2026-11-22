@@ -116,11 +116,11 @@
     {
       startDate: "2026-08-28",
       title: "Performance with Foreigner",
-      tag: "August 28, 2026 · 6:30 PM · Symphonic Voices",
+      tag: "August 28, 2026 · 6:30pm · Symphonic Voices",
       desc: "Symphonic Voices joined the rock band Foreigner on stage at Fair Park’s Dos Equis Pavilion, performing the band’s hit “I Want to Know What Love Is.”",
       facts: [
         ["Date", "August 28, 2026"],
-        ["Time", "6:30 PM"],
+        ["Time", "6:30pm"],
         ["Choir", "Symphonic Voices"],
         ["Location", "Dos Equis Pavilion, Fair Park"]
       ],
@@ -133,13 +133,13 @@
     {
       startDate: "2026-11-01",
       title: "DSCC Fall Concert",
-      tag: "November 1, 2026 · 7:30 PM · All Choirs",
+      tag: "November 1, 2026 · 7:30pm · All Choirs",
       badge: "Tickets On Sale Now",
       desc: "All three DSCC choruses open the season together at the Morton H. Meyerson Symphony Center, marking the ensemble’s fifth season of concerts.",
       pastDesc: "All three DSCC choruses opened the season together at the Morton H. Meyerson Symphony Center, marking the ensemble’s fifth season of concerts.",
       facts: [
         ["Date", "November 1, 2026"],
-        ["Time", "7:30 PM"],
+        ["Time", "7:30pm"],
         ["Choirs", "All Choirs"],
         ["Location", "Morton H. Meyerson Symphony Center"],
         ["Address", "2301 Flora Street\nDallas, TX 75201"]
@@ -184,8 +184,8 @@
         }
       ],
       images: [
-        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
-        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30 PM at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
+        { src: "assets/img/dscc-fall-concert-flyer-singers.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of choristers singing. Tickets at dallassymphony.org." },
+        { src: "assets/img/dscc-fall-concert-flyer-meyerson.jpg", alt: "Flyer for the Dallas Symphony Children’s Chorus Fall Concert, Sunday, November 1 at 7:30pm at the Morton H. Meyerson Symphony Center, with a photo of the chorus on the Meyerson stage. Tickets at dallassymphony.org." }
       ],
       ctas: [{ label: "Buy Tickets", href: "https://www.dallassymphony.org/productions/dscc-fall-concert-2026/" }]
     },
@@ -198,7 +198,7 @@
       pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center.",
       facts: [
         ["Dates", "December 12, 13, 19 & 20, 2026"],
-        ["Time", "2:00 PM"],
+        ["Time", "2pm"],
         ["Choir", "Symphonic Voices"],
         ["With", "Dallas Symphony Orchestra & Dallas Symphony Chorus"],
         ["Location", "Morton H. Meyerson Symphony Center"],
@@ -236,13 +236,13 @@
     {
       startDate: "2027-05-02",
       title: "DSCC Spring Concert",
-      tag: "May 2, 2027 · 7:30 PM · All Choirs",
+      tag: "May 2, 2027 · 7:30pm · All Choirs",
       badge: "Tickets On Sale Now",
       desc: "All three DSCC choruses close out the season together at the Morton H. Meyerson Symphony Center, marking the ensemble’s fifth season of concerts.",
       pastDesc: "All three DSCC choruses closed out the season together at the Morton H. Meyerson Symphony Center, marking the ensemble’s fifth season of concerts.",
       facts: [
         ["Date", "May 2, 2027"],
-        ["Time", "7:30 PM"],
+        ["Time", "7:30pm"],
         ["Choirs", "All Choirs"],
         ["Location", "Morton H. Meyerson Symphony Center"],
         ["Address", "2301 Flora Street\nDallas, TX 75201"]
