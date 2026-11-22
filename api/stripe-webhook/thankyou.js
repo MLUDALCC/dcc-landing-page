@@ -33,7 +33,7 @@ function buildThankYou(opts) {
     `Thank you for your generous gift of ${amount} to the Dallas Children's Chorus. Because of supporters like you, young singers across Dallas-Fort Worth get choral training, performance opportunities, and a community that helps them grow.`,
   ];
   if (hasTribute) lines.push(`We have noted that your gift is made in honor/memory of ${tribute}. What a thoughtful way to remember them.`);
-  lines.push("Your receipt for tax purposes comes in a separate email from Stripe, our payment processor. If you don't see it in a few minutes, please check your spam folder or write to us at chorus@dalcc.org.");
+  lines.push("Your receipt for tax purposes comes in a separate email from Stripe, our payment processor. If you don't see it in a few minutes, please check your spam folder or write to us at giving@dalcc.org.");
   lines.push("With gratitude,");
   const signoff = "The Dallas Children's Chorus";
 
@@ -56,7 +56,7 @@ function buildThankYou(opts) {
     `<p style="margin:0 0 8px;font-size:16px;line-height:1.6;color:#1b2a41;">${escapeHtml(signoff)}</p>` +
     `</td></tr>` +
     `<tr><td style="padding:16px 36px 28px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;color:#6b7686;border-top:1px solid #e3e7ee;">` +
-    `Dallas Children's Chorus &middot; <a href="https://www.dalcc.org" style="color:#6b7686;">www.dalcc.org</a> &middot; <a href="mailto:chorus@dalcc.org" style="color:#6b7686;">chorus@dalcc.org</a>` +
+    `Dallas Children's Chorus &middot; <a href="https://www.dalcc.org" style="color:#6b7686;">www.dalcc.org</a> &middot; <a href="mailto:giving@dalcc.org" style="color:#6b7686;">giving@dalcc.org</a>` +
     `</td></tr></table></td></tr></table></body></html>`;
 
   return { subject: "Thank you for your gift to the Dallas Children's Chorus", text, html };
