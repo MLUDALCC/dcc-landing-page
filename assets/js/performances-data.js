@@ -191,14 +191,30 @@
     },
     {
       startDate: "2026-12-12",
+      title: "Family Holidays with the DSO",
+      tag: "December 12, 2026 · 11am · Symphonic Voices",
+      desc: "Symphonic Voices joins the Dallas Symphony Orchestra for this kid-friendly, one-hour concert of holiday classics at the Morton H. Meyerson Symphony Center, with a sing-along that invites audience members of all ages to join in.",
+      pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra for this kid-friendly, one-hour concert of holiday classics at the Morton H. Meyerson Symphony Center, with a sing-along that invited audience members of all ages to join in.",
+      facts: [
+        ["Date", "December 12, 2026"],
+        ["Time", "11am"],
+        ["Choir", "Symphonic Voices"],
+        ["With", "Dallas Symphony Orchestra"],
+        ["Location", "Morton H. Meyerson Symphony Center"],
+        ["Address", "2301 Flora Street\nDallas, TX 75201"]
+      ],
+      ctas: [{ label: "Buy Tickets", href: "https://www.dallassymphony.org/productions/family-holidays-2026/" }]
+    },
+    {
+      startDate: "2026-12-12",
       endDate: "2026-12-20",
       title: "Holidays with the DSO",
       tag: "December 12, 13, 19 & 20, 2026 · Symphonic Voices",
-      desc: "Symphonic Voices joins the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center.",
-      pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center.",
+      desc: "Symphonic Voices joins the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center. The choir performs at the 2pm matinee concerts only, not at the evening concerts.",
+      pastDesc: "Symphonic Voices joined the Dallas Symphony Orchestra and the Dallas Symphony Chorus for this beloved holiday tradition at the Morton H. Meyerson Symphony Center, performing at the 2pm matinee concerts only.",
       facts: [
         ["Dates", "December 12, 13, 19 & 20, 2026"],
-        ["Time", "2pm"],
+        ["Time", "2pm matinees only"],
         ["Choir", "Symphonic Voices"],
         ["With", "Dallas Symphony Orchestra & Dallas Symphony Chorus"],
         ["Location", "Morton H. Meyerson Symphony Center"],
