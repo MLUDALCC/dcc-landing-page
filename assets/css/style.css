@@ -1466,6 +1466,8 @@ body.modal-open { overflow: hidden; }
 .donate-form__note { font-size: 0.94rem; color: var(--stone-ink); text-align: center; margin: 0; }
 .donate-form__note a { text-decoration: underline; text-underline-offset: 2px; }
 .donate-form__note a:hover { color: var(--graphite-800); }
+#recognition-note { padding-block: 0 clamp(2rem, 3.5vw, 3rem); }  /* sits directly under the Founding Supporters section */
+#inaugural-section:not([hidden]) + #recognition-note { padding-top: clamp(2rem, 3.5vw, 3rem); }  /* after the tinted Inaugural section */
 .recognition-footnote { font-size: .9rem; line-height: 1.55; color: var(--ink-400); margin: 0; max-width: 62ch; }
 .recognition-footnote a { text-decoration: underline; text-underline-offset: 2px; }
 .recognition-footnote a:hover { color: var(--graphite-800); }
