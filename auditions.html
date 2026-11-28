@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=171">
+<link rel="stylesheet" href="assets/css/style.css?v=172">
 <style>
   /* Audition form: make the dropdowns (grade, state) match the text boxes in
      height and look. Browsers (especially iPhone Safari) draw a native select
@@ -377,6 +377,21 @@
               <option value="9th">9th grade</option><option value="10th">10th grade</option><option value="11th">11th grade</option>
             </select>
           </div>
+
+          <h3 class="audition-form__group">Race and ethnicity (optional)</h3>
+          <p class="audition-form__note">Sharing your student&rsquo;s race and ethnicity is entirely optional. It helps us show donors and funders the range of families the DCC serves, in the same way that knowing where our choristers go to school does. Your answers are reported only in combined form, are not considered in audition decisions, and are never shared with other families or publicly.</p>
+          <fieldset class="pledge-cadence-fieldset" id="aud-race-fieldset">
+            <legend>Select all that apply</legend>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="American Indian or Alaska Native"><span>American Indian or Alaska Native</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Asian"><span>Asian</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Black or African American"><span>Black or African American</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Hispanic or Latino"><span>Hispanic or Latino</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Middle Eastern or North African"><span>Middle Eastern or North African</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Native Hawaiian or Pacific Islander"><span>Native Hawaiian or Pacific Islander</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="White"><span>White</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Another race or ethnicity"><span>Another race or ethnicity</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Prefer not to say" id="aud-race-none"><span>Prefer not to say</span></label>
+          </fieldset>
 
           <h3 class="audition-form__group">Student&rsquo;s address</h3>
           <div class="donate-field">
@@ -912,6 +927,20 @@
       });
     });
 
+    // "Prefer not to say" and the specific choices exclude each other.
+    (function () {
+      var boxes = form.querySelectorAll('input[name="raceEthnicity"]');
+      var none = document.getElementById("aud-race-none");
+      Array.prototype.forEach.call(boxes, function (b) {
+        b.addEventListener("change", function () {
+          if (!b.checked) return;
+          Array.prototype.forEach.call(boxes, function (o) {
+            if (b === none ? o !== none : o === none) o.checked = false;
+          });
+        });
+      });
+    })();
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       hideError();
@@ -947,6 +976,7 @@
         parent2Email: val("parent2Email"),
         parent2Phone: phone("parent2Phone"),
         heardAbout: val("heardAbout"),
+        raceEthnicity: Array.prototype.map.call(form.querySelectorAll('input[name="raceEthnicity"]:checked'), function (c) { return c.value; }).join("; "),
         schoolType: val("schoolType"),
         schoolCounty: notListed(val("schoolCounty")),
         schoolDistrict: notListed(val("schoolDistrict")),
