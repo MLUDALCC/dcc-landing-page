@@ -11,11 +11,42 @@
       "headers": {
         "cache-control": "public, max-age=86400"
       }
+    },
+    {
+      "route": "/assets/img/*",
+      "headers": {
+        "cache-control": "public, max-age=604800"
+      }
+    },
+    {
+      "route": "/assets/css/*",
+      "headers": {
+        "cache-control": "public, max-age=2592000"
+      }
+    },
+    {
+      "route": "/assets/js/*",
+      "headers": {
+        "cache-control": "public, max-age=2592000"
+      }
+    },
+    {
+      "route": "/assets/vendor/*",
+      "headers": {
+        "cache-control": "public, max-age=2592000"
+      }
     }
   ],
   "responseOverrides": {
     "404": {
       "rewrite": "/404.html"
     }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Strict-Transport-Security": "max-age=31536000"
   }
 }
