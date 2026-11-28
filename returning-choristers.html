@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js-reveal');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Returning Chorister Form | Dallas Children&rsquo;s Chorus</title>
+<meta name="description" content="Returning chorister form for the Dallas Children&rsquo;s Chorus&rsquo;s 2027/28 season.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dallas Children’s Chorus">
+<meta property="og:title" content="Returning Chorister Form | Dallas Children’s Chorus">
+<meta property="og:description" content="Returning chorister form for the Dallas Children’s Chorus’s 2027/28 season.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Returning Chorister Form | Dallas Children’s Chorus">
+<meta name="twitter:description" content="Returning chorister form for the Dallas Children’s Chorus’s 2027/28 season.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:image" content="https://www.dalcc.org/assets/img/og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dallas Children’s Chorus singers performing on stage">
+<meta name="twitter:image" content="https://www.dalcc.org/assets/img/og-share.jpg">
+<link rel="icon" href="assets/img/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/vendor/intl-tel-input/css/intlTelInput.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Condensed:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=172">
+<style>
+  .audition-form [hidden], #ret-details[hidden] { display: none !important; }
+  /* Audition form: make the dropdowns (grade, state) match the text boxes in
+     height and look. Browsers (especially iPhone Safari) draw a native select
+     shorter than a text box, so the native look is switched off and a
+     matching arrow is drawn instead. */
+  .audition-form .donate-field input[type="text"],
+  .audition-form .donate-field input[type="email"],
+  .audition-form .donate-field input[type="tel"],
+  .audition-form .donate-field select { line-height: 1.4; box-sizing: border-box; }
+  .audition-form .donate-field[hidden] { display: none; }
+  .audition-form .req[hidden] { display: none; }
+  .audition-form__note { margin: -.25rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--ink-600); }
+  .email-hint { margin-top: .4rem; font-size: .95rem; color: var(--ink-600); }
+  .email-hint button { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: inherit; text-decoration: underline; cursor: pointer; }
+  .audition-form .donate-field select {
+    -webkit-appearance: none; appearance: none; width: 100%; border-radius: 4px;
+    padding-right: 2.4rem;
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23333' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right .9rem center; background-size: 12px 8px;
+  }
+</style>
+<script src="assets/js/analytics.js?v=1" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================= HEADER ============================= -->
+<header class="site-header site-header--solid">
+  <div class="container">
+    <a href="index.html" class="wordmark">
+      <span class="wordmark__name wordmark__name--swap">
+        <img class="wordmark__logo wordmark__logo--color" src="assets/img/dcc-wordmark-color.png" alt="Dallas Children&rsquo;s Chorus">
+        <img class="wordmark__logo wordmark__logo--white" src="assets/img/dcc-wordmark-white.png" alt="" aria-hidden="true">
+      </span>
+      <span class="wordmark__tag">Official Children&rsquo;s Chorus of the Dallas Symphony Orchestra</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li class="main-nav__item">
+          <a class="main-nav__link" href="about-who-we-are.html" aria-expanded="false">About
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="about-who-we-are.html">Who We Are</a>
+            <a href="our-impact.html">Our Impact</a>
+            <a href="leadership.html">Leadership</a>
+            <a href="board-of-trustees.html">Board of Trustees</a>
+            <a href="financial-transparency.html">Transparency</a>
+            <a href="our-connection-to-the-dso.html">DSO Connection</a>
+            <a href="faq.html">FAQ</a>
+          </div>
+        </li>
+
+        <li class="main-nav__item main-nav__item--current">
+          <a class="main-nav__link" href="#" aria-expanded="false">Sing With Us
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="programs.html">Programs</a>
+            <a href="auditions.html">Auditions</a>
+          </div>
+        </li>
+
+        <li class="main-nav__item"><a class="main-nav__link" href="performances.html">Performances</a></li>
+
+        <li class="main-nav__item"><a class="main-nav__link" href="media.html">Media</a></li>
+
+        <li class="main-nav__item">
+          <a class="main-nav__link" href="give.html" aria-expanded="false">Give
+            <svg class="chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+          <div class="main-nav__panel">
+            <a href="give.html">Give</a>
+            <a href="ways-to-give.html">Ways to Give</a>
+            <a href="our-supporters.html">Our Supporters</a>
+          </div>
+        </li>
+
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="secondary-links">
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+        <a href="family-portal.html">Family Portal</a>
+      </div>
+      <div class="header-actions__buttons">
+        <a href="give.html" class="btn btn--accent">Give</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================= MOBILE NAV ============================= -->
+<div class="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav__head">
+    <button class="mobile-nav__close" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M20 4L4 20" stroke="#24272B" stroke-width="1.6"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav__body">
+    <ul>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>About</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="about-who-we-are.html">Who We Are</a>
+          <a href="our-impact.html">Our Impact</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="board-of-trustees.html">Board of Trustees</a>
+          <a href="financial-transparency.html">Transparency</a>
+          <a href="our-connection-to-the-dso.html">DSO Connection</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </li>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>Sing With Us</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="programs.html">Programs</a>
+          <a href="auditions.html">Auditions</a>
+        </div>
+      </li>
+      <li><a class="mobile-nav__top" href="performances.html"><span>Performances</span></a></li>
+      <li><a class="mobile-nav__top" href="media.html"><span>Media</span></a></li>
+      <li>
+        <button class="mobile-nav__top" type="button"><span>Give</span>
+          <svg class="chev" width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5 6 6.5 11 1.5" stroke="#24272B" stroke-width="1.4"/></svg>
+        </button>
+        <div class="mobile-nav__sub">
+          <a href="give.html">Give</a>
+          <a href="ways-to-give.html">Ways to Give</a>
+          <a href="our-supporters.html">Our Supporters</a>
+        </div>
+      </li>
+    </ul>
+    <div class="mobile-nav__actions">
+      <a href="auditions.html" class="btn btn--outline">Auditions</a>
+      <a href="give.html" class="btn btn--accent">Give</a>
+    </div>
+    <div class="mobile-nav__secondary">
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact</a>
+      <a href="family-portal.html">Family Portal</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============================= FORM ============================= -->
+  <section class="section" style="padding-top: clamp(7.5rem, 10vw, 9rem);">
+    <div class="container" style="max-width: 560px;">
+      <div class="donate-box">
+        <div id="audition-form-wrap">
+          <div class="section-head section-head--center">
+            <span class="eyebrow eyebrow--center">2027/28 Season</span>
+            <h2 id="ret-title">Returning Chorister Form</h2>
+            <p class="body-text mt-lg">Is your chorister planning to sing with the Dallas Children&rsquo;s Chorus next season? Let us know your plans and confirm your family&rsquo;s details, and tell us if your chorister would like to audition for another choir.</p>
+            <p class="audition-form__required-note"><span class="req" aria-hidden="true">*</span> indicates a required field</p>
+          </div>
+
+          <form class="audition-form" id="audition-form" novalidate>
+          <h3 class="audition-form__group">About your chorister</h3>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-first-name">Student&rsquo;s first name<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-first-name" name="studentFirstName" autocomplete="given-name" required>
+          </div>
+          <div class="donate-field">
+            <label for="aud-last-name">Student&rsquo;s last name<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-last-name" name="studentLastName" autocomplete="family-name" required>
+          </div>
+          </div>
+          <fieldset class="pledge-cadence-fieldset">
+            <legend>Current choir<span class="req" aria-hidden="true"> *</span></legend>
+            <label class="donate-checkbox"><input type="radio" name="currentChoir" value="Training Choir"><span>Training Choir</span></label>
+            <label class="donate-checkbox"><input type="radio" name="currentChoir" value="Symphonic Voices"><span>Symphonic Voices</span></label>
+            <label class="donate-checkbox"><input type="radio" name="currentChoir" value="Mixed Ensemble"><span>Mixed Ensemble</span></label>
+          </fieldset>
+
+          <h3 class="audition-form__group">Plans for 2027/28</h3>
+          <p class="audition-form__note">Choristers who plan to stay in their current choir do not need to audition again. If your chorister would like to move up, choose the audition option below and we will send audition details.</p>
+          <fieldset class="pledge-cadence-fieldset" id="ret-plan-fieldset">
+            <legend>Which best describes your plans for next season?<span class="req" aria-hidden="true"> *</span></legend>
+            <label class="donate-checkbox"><input type="radio" name="plan" value="Return to current choir"><span>We plan to return to the same choir (no audition needed)</span></label>
+            <label class="donate-checkbox" data-needs="Training Choir"><input type="radio" name="plan" value="Audition for Symphonic Voices"><span>We would like to audition for Symphonic Voices</span></label>
+            <label class="donate-checkbox" data-needs="Training Choir,Symphonic Voices"><input type="radio" name="plan" value="Audition for Mixed Ensemble"><span>We would like to audition for Mixed Ensemble</span></label>
+            <label class="donate-checkbox"><input type="radio" name="plan" value="Not returning"><span>We will not be returning</span></label>
+            <label class="donate-checkbox"><input type="radio" name="plan" value="Not sure yet"><span>We are not sure yet</span></label>
+          </fieldset>
+          <div class="donate-field">
+            <label for="ret-notes">Anything you would like us to know? (optional)</label>
+            <input type="text" id="ret-notes" name="notes" maxlength="300">
+          </div>
+
+          <h3 class="audition-form__group">Parent/Guardian contact</h3>
+          <div class="donate-field">
+            <label for="aud-p1-name">Name<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-name" name="parent1Name" autocomplete="name" required placeholder="Full name">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-email">Email address<span class="req" aria-hidden="true"> *</span></label>
+            <input type="email" id="aud-p1-email" name="parent1Email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-email-confirm">Confirm email address<span class="req" aria-hidden="true"> *</span></label>
+            <input type="email" id="aud-p1-email-confirm" name="parent1EmailConfirm" autocomplete="off" required placeholder="Re-enter your email address">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-phone">Phone number<span class="req" aria-hidden="true"> *</span></label>
+            <input type="tel" id="aud-p1-phone" name="parent1Phone" autocomplete="tel" required placeholder="(214) 555-0100">
+          </div>
+
+          <div id="ret-details">
+          <h3 class="audition-form__group">A few more details about the student</h3>
+          <div class="donate-field">
+            <label for="aud-student-email">Student&rsquo;s email address<span class="req" aria-hidden="true"> *</span></label>
+            <input type="email" id="aud-student-email" name="studentEmail" autocomplete="email" required placeholder="student@example.com">
+          </div>
+
+          <fieldset class="pledge-cadence-fieldset">
+            <legend>Gender<span class="req" aria-hidden="true"> *</span></legend>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Female"><span>Female</span></label>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Male"><span>Male</span></label>
+            <label class="donate-checkbox"><input type="radio" name="gender" value="Other"><span>Other</span></label>
+          </fieldset>
+
+          <div class="donate-field">
+            <label for="aud-grade">Grade (or homeschool equivalent) your student will be entering for the 2027&ndash;28 school year<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-grade" name="grade" required>
+              <option value="">Select a grade</option>
+              <option value="4th">4th grade</option>
+              <option value="5th">5th grade</option>
+              <option value="6th">6th grade</option>
+              <option value="7th">7th grade</option>
+              <option value="8th">8th grade</option>
+              <option value="9th">9th grade</option>
+              <option value="10th">10th grade</option>
+              <option value="11th">11th grade</option>
+              <option value="12th">12th grade</option>
+            </select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-age">Student&rsquo;s age<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-age" name="age" required>
+          </div>
+
+          <h3 class="audition-form__group">Current school</h3>
+          <p class="audition-form__note">Knowing where our choristers go to school helps us show donors and community partners how many schools and neighborhoods the DCC serves, and the difference the program makes. Your answers are used only for this purpose and are never shared with other families or publicly.</p>
+          <div class="donate-field">
+            <label for="aud-school-type">Type of school<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-school-type" name="schoolType" required>
+              <option value="">Select a type</option>
+              <option value="Public">Public</option>
+              <option value="Independent">Independent (private)</option>
+              <option value="Homeschool">Homeschool</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="donate-field" id="aud-row-county" hidden>
+            <label for="aud-school-county">County where the school is located<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-county" name="schoolCounty"><option value="">Select a county</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-district" hidden>
+            <label for="aud-school-district">School district<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-district" name="schoolDistrict"><option value="">Select a school district</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-school" hidden>
+            <label for="aud-school-name">School<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-school-name" name="schoolName"><option value="">Select a school</option></select>
+          </div>
+          <div class="donate-field" id="aud-row-other" hidden>
+            <label for="aud-school-other">Please tell us your school (and district, if applicable)<span class="req" aria-hidden="true" hidden> *</span></label>
+            <input type="text" id="aud-school-other" name="schoolOther" maxlength="150">
+          </div>
+          <div class="donate-field">
+            <label for="aud-current-grade">Current grade (or homeschool equivalent)<span class="req" aria-hidden="true" hidden> *</span></label>
+            <select id="aud-current-grade" name="currentGrade">
+              <option value="">Select a grade</option>
+              <option value="3rd">3rd grade</option><option value="4th">4th grade</option><option value="5th">5th grade</option>
+              <option value="6th">6th grade</option><option value="7th">7th grade</option><option value="8th">8th grade</option>
+              <option value="9th">9th grade</option><option value="10th">10th grade</option><option value="11th">11th grade</option>
+            </select>
+          </div>
+
+          <h3 class="audition-form__group">Race and ethnicity (optional)</h3>
+          <p class="audition-form__note">Sharing your student&rsquo;s race and ethnicity is entirely optional. It helps us show donors and funders the range of families the DCC serves, in the same way that knowing where our choristers go to school does. Your answers are reported only in combined form, are not considered in audition decisions, and are never shared with other families or publicly.</p>
+          <fieldset class="pledge-cadence-fieldset" id="aud-race-fieldset">
+            <legend>Select all that apply</legend>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="American Indian or Alaska Native"><span>American Indian or Alaska Native</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Asian"><span>Asian</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Black or African American"><span>Black or African American</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Hispanic or Latino"><span>Hispanic or Latino</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Middle Eastern or North African"><span>Middle Eastern or North African</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Native Hawaiian or Pacific Islander"><span>Native Hawaiian or Pacific Islander</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="White"><span>White</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Another race or ethnicity"><span>Another race or ethnicity</span></label>
+            <label class="donate-checkbox"><input type="checkbox" name="raceEthnicity" value="Prefer not to say" id="aud-race-none"><span>Prefer not to say</span></label>
+          </fieldset>
+
+          <h3 class="audition-form__group">Student&rsquo;s address</h3>
+          <div class="donate-field">
+            <label for="aud-student-street1">Student&rsquo;s address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-street1" name="studentStreet1" autocomplete="section-student address-line1" required maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-student-street2" name="studentStreet2" autocomplete="section-student address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-city">City<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-city" name="studentCity" autocomplete="section-student address-level2" required maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-student-state">State<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-student-state" name="studentState" autocomplete="section-student address-level1" required><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-student-zip">ZIP code<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-student-zip" name="studentZip" autocomplete="section-student postal-code" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
+          </div>
+
+          <h3 class="audition-form__group">Parent/Guardian #1 address</h3>
+          <label class="donate-checkbox">
+            <input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p1">
+            <span>Same address as the student</span>
+          </label>
+          <div class="donate-field">
+            <label for="aud-p1-street1">Address &ndash; Street 1<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-street1" name="parent1Street1" autocomplete="section-p1 address-line1" required maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-p1-street2" name="parent1Street2" autocomplete="section-p1 address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-city">City<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-city" name="parent1City" autocomplete="section-p1 address-level2" required maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-p1-state">State<span class="req" aria-hidden="true"> *</span></label>
+            <select id="aud-p1-state" name="parent1State" autocomplete="section-p1 address-level1" required><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p1-zip">ZIP code<span class="req" aria-hidden="true"> *</span></label>
+            <input type="text" id="aud-p1-zip" name="parent1Zip" autocomplete="section-p1 postal-code" required inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
+          </div>
+
+          <h3 class="audition-form__group">Parent/Guardian #2 (optional)</h3>
+          <div class="donate-field">
+            <label for="aud-p2-name">Name</label>
+            <input type="text" id="aud-p2-name" name="parent2Name" placeholder="Full name">
+          </div>
+          <label class="donate-checkbox">
+            <input type="checkbox" class="js-same-address" data-from="aud-student" data-to="aud-p2">
+            <span>Same address as the student</span>
+          </label>
+          <div class="donate-field">
+            <label for="aud-p2-street1">Address &ndash; Street 1</label>
+            <input type="text" id="aud-p2-street1" name="parent2Street1" autocomplete="section-p2 address-line1" maxlength="100" placeholder="123 Main St">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-street2">Street 2 (apt, suite, unit)</label>
+            <input type="text" id="aud-p2-street2" name="parent2Street2" autocomplete="section-p2 address-line2" maxlength="100">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-city">City</label>
+            <input type="text" id="aud-p2-city" name="parent2City" autocomplete="section-p2 address-level2" maxlength="60">
+          </div>
+          <div class="audition-form__row">
+          <div class="donate-field">
+            <label for="aud-p2-state">State</label>
+            <select id="aud-p2-state" name="parent2State" autocomplete="section-p2 address-level1"><option value="">State</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-zip">ZIP code</label>
+            <input type="text" id="aud-p2-zip" name="parent2Zip" autocomplete="section-p2 postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75201">
+          </div>
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-email">Email address</label>
+            <input type="email" id="aud-p2-email" name="parent2Email" placeholder="you@example.com">
+          </div>
+          <div class="donate-field">
+            <label for="aud-p2-phone">Phone number</label>
+            <input type="tel" id="aud-p2-phone" name="parent2Phone" placeholder="(214) 555-0100">
+          </div>
+          </div>
+
+          <div class="donate-form__error" id="audition-form-error" role="alert" hidden></div>
+
+          <button type="submit" class="btn btn--accent donate-submit" id="audition-submit">
+            <span class="donate-submit__label">Submit</span>
+          </button>
+
+          <p class="donate-form__note">Questions? Contact us at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+        </form>
+        </div>
+
+        <div id="audition-success" hidden>
+          <div class="section-head section-head--center">
+            <span class="eyebrow eyebrow--center">Thank You</span>
+            <h2 id="ret-success-title">We&rsquo;ve received your form</h2>
+            <p class="body-text mt-lg" id="ret-success-text">Thank you for letting us know your plans for the 2027/28 season. If you have questions, reach out at <a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="wordmark">
+          <span class="wordmark__name"><img class="wordmark__logo" src="assets/img/dcc-wordmark-color.png" alt="Dallas Children&rsquo;s Chorus"></span>
+        </a>
+        <p>Official Children&rsquo;s Chorus of the Dallas Symphony Orchestra, cultivating young voices across the Dallas-Fort Worth Metroplex and North Texas.</p>
+        <form class="footer-subscribe" action="#" method="post" data-subscribe="footer" novalidate>
+          <label class="visually-hidden" for="footer-subscribe-email">Email address</label>
+          <input type="email" id="footer-subscribe-email" name="email" placeholder="Email address" required>
+          <input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" aria-label="Subscribe to updates">
+            <svg width="16" height="16" viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+        </form>
+        <p class="subscribe-form__fineprint subscribe-form__fineprint--footer">Occasional news and updates. Unsubscribe anytime.</p>
+        <p class="subscribe-form__message" role="status" aria-live="polite"></p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61594267756502" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v7h4v-7h3l1-4h-4v-2c0-.6.4-1 1-1z" stroke="currentColor" stroke-width="1.3"/></svg></a>
+          <a href="https://www.instagram.com/dallaschildrenschorus" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCH-rcRVYDolZFQsf2WMiUTQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube (opens in a new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>About</h3>
+        <ul>
+          <li><a href="about-who-we-are.html">Who We Are</a></li>
+          <li><a href="our-impact.html">Our Impact</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+          <li><a href="financial-transparency.html">Transparency</a></li>
+          <li><a href="our-connection-to-the-dso.html">DSO Connection</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Sing With Us</h3>
+        <ul>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="auditions.html">Auditions</a></li>
+          <li><a href="family-portal.html">Current Families</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Performances</h3>
+        <ul>
+          <li><a href="performances.html">Performances</a></li>
+          <li><a href="media.html">Media</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="give.html">Give</a></li>
+          <li><a href="ways-to-give.html">Ways to Give</a></li>
+          <li><a href="our-supporters.html">Our Supporters</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <p class="footer-contact">
+          <span><span class="footer-contact__label" aria-hidden="true">E:</span><span class="visually-hidden">Email: </span><a href="mailto:chorus@dalcc.org">chorus@dalcc.org</a></span>
+          <span><span class="footer-contact__label" aria-hidden="true">T:</span><span class="visually-hidden">Phone: </span><a href="tel:+12145308096">+1 (214) 530-8096</a></span>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="footer-year">2026</span> Dallas Children&rsquo;s Chorus. All rights reserved.</span>
+      <ul>
+        <li><a href="news.html">News</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms-of-use.html">Terms of Use</a></li>
+        <li><a href="location.html">Directions</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=34"></script>
+<script src="assets/vendor/intl-tel-input/js/intlTelInput.min.js"></script>
+<script src="assets/js/phone-input.js?v=1"></script>
+<script src="assets/js/school-data.js?v=5"></script>
+<script src="assets/js/school-picker.js?v=1"></script>
+<script>
+  // Returning chorister form: a plain fetch to /api/submit-returning-chorister.
+  (function () {
+    var form = document.getElementById("audition-form");
+    if (!form) return;
+
+    var formWrap = document.getElementById("audition-form-wrap");
+    var successEl = document.getElementById("audition-success");
+    var errorEl = document.getElementById("audition-form-error");
+    var submitBtn = document.getElementById("audition-submit");
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+    function hideError() {
+      errorEl.hidden = true;
+      errorEl.textContent = "";
+    }
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      submitBtn.classList.toggle("is-loading", isLoading);
+    }
+    // Phone fields carry a country picker (see assets/js/phone-input.js); read
+    // them as full international numbers.
+    function phone(name) {
+      var input = form.elements[name];
+      return window.dccPhone ? window.dccPhone.read(input).value : (input ? input.value.trim() : "");
+    }
+    function phoneInvalid(name) {
+      var input = form.elements[name];
+      return !!(window.dccPhone && input && input.value.trim() && !window.dccPhone.read(input).valid);
+    }
+    // The school pickers use a placeholder value for "isn't listed"; send readable text instead.
+    function notListed(v) { return v === "__not_listed__" ? "(not listed)" : v; }
+    function val(name) {
+      var el = form.elements[name];
+      return el ? el.value.trim() : "";
+    }
+
+    // Set after the server flags a ZIP/city mismatch as "double-check this";
+    // pressing Submit again then confirms the address is correct as entered.
+    var confirmAddress = false;
+
+    // ZIP fields: digits only, never more than 5.
+    form.querySelectorAll('input[name$="Zip"]').forEach(function (z) {
+      z.addEventListener("input", function () {
+        z.value = z.value.replace(/\D/g, "").slice(0, 5);
+      });
+    });
+    // Any change to an address field cancels a pending "confirm as entered".
+    form.addEventListener("input", function (e) {
+      if (/(Street1|Street2|City|Zip)$/.test(e.target.name || "")) confirmAddress = false;
+    });
+    form.addEventListener("change", function (e) {
+      if ((e.target.name || "").slice(-5) === "State") confirmAddress = false;
+    });
+    // "Same address as the student" checkboxes copy the student's address.
+    form.querySelectorAll(".js-same-address").forEach(function (box) {
+      box.addEventListener("change", function () {
+        if (!box.checked) return;
+        ["street1", "street2", "city", "state", "zip"].forEach(function (f) {
+          document.getElementById(box.dataset.to + "-" + f).value =
+            document.getElementById(box.dataset.from + "-" + f).value;
+        });
+        confirmAddress = false;
+      });
+    });
+
+    function addressProblem(prefix, label, required) {
+      var s1 = val(prefix + "Street1"), s2 = val(prefix + "Street2"), city = val(prefix + "City"),
+          st = val(prefix + "State"), zip = val(prefix + "Zip");
+      if (!required && !(s1 || s2 || city || st || zip)) return "";
+      if (!s1 || !city || !st || !zip) return label + " needs a street, city, state and ZIP code.";
+      if (!/\d/.test(s1) && !/^\s*(p\.?\s*o\.?\s*box|post office box)/i.test(s1)) {
+        return label + " needs a street number in Street 1 (for example, 123 Main St).";
+      }
+      if (!/^[A-Za-z .'\-]+$/.test(city)) return label + " needs a valid city.";
+      if (!/^\d{5}$/.test(zip)) return label + " needs a ZIP code of exactly 5 digits.";
+      return "";
+    }
+
+    // ---- Email typo warnings (student, Parent/Guardian #1 and #2) ----------
+    // Spots common slips like "gmial.com" or ".con" and offers the likely fix.
+    // Nothing is blocked outright: the family can keep what they typed.
+    var DOMAIN_FIXES = {
+      "gmial.com": "gmail.com", "gmai.com": "gmail.com", "gmal.com": "gmail.com", "gamil.com": "gmail.com",
+      "gnail.com": "gmail.com", "gmaill.com": "gmail.com", "gmail.co": "gmail.com", "gmail.cm": "gmail.com",
+      "gmail.om": "gmail.com", "gmail.vom": "gmail.com", "gmail.comm": "gmail.com", "gmail.con": "gmail.com",
+      "hotmial.com": "hotmail.com", "hotmal.com": "hotmail.com", "hotnail.com": "hotmail.com",
+      "yaho.com": "yahoo.com", "yahooo.com": "yahoo.com", "yhoo.com": "yahoo.com", "yahoo.co": "yahoo.com",
+      "outlok.com": "outlook.com", "outloook.com": "outlook.com",
+      "iclod.com": "icloud.com", "icoud.com": "icloud.com", "icloud.co": "icloud.com",
+      "comcast.nt": "comcast.net", "sbcglobal.nt": "sbcglobal.net", "att.nt": "att.net"
+    };
+    var TLD_FIXES = { "con": "com", "cmo": "com", "ocm": "com", "vom": "com", "comm": "com", "cm": "com", "nett": "net", "ney": "net", "orgg": "org", "ogr": "org" };
+    function emailSuggestion(value) {
+      var m = /^([^\s@]+)@([^\s@]+)$/.exec(value);
+      if (!m) return "";
+      var domain = m[2].toLowerCase(), fixed = DOMAIN_FIXES[domain];
+      if (!fixed) {
+        var dot = domain.lastIndexOf(".");
+        if (dot > 0 && TLD_FIXES[domain.slice(dot + 1)]) fixed = domain.slice(0, dot + 1) + TLD_FIXES[domain.slice(dot + 1)];
+      }
+      return fixed && fixed !== domain ? m[1] + "@" + fixed : "";
+    }
+    var EMAIL_FIELDS = ["studentEmail", "parent1Email", "parent2Email"];
+    var acknowledgedEmails = {};
+    function renderHint(name) {
+      var input = form.elements[name];
+      if (!input) return "";
+      var hint = input.parentNode.querySelector(".email-hint");
+      var suggestion = emailSuggestion(input.value.trim());
+      if (!suggestion) { if (hint) hint.remove(); return ""; }
+      if (!hint) {
+        hint = document.createElement("div");
+        hint.className = "email-hint";
+        hint.setAttribute("role", "status");
+        input.parentNode.appendChild(hint);
+      }
+      hint.textContent = "Did you mean ";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = suggestion;
+      btn.addEventListener("click", function () {
+        input.value = suggestion;
+        hint.remove();
+        input.focus();
+      });
+      hint.appendChild(btn);
+      hint.appendChild(document.createTextNode("? Click to use it, or keep what you typed if it\u2019s correct."));
+      return suggestion;
+    }
+    EMAIL_FIELDS.forEach(function (name) {
+      var input = form.elements[name];
+      if (!input) return;
+      input.addEventListener("blur", function () { renderHint(name); });
+      input.addEventListener("input", function () {
+        var hint = input.parentNode.querySelector(".email-hint");
+        if (hint) hint.remove();
+      });
+    });
+
+    // Warn right away (before Submit) when the two Parent/Guardian #1 emails differ.
+    (function () {
+      var p1 = form.elements["parent1Email"], p1c = form.elements["parent1EmailConfirm"], mmHint = null;
+      if (!p1 || !p1c) return;
+      function checkMatch() {
+        var v1 = p1.value.trim().toLowerCase(), v2 = p1c.value.trim().toLowerCase();
+        var mismatch = v2 !== "" && v1 !== v2;
+        if (mismatch && !mmHint) {
+          mmHint = document.createElement("div");
+          mmHint.setAttribute("role", "alert");
+          mmHint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:#8a2f2f;";
+          p1c.parentNode.appendChild(mmHint);
+        }
+        if (mmHint) mmHint.textContent = mismatch ? "The two email addresses don\u2019t match. Please check them so we can reach you." : "";
+        if (!mismatch && mmHint) { mmHint.remove(); mmHint = null; }
+        p1c.setAttribute("aria-invalid", mismatch ? "true" : "false");
+      }
+      p1c.addEventListener("blur", checkMatch);
+      p1c.addEventListener("input", function () { if (mmHint) checkMatch(); });
+      p1.addEventListener("blur", function () { if (p1c.value) checkMatch(); });
+      p1.addEventListener("input", function () { if (mmHint) checkMatch(); });
+    })();
+
+
+    // ---- Live address check ----------------------------------------------
+    // As soon as street, city, state and ZIP are all filled in, ask the server
+    // (/api/check-address) whether the pieces fit together and show any
+    // problem right under the address, before the form is submitted.
+    function liveAddressCheck(ids, anchorFor) {
+      var el = {
+        street1: document.getElementById(ids.street1), city: document.getElementById(ids.city),
+        state: document.getElementById(ids.state), zip: document.getElementById(ids.zip)
+      };
+      if (!el.street1 || !el.city || !el.state || !el.zip) return;
+      var hint = null, timer = null, lastKey = "", seq = 0;
+      function setHint(text, tone) {
+        if (!text) { if (hint) { hint.remove(); hint = null; } return; }
+        if (!hint) {
+          hint = document.createElement("div");
+          hint.setAttribute("role", "status");
+          anchorFor(el.zip).insertAdjacentElement("afterend", hint);
+        }
+        hint.style.cssText = "margin-top:.4rem;font-size:.95rem;color:" + (tone === "soft" ? "#7a5200" : "#8a2f2f") + ";";
+        hint.textContent = text;
+      }
+      function run() {
+        var a = { street1: el.street1.value.trim(), city: el.city.value.trim(), state: el.state.value.trim(), zip: el.zip.value.trim() };
+        if (!a.street1 || !a.city || !a.state || !/^\d{5}(-\d{4})?$/.test(a.zip)) { lastKey = ""; setHint(""); return; }
+        var key = [a.street1, a.city, a.state, a.zip].join("|").toLowerCase();
+        if (key === lastKey) return;
+        lastKey = key;
+        var mine = ++seq;
+        fetch("/api/check-address", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(a)
+        })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (r) {
+            if (mine !== seq || !r) return; // stale answer, or the check was unavailable
+            if (r.ok) { setHint(""); return; }
+            var msg = r.error || "";
+            if (r.soft) msg = msg.replace(/\s*Please double-check.*$/, "") + " Please double-check it.";
+            setHint(msg, r.soft ? "soft" : "hard");
+          })
+          .catch(function () {});
+      }
+      function schedule() { clearTimeout(timer); timer = setTimeout(run, 400); }
+      [el.street1, el.city, el.state, el.zip].forEach(function (f) {
+        f.addEventListener("blur", schedule);
+        f.addEventListener("change", schedule);
+      });
+      el.zip.addEventListener("input", function () { if (el.zip.value.trim().length >= 5) schedule(); });
+      return schedule;
+    }
+
+    var audChecks = [
+      liveAddressCheck({ street1: "aud-student-street1", city: "aud-student-city", state: "aud-student-state", zip: "aud-student-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; }),
+      liveAddressCheck({ street1: "aud-p1-street1", city: "aud-p1-city", state: "aud-p1-state", zip: "aud-p1-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; }),
+      liveAddressCheck({ street1: "aud-p2-street1", city: "aud-p2-city", state: "aud-p2-state", zip: "aud-p2-zip" }, function (zip) { return zip.closest(".audition-form__row") || zip.parentNode; })
+    ];
+    // "Same address as the student" fills the fields by script, so re-check after it.
+    form.querySelectorAll(".js-same-address").forEach(function (box) {
+      box.addEventListener("change", function () {
+        if (box.checked) audChecks.forEach(function (c) { if (c) c(); });
+      });
+    });
+
+    // "Prefer not to say" and the specific choices exclude each other.
+    (function () {
+      var boxes = form.querySelectorAll('input[name="raceEthnicity"]');
+      var none = document.getElementById("aud-race-none");
+      Array.prototype.forEach.call(boxes, function (b) {
+        b.addEventListener("change", function () {
+          if (!b.checked) return;
+          Array.prototype.forEach.call(boxes, function (o) {
+            if (b === none ? o !== none : o === none) o.checked = false;
+          });
+        });
+      });
+    })();
+
+    // Plan options depend on the current choir; short answers hide the detail sections.
+    (function () {
+      var details = document.getElementById("ret-details");
+      var planRadios = form.querySelectorAll('input[name="plan"]');
+      function currentChoir() { var c = form.querySelector('input[name="currentChoir"]:checked'); return c ? c.value : ""; }
+      function refresh() {
+        var choir = currentChoir();
+        Array.prototype.forEach.call(planRadios, function (r) {
+          var label = r.closest("label");
+          var needs = label.getAttribute("data-needs");
+          var ok = !needs || (choir && needs.split(",").indexOf(choir) !== -1);
+          label.hidden = !ok;
+          if (!ok && r.checked) r.checked = false;
+        });
+        var p = form.querySelector('input[name="plan"]:checked');
+        var short = p && (p.value === "Not returning" || p.value === "Not sure yet");
+        details.hidden = !!short;
+      }
+      form.addEventListener("change", function (e) {
+        if (e.target.name === "currentChoir" || e.target.name === "plan") refresh();
+      });
+      refresh();
+    })();
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      hideError();
+
+      var genderInput = form.querySelector('input[name="gender"]:checked');
+      var data = {
+        studentFirstName: val("studentFirstName"),
+        studentLastName: val("studentLastName"),
+        studentEmail: val("studentEmail"),
+        gender: genderInput ? genderInput.value : "",
+        grade: val("grade"),
+        age: val("age"),
+        studentStreet1: val("studentStreet1"),
+        studentStreet2: val("studentStreet2"),
+        studentCity: val("studentCity"),
+        studentState: val("studentState"),
+        studentZip: val("studentZip"),
+        parent1Name: val("parent1Name"),
+        parent1Street1: val("parent1Street1"),
+        parent1Street2: val("parent1Street2"),
+        parent1City: val("parent1City"),
+        parent1State: val("parent1State"),
+        parent1Zip: val("parent1Zip"),
+        parent1Email: val("parent1Email"),
+        parent1Phone: phone("parent1Phone"),
+        parent2Name: val("parent2Name"),
+        parent2Street1: val("parent2Street1"),
+        parent2Street2: val("parent2Street2"),
+        parent2City: val("parent2City"),
+        parent2State: val("parent2State"),
+        parent2Zip: val("parent2Zip"),
+        parent2Email: val("parent2Email"),
+        parent2Phone: phone("parent2Phone"),
+        currentChoir: (form.querySelector('input[name="currentChoir"]:checked') || {}).value || "",
+        plan: (form.querySelector('input[name="plan"]:checked') || {}).value || "",
+        notes: val("notes"),
+        raceEthnicity: Array.prototype.map.call(form.querySelectorAll('input[name="raceEthnicity"]:checked'), function (c) { return c.value; }).join("; "),
+        schoolType: val("schoolType"),
+        schoolCounty: notListed(val("schoolCounty")),
+        schoolDistrict: notListed(val("schoolDistrict")),
+        schoolName: notListed(val("schoolName")),
+        schoolOther: val("schoolOther"),
+        currentGrade: val("currentGrade"),
+        confirmAddress: confirmAddress
+      };
+
+      var short = data.plan === "Not returning" || data.plan === "Not sure yet";
+      var required = short
+        ? ["studentFirstName", "studentLastName", "currentChoir", "plan", "parent1Name", "parent1Email", "parent1Phone"]
+        : ["studentFirstName", "studentLastName", "currentChoir", "plan", "studentEmail", "gender", "grade", "age",
+           "studentStreet1", "studentCity", "studentState", "studentZip", "parent1Name",
+           "parent1Street1", "parent1City", "parent1State", "parent1Zip", "parent1Email", "parent1Phone", "schoolType"];
+      for (var i = 0; i < required.length; i++) {
+        if (!data[required[i]]) {
+          showError("Please fill in all required fields.");
+          return;
+        }
+      }
+      if (short) {
+        // Details are not collected on the short path; make sure none are sent.
+        ["studentEmail","gender","grade","age","studentStreet1","studentStreet2","studentCity","studentState","studentZip",
+         "parent1Street1","parent1Street2","parent1City","parent1State","parent1Zip","parent2Name","parent2Street1","parent2Street2",
+         "parent2City","parent2State","parent2Zip","parent2Email","parent2Phone","raceEthnicity","schoolType","schoolCounty",
+         "schoolDistrict","schoolName","schoolOther","currentGrade"].forEach(function (k) { data[k] = ""; });
+      }
+      // Current school: once the family says Public or Independent, the rest of the section is required.
+      if (!short && (data.schoolType === "Public" || data.schoolType === "Independent")) {
+        var NL = "(not listed)";
+        var schoolMsg = "";
+        if (!data.schoolCounty) schoolMsg = "Please choose the county where your student\u2019s school is located.";
+        else if (data.schoolCounty === NL || data.schoolDistrict === NL || data.schoolName === NL) {
+          if (!data.schoolOther) schoolMsg = "Please tell us the name of your student\u2019s school.";
+        } else if (data.schoolType === "Public" && !data.schoolDistrict) schoolMsg = "Please choose your student\u2019s school district.";
+        else if (!data.schoolName) schoolMsg = "Please choose your student\u2019s school.";
+        if (!schoolMsg && !data.currentGrade) schoolMsg = "Please choose your student\u2019s current grade.";
+        if (schoolMsg) { showError(schoolMsg); return; }
+      }
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if ((data.studentEmail && !emailPattern.test(data.studentEmail)) || !emailPattern.test(data.parent1Email) ||
+          (data.parent2Email && !emailPattern.test(data.parent2Email))) {
+        showError("Please enter valid email addresses.");
+        return;
+      }
+      if (val("parent1EmailConfirm").toLowerCase() !== data.parent1Email.toLowerCase()) {
+        showError("The two Parent/Guardian #1 email addresses don\u2019t match. Please check them so we can reach you.");
+        form.elements["parent1EmailConfirm"].focus();
+        return;
+      }
+      // Likely typos: warn once per address, then let it through on the next Submit.
+      var typoFound = false;
+      EMAIL_FIELDS.forEach(function (name) {
+        var v = data[name];
+        if (v && emailSuggestion(v) && !acknowledgedEmails[v.toLowerCase()]) {
+          typoFound = true;
+          acknowledgedEmails[v.toLowerCase()] = true;
+          renderHint(name);
+        }
+      });
+      if (typoFound) {
+        showError("Please double-check the email address(es) marked \u201cDid you mean\u2026\u201d. If they\u2019re correct as typed, press Submit again.");
+        return;
+      }
+
+      var problem = short ? "" : (addressProblem("student", "The student\u2019s address", true) ||
+        addressProblem("parent1", "Parent/Guardian #1\u2019s address", true) ||
+        addressProblem("parent2", "Parent/Guardian #2\u2019s address", false));
+      if (problem) { showError(problem); return; }
+
+      if (phoneInvalid("parent1Phone") || phoneInvalid("parent2Phone")) {
+        showError("Please enter a valid phone number, or choose the correct country.");
+        return;
+      }
+
+      setLoading(true);
+
+      fetch("/api/submit-returning-chorister", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (body) {
+            return { ok: res.ok, data: body };
+          });
+        })
+        .then(function (result) {
+          setLoading(false);
+          if (!result.ok) {
+            if (result.data && result.data.addressWarning) confirmAddress = true;
+            showError((result.data && result.data.error) || "Something went wrong submitting your form. Please try again, or contact us at chorus@dalcc.org.");
+            return;
+          }
+          formWrap.hidden = true;
+          successEl.hidden = false;
+          var t = document.getElementById("ret-success-text");
+          if (t) {
+            if (data.plan === "Not returning") t.innerHTML = "Thank you for letting us know, and for being part of the Dallas Children\u2019s Chorus. We wish your chorister all the best. If anything changes, reach out at <a href=\"mailto:chorus@dalcc.org\">chorus@dalcc.org</a>.";
+            else if (data.plan === "Not sure yet") t.innerHTML = "Thank you. We\u2019ve noted that you\u2019re not sure yet, and we\u2019ll be in touch. You\u2019re welcome to submit this form again once you\u2019ve decided, or email <a href=\"mailto:chorus@dalcc.org\">chorus@dalcc.org</a>.";
+            else if (data.plan.indexOf("Audition") === 0) t.innerHTML = "Thank you. We\u2019ve noted your interest in auditioning and will send audition details soon. Questions? Email <a href=\"mailto:chorus@dalcc.org\">chorus@dalcc.org</a>.";
+          }
+          successEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        })
+        .catch(function () {
+          setLoading(false);
+          showError("We couldn\u2019t reach our server. Please check your connection and try again, or contact us at chorus@dalcc.org.");
+        });
+    });
+  })();
+</script>
+</body>
+</html>

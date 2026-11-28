@@ -7,6 +7,13 @@
   },
   "routes": [
     {
+      "route": "/returning-choristers.html",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow",
+        "cache-control": "no-cache"
+      }
+    },
+    {
       "route": "/assets/video/*",
       "headers": {
         "cache-control": "public, max-age=86400"
