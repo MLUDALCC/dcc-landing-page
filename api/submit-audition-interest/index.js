@@ -28,6 +28,11 @@ const ALLOWED_GENDERS = ["Female", "Male", "Other"];
 const ALLOWED_GRADES = ["4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
 const MAX_LEN = 500;
 const ALLOWED_SCHOOL_TYPES = ["Public", "Independent", "Homeschool", "Prefer not to say"];
+const ALLOWED_RACE_ETHNICITY = [
+  "American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino",
+  "Middle Eastern or North African", "Native Hawaiian or Pacific Islander", "White",
+  "Another race or ethnicity", "Prefer not to say"
+];
 const ALLOWED_CURRENT_GRADES = ["3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
 
 // Trim, cap length, and neutralize anything a spreadsheet would treat as a
@@ -102,6 +107,12 @@ module.exports = async function (context, req) {
   const schoolOther = clean(body.schoolOther);
   let currentGrade = clean(body.currentGrade);
   if (ALLOWED_CURRENT_GRADES.indexOf(currentGrade) === -1) currentGrade = "";
+  // Race / ethnicity (optional): only known choices are kept, joined into one cell.
+  const raceEthnicity = String(body.raceEthnicity || "")
+    .split(";")
+    .map(function (x) { return x.trim(); })
+    .filter(function (x, i, arr) { return ALLOWED_RACE_ETHNICITY.indexOf(x) !== -1 && arr.indexOf(x) === i; })
+    .join("; ");
   const confirmAddress = body.confirmAddress === true || body.confirmAddress === "true";
   const wantsFutureInfo = body.wantsFutureInfo === true || body.wantsFutureInfo === "true";
 
@@ -215,6 +226,7 @@ module.exports = async function (context, req) {
         schoolName,
         schoolOther,
         currentGrade,
+        raceEthnicity,
       ],
       clientEmail,
       privateKey
